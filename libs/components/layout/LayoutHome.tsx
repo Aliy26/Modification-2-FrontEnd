@@ -15,73 +15,73 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 const withLayoutMain = (Component: any) => {
-	return (props: any) => {
-		const device = useDeviceDetect();
-		const user = useReactiveVar(userVar);
+  return (props: any) => {
+    const device = useDeviceDetect();
+    const user = useReactiveVar(userVar);
 
-		/** LIFECYCLES **/
-		useEffect(() => {
-			const jwt = getJwtToken();
-			if (jwt) updateUserInfo(jwt);
-		}, []);
+    /** LIFECYCLES **/
+    useEffect(() => {
+      const jwt = getJwtToken();
+      if (jwt) updateUserInfo(jwt);
+    }, []);
 
-		/** HANDLERS **/
+    /** HANDLERS **/
 
-		if (device == "mobile") {
-			return (
-				<>
-					<Head>
-						<title>Nestar</title>
-						<meta name={"title"} content={`Nestar`} />
-					</Head>
-					<Stack id="mobile-wrap">
-						<Stack id={"top"}>
-							<Top />
-						</Stack>
+    if (device == "mobile") {
+      return (
+        <>
+          <Head>
+            <title>Cozy Home</title>
+            <meta name={"title"} content={`Nestar`} />
+          </Head>
+          <Stack id="mobile-wrap">
+            <Stack id={"top"}>
+              <Top />
+            </Stack>
 
-						<Stack id={"main"}>
-							<Component {...props} />
-						</Stack>
+            <Stack id={"main"}>
+              <Component {...props} />
+            </Stack>
 
-						<Stack id={"footer"}>
-							<Footer />
-						</Stack>
-					</Stack>
-				</>
-			);
-		} else {
-			return (
-				<>
-					<Head>
-						<title>Nestar</title>
-						<meta name={"title"} content={`Nestar`} />
-					</Head>
-					<Stack id="pc-wrap">
-						<Stack id={"top"}>
-							<Top />
-						</Stack>
+            <Stack id={"footer"}>
+              <Footer />
+            </Stack>
+          </Stack>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Head>
+            <title>Cozy Home</title>
+            <meta name={"title"} content={`Nestar`} />
+          </Head>
+          <Stack id="pc-wrap">
+            <Stack id={"top"}>
+              <Top />
+            </Stack>
 
-						<Stack className={"header-main"}>
-							<FiberContainer />
-							<Stack className={"container"}>
-								<HeaderFilter />
-							</Stack>
-						</Stack>
+            <Stack className={"header-main"}>
+              <FiberContainer />
+              <Stack className={"container"}>
+                <HeaderFilter />
+              </Stack>
+            </Stack>
 
-						<Stack id={"main"}>
-							<Component {...props} />
-						</Stack>
+            <Stack id={"main"}>
+              <Component {...props} />
+            </Stack>
 
-						{user?._id && <Chat />}
+            {user?._id && <Chat />}
 
-						<Stack id={"footer"}>
-							<Footer />
-						</Stack>
-					</Stack>
-				</>
-			);
-		}
-	};
+            <Stack id={"footer"}>
+              <Footer />
+            </Stack>
+          </Stack>
+        </>
+      );
+    }
+  };
 };
 
 export default withLayoutMain;
