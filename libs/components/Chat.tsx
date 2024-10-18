@@ -195,7 +195,11 @@ const Chat = () => {
                   >
                     <Avatar
                       alt={"jonik"}
-                      src={"/img/profile/defaultUser.svg"}
+                      src={
+                        memberImage
+                          ? memberImage
+                          : "/img/profile/defaultUser.svg"
+                      }
                     />
                     <div className={"msg-left"}>{text}</div>
                   </Box>
