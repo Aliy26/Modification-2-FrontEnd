@@ -49,8 +49,9 @@ const MyPage: NextPage = () => {
   /** LIFECYCLES **/
   useEffect(() => {
     if (!user._id) router.push("/").then();
-    console.log(!user);
   }, [user._id]);
+
+  console.log(user.mainMember, "<<<<<<<<<<");
 
   /** HANDLERS **/
   const subscribeHandler = async (id: string, refetch: any, query: any) => {

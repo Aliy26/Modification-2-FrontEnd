@@ -85,8 +85,8 @@ const Join: NextPage = () => {
             <Stack className={"left"}>
               {/* @ts-ignore */}
               <Box className={"logo"}>
-                <img src="/img/logo/logoText.svg" alt="" />
-                <span>Nestar</span>
+                <img src="/img/logo/logo3.svg" alt="" />
+                <span>AptDecor`</span>
               </Box>
               <Box className={"info"}>
                 <span>{loginView ? "login" : "signup"}</span>
@@ -139,45 +139,57 @@ const Join: NextPage = () => {
               </Box>
               <Box className={"register"}>
                 {!loginView && (
-                  <div className={"type-option"}>
-                    <span className={"text"}>I want to be registered as:</span>
-                    <div>
+                  <>
+                    <div className="show-password">
                       <FormGroup>
                         <FormControlLabel
-                          control={
-                            <Checkbox
-                              size="small"
-                              name={"USER"}
-                              onChange={checkUserTypeHandler}
-                              checked={input?.type == "USER"}
-                            />
-                          }
-                          label="User"
-                        />
-                      </FormGroup>
-                      <FormGroup>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              size="small"
-                              name={"AGENT"}
-                              onChange={checkUserTypeHandler}
-                              checked={input?.type == "AGENT"}
-                            />
-                          }
-                          label="Agent"
+                          control={<Checkbox />}
+                          label="Show password"
                         />
                       </FormGroup>
                     </div>
-                  </div>
+                    <div className={"type-option"}>
+                      <span className={"text"}>
+                        I want to be registered as:
+                      </span>
+                      <div>
+                        <FormGroup>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                size="small"
+                                name={"USER"}
+                                onChange={checkUserTypeHandler}
+                                checked={input?.type == "USER"}
+                              />
+                            }
+                            label="User"
+                          />
+                        </FormGroup>
+                        <FormGroup>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                size="small"
+                                name={"AGENT"}
+                                onChange={checkUserTypeHandler}
+                                checked={input?.type == "AGENT"}
+                              />
+                            }
+                            label="Agent"
+                          />
+                        </FormGroup>
+                      </div>
+                    </div>
+                  </>
                 )}
 
                 {loginView && (
                   <div className={"remember-info"}>
                     <FormGroup>
                       <FormControlLabel
-                        control={<Checkbox defaultChecked size="small" />}
-                        label="Remember me"
+                        control={<Checkbox />}
+                        label="Show password"
                       />
                     </FormGroup>
                     <a>Lost your password?</a>

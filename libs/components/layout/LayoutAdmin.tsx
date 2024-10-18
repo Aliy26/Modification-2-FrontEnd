@@ -68,7 +68,7 @@ const withAdminLayout = (Component: ComponentType) => {
 
     return (
       <>
-        <title>Cozy Home | Admin</title>
+        <title>AptDecor | Admin</title>
         <main id="pc-wrap" className="admin">
           <Box component={"div"} sx={{ display: "flex" }}>
             <AppBar

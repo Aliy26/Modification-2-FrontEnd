@@ -18,7 +18,7 @@ const Footer = () => {
               <img src="/img/logo/logo3.svg" alt="" className={"logo"} />
             </Box>
             <Box component={"div"} className={"footer-box"}>
-              <span>total free customer care</span>
+              <span>customer service</span>
               <p>+82 10 4867 2909</p>
             </Box>
             <Box component={"div"} className={"footer-box"}>
@@ -63,7 +63,9 @@ const Footer = () => {
           </Stack>
         </Stack>
         <Stack className={"second"}>
-          <span>© Nestar - All rights reserved. Nestar {moment().year()}</span>
+          <span>
+            © Aliy of MIT 13 - All rights reserved. AptDecor` {moment().year()}
+          </span>
         </Stack>
       </Stack>
     );
@@ -76,7 +78,7 @@ const Footer = () => {
               <img src="/img/logo/logo3.svg" alt="" className={"logo"} />
             </Box>
             <Box component={"div"} className={"footer-box"}>
-              <span>total free customer care</span>
+              <span>customer service</span>
               <p>+82 10 4867 2909</p>
             </Box>
             <Box component={"div"} className={"footer-box"}>
@@ -128,7 +130,9 @@ const Footer = () => {
           </Stack>
         </Stack>
         <Stack className={"second"}>
-          <span>© Nestar - All rights reserved. Nestar {moment().year()}</span>
+          <span>
+            © Aliy of MIT 13 - All rights reserved. AptDecor` {moment().year()}
+          </span>
           <span>Privacy · Terms · Sitemap</span>
         </Stack>
       </Stack>
