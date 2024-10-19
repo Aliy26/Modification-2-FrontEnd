@@ -204,15 +204,17 @@ export const MemberPanelList = (props: MemberPanelListType) => {
                     <TableCell align="left">{member.memberPhone}</TableCell>
 
                     <TableCell align="center">
+                      <div className="main-member">
+                        {member.mainMember ? (
+                          <img src="/img/logo/logo.svg" />
+                        ) : null}
+                      </div>
                       <Button
                         onClick={(e: any) => menuIconClickHandler(e, index)}
                         className={"badge success"}
                       >
                         {member.memberType}
                       </Button>
-                      {member.mainMember ? (
-                        <img src="/img/logo/logo3.svg" />
-                      ) : null}
 
                       <Menu
                         className={"menu-modal"}

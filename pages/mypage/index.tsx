@@ -51,8 +51,6 @@ const MyPage: NextPage = () => {
     if (!user._id) router.push("/").then();
   }, [user._id]);
 
-  console.log(user.mainMember, "<<<<<<<<<<");
-
   /** HANDLERS **/
   const subscribeHandler = async (id: string, refetch: any, query: any) => {
     try {
