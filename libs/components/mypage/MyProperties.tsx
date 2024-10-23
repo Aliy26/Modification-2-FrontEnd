@@ -152,6 +152,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
                 return (
                   <PropertyCard
                     property={property}
+                    memberPage={true}
                     deletePropertyHandler={deletePropertyHandler}
                     updatePropertyHandler={updatePropertyHandler}
                     key={property?._id}
