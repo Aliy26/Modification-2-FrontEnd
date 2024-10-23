@@ -52,6 +52,7 @@ import {
   sweetMixinErrorAlert,
   sweetTopSmallSuccessAlert,
 } from "../../libs/sweetAlert";
+import agent from "../agent";
 
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 
@@ -75,6 +76,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
     useState<CommentsInquiry>(initialComment);
   const [propertyComments, setPropertyComments] = useState<Comment[]>([]);
   const [commentTotal, setCommentTotal] = useState<number>(0);
+  const [wordsCnt, setWordsCnt] = useState<number>(0);
   const [insertCommentData, setInsertCommentData] = useState<CommentInput>({
     commentGroup: CommentGroup.PROPERTY,
     commentContent: "",
@@ -174,6 +176,20 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
     setSlideImage(image);
   };
 
+  const redirectToMemberPageHandler = async (memberId: string) => {
+    try {
+      memberId === user?._id
+        ? await router.push(`/mypage?memberId=${memberId}`)
+        : await router.push(`/member?memberId=${memberId}`);
+    } catch (err) {
+      await sweetErrorHandling(err);
+    }
+  };
+
+  const redirectToAgentDetail = async (memberId: string) => {
+    await router.push(`/agent/detail?agentId=${memberId}`);
+  };
+
   const likePropertyHandler = async (user: T, id: string) => {
     try {
       if (!id) return;
@@ -219,7 +235,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
       await createComment({ variables: { input: insertCommentData } });
 
       setInsertCommentData({ ...insertCommentData, commentContent: "" });
-
+      setWordsCnt(0);
       getCommentsRefetch({ input: commentInquiry });
     } catch (err: any) {
       console.log("Error, createCommentHandler");
@@ -676,14 +692,18 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                   </Typography>
                   <Typography className={"review-title"}>Review</Typography>
                   <textarea
+                    style={{ marginBottom: "5px" }}
                     onChange={({ target: { value } }: any) => {
+                      if (value.length > 100) return;
                       setInsertCommentData({
                         ...insertCommentData,
                         commentContent: value,
-                      });
+                      }),
+                        setWordsCnt(value.length);
                     }}
                     value={insertCommentData.commentContent}
                   ></textarea>
+                  <Typography>{wordsCnt}/100</Typography>
                   <Box className={"submit-btn"} component={"div"}>
                     <Button
                       className={"submit-review"}
@@ -735,15 +755,41 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                           ? `${REACT_APP_API_URL}/${property?.memberData?.memberImage}`
                           : "/img/profile/defaultUser.svg"
                       }
+                      onClick={() =>
+                        redirectToMemberPageHandler(
+                          property?.memberId as string
+                        )
+                      }
                     />
                     <Stack className={"name-phone-listings"}>
-                      <Link
-                        href={`/member?memberId=${property?.memberData?._id}`}
+                      {/* {property?.memberId === user._id ? (
+                        <Link
+                          href={`/mypage?memberId=${property?.memberData?._id}`}
+                        >
+                          <Typography className={"name"}>
+                            {property?.memberData?.memberNick}
+                          </Typography>
+                        </Link>
+                      ) : (
+                        <Link
+                          href={`/member?memberId=${property?.memberData?._id}`}
+                        >
+                          <Typography className={"name"}>
+                            {property?.memberData?.memberNick}
+                          </Typography>
+                        </Link>
+                      )} */}
+                      <Typography
+                        className={"name"}
+                        onClick={() =>
+                          redirectToMemberPageHandler(
+                            property?.memberId as string
+                          )
+                        }
                       >
-                        <Typography className={"name"}>
-                          {property?.memberData?.memberNick}
-                        </Typography>
-                      </Link>
+                        {property?.memberData?.memberNick}
+                      </Typography>
+
                       <Stack className={"phone-number"}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -773,7 +819,12 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                           {property?.memberData?.memberPhone}
                         </Typography>
                       </Stack>
-                      <Typography className={"listings"}>
+                      <Typography
+                        className={"listings"}
+                        onClick={() =>
+                          redirectToAgentDetail(property?.memberId as string)
+                        }
+                      >
                         View Listings
                       </Typography>
                     </Stack>

@@ -60,6 +60,7 @@ const AgentDetail: NextPage = ({
     useState<CommentsInquiry>(initialComment);
   const [agentComments, setAgentComments] = useState<Comment[]>([]);
   const [commentTotal, setCommentTotal] = useState<number>(0);
+  const [wordsCnt, setWordsCnt] = useState<number>(0);
   const [insertCommentData, setInsertCommentData] = useState<CommentInput>({
     commentGroup: CommentGroup.MEMBER,
     commentContent: "",
@@ -179,6 +180,7 @@ const AgentDetail: NextPage = ({
       });
 
       setInsertCommentData({ ...insertCommentData, commentContent: "" });
+      setWordsCnt(0);
       await getCommentsRefetch({ input: commentInquiry });
     } catch (err: any) {
       sweetErrorHandling(err).then();
@@ -301,14 +303,18 @@ const AgentDetail: NextPage = ({
               <Typography className={"main-title"}>Leave A Review</Typography>
               <Typography className={"review-title"}>Review</Typography>
               <textarea
+                style={{ marginBottom: "5px" }}
                 onChange={({ target: { value } }: any) => {
+                  if (value.length > 100) return;
                   setInsertCommentData({
                     ...insertCommentData,
                     commentContent: value,
-                  });
+                  }),
+                    setWordsCnt(value.length);
                 }}
                 value={insertCommentData.commentContent}
               ></textarea>
+              <Typography>{wordsCnt}/100</Typography>
               <Box className={"submit-btn"} component={"div"}>
                 <Button
                   className={"submit-review"}
@@ -364,7 +370,7 @@ AgentDetail.defaultProps = {
     page: 1,
     limit: 5,
     sort: "createdAt",
-    direction: "ASC",
+    direction: "DESC",
     search: {
       commentRefId: "",
     },
