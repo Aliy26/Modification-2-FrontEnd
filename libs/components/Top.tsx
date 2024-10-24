@@ -13,10 +13,12 @@ import { CaretDown } from "phosphor-react";
 import useDeviceDetect from "../hooks/useDeviceDetect";
 import Link from "next/link";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import { useReactiveVar } from "@apollo/client";
+import { useQuery, useReactiveVar } from "@apollo/client";
 import { userVar } from "../../apollo/store";
 import { Logout } from "@mui/icons-material";
 import { REACT_APP_API_URL } from "../config";
+import { GET_NOTIFICATIONS } from "../../apollo/user/query";
+import { T } from "../types/common";
 
 const Top = () => {
   const device = useDeviceDetect();
@@ -30,11 +32,27 @@ const Top = () => {
   const [anchorEl, setAnchorEl] = React.useState<any | HTMLElement>(null);
   let open = Boolean(anchorEl);
   const [bgColor, setBgColor] = useState<boolean>(false);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [notificationCount, setNotificationCount] = useState<number>(0);
   const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(
     null
   );
   const logoutOpen = Boolean(logoutAnchor);
 
+  const {
+    loading: getNotificationsLoading,
+    data: getNotificationsData,
+    error: getNotificationsError,
+    refetch: getPropertiesRefetch,
+  } = useQuery(GET_NOTIFICATIONS, {
+    fetchPolicy: "cache-and-network",
+    variables: {},
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data: T) => {
+      setNotifications(data?.getNotifications?.list);
+      setNotificationCount(data?.getNotifications?.list.length);
+    },
+  });
   /** LIFECYCLES **/
   useEffect(() => {
     if (localStorage.getItem("locale") === null) {

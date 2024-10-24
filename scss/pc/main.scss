@@ -138,6 +138,7 @@ body::-webkit-scrollbar {
             }
             .login-user {
               img {
+                cursor: pointer;
                 width: 42px;
                 height: 42px;
                 border-radius: 50%;
@@ -150,7 +151,9 @@ body::-webkit-scrollbar {
             display: flex;
             align-items: center;
             .notification-icon {
+              cursor: pointer;
               color: white;
+              margin-right: 3px;
             }
             .btn-lang {
               border-radius: 4px;

@@ -617,3 +617,90 @@ export const GET_MEMBER_FOLLOWINGS = gql`
     }
   }
 `;
+
+export const GET_NOTIFICATIONS = gql`
+  query GetNotifications {
+    getNotifications {
+      list {
+        _id
+        notificationType
+        notificationStatus
+        notificationGroup
+        notificationTitle
+        notificationDesc
+        authorId
+        receiverId
+        propertyId
+        articleId
+        authorData {
+          _id
+          memberType
+          memberStatus
+          memberAuthType
+          memberPhone
+          memberNick
+          memberFullName
+          memberImage
+          memberAddress
+          memberDesc
+          mainMember
+          memberProperties
+          memberArticles
+          memberFollowers
+          memberFollowings
+          memberPoints
+          memberLikes
+          memberViews
+          memberComments
+          memberRank
+          memberWarnings
+          memberBlocks
+          deletedAt
+          createdAt
+          updatedAt
+          accessToken
+        }
+        propertyData {
+          _id
+          propertyType
+          propertyStatus
+          propertyLocation
+          propertyAddress
+          propertyTitle
+          propertyPrice
+          propertySquare
+          propertyBeds
+          propertyRooms
+          propertyViews
+          propertyLikes
+          propertyComments
+          propertyRank
+          propertyImages
+          propertyDesc
+          propertyBarter
+          propertyRent
+          memberId
+          soldAt
+          deletedAt
+          constructedAt
+          createdAt
+          updatedAt
+        }
+        articleData {
+          _id
+          articleCategory
+          articleStatus
+          articleTitle
+          articleContent
+          articleImage
+          articleViews
+          articleLikes
+          articleComments
+          memberId
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
