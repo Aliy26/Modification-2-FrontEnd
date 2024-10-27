@@ -133,6 +133,18 @@ const Top = () => {
     [router]
   );
 
+  const handleMemberPage = async (id: string) => {
+    await router.push(`/member?memberId=${id}`);
+  };
+
+  const handlePropertyPage = async (id: string) => {
+    await router.push(`/property/detail?id=${id}`);
+  };
+
+  const handleArticle = async () => {
+    await router.push("/community");
+  };
+
   const changeNavbarColor = () => {
     if (window.scrollY >= 50) {
       setColorChange(true);
@@ -356,6 +368,9 @@ const Top = () => {
                           className="avatar"
                           alt="user-photo"
                           src={`${REACT_APP_API_URL}/${ele.authorData?.memberImage}`}
+                          onClick={() => {
+                            handleMemberPage(ele.authorData?._id as string);
+                          }}
                         />
                       );
 
@@ -367,7 +382,7 @@ const Top = () => {
                             ) {
                               return (
                                 <div className="notice-line">
-                                  {memberImage}{" "}
+                                  <span>{memberImage} </span>
                                   {ele.notificationStatus === "UNREAD" ? (
                                     <span className="dot"></span>
                                   ) : (
@@ -375,19 +390,37 @@ const Top = () => {
                                   )}
                                   <p>
                                     <strong>
-                                      {ele.authorData?.memberNick}
+                                      <span
+                                        onClick={() => {
+                                          handleMemberPage(
+                                            ele.authorData?._id as string
+                                          );
+                                        }}
+                                      >
+                                        {ele.authorData?.memberNick}
+                                      </span>
                                     </strong>{" "}
                                     liked your{" "}
                                     {ele.propertyId ? (
                                       <>
-                                        <i className="title-italic">
+                                        <i
+                                          className="title-italic"
+                                          onClick={() => {
+                                            handlePropertyPage(
+                                              ele.propertyId as string
+                                            );
+                                          }}
+                                        >
                                           {ele.propertyData?.propertyTitle}
                                         </i>{" "}
                                         property
                                       </>
                                     ) : ele.articleId ? (
                                       <>
-                                        <i className="title-italic">
+                                        <i
+                                          className="title-italic"
+                                          onClick={handleArticle}
+                                        >
                                           {ele.articleData?.articleTitle}
                                         </i>{" "}
                                         article
@@ -409,7 +442,13 @@ const Top = () => {
                                   ) : (
                                     ""
                                   )}
-                                  <p>
+                                  <p
+                                    onClick={() => {
+                                      handleMemberPage(
+                                        ele.authorData?._id as string
+                                      );
+                                    }}
+                                  >
                                     <strong>
                                       {ele.authorData?.memberNick}
                                     </strong>{" "}
@@ -429,20 +468,36 @@ const Top = () => {
                                     ""
                                   )}
                                   <p>
-                                    <strong>
+                                    <strong
+                                      onClick={() => {
+                                        handleMemberPage(
+                                          ele.authorData?._id as string
+                                        );
+                                      }}
+                                    >
                                       {ele.authorData?.memberNick}{" "}
                                     </strong>
                                     commented on your{" "}
                                     {ele.propertyId ? (
                                       <>
-                                        <i className="comment-italic">
+                                        <i
+                                          className="comment-italic"
+                                          onClick={() => {
+                                            handlePropertyPage(
+                                              ele.propertyId as string
+                                            );
+                                          }}
+                                        >
                                           {ele.propertyData?.propertyTitle}
                                         </i>{" "}
                                         property: "{ele.notificationDesc}"
                                       </>
                                     ) : ele.articleId ? (
                                       <>
-                                        <i className="comment-italic">
+                                        <i
+                                          className="comment-italic"
+                                          onClick={handleArticle}
+                                        >
                                           {ele.articleData?.articleTitle}
                                         </i>{" "}
                                         article: "{ele.notificationDesc}"
