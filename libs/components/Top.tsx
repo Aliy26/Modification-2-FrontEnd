@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter, withRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { getJwtToken, logOut, updateUserInfo } from "../auth";
-import { Stack, Box } from "@mui/material";
+import { Stack, Box, Avatar } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import { alpha, styled } from "@mui/material/styles";
@@ -17,8 +17,17 @@ import { useQuery, useReactiveVar } from "@apollo/client";
 import { userVar } from "../../apollo/store";
 import { Logout } from "@mui/icons-material";
 import { REACT_APP_API_URL } from "../config";
-import { GET_NOTIFICATIONS } from "../../apollo/user/query";
+import {
+  GET_NOTIFICATIONS,
+  GET_UNREAD_NOTIFICATIONS,
+} from "../../apollo/user/query";
 import { T } from "../types/common";
+import { Notification } from "../types/notification/notification";
+import {
+  NotificationTitle,
+  NotificationType,
+} from "../enums/notification.enum";
+import { RippleBadge } from "../../scss/MaterialTheme/styled";
 
 const Top = () => {
   const device = useDeviceDetect();
@@ -29,31 +38,50 @@ const Top = () => {
   const [lang, setLang] = useState<string | null>("en");
   const drop = Boolean(anchorEl2);
   const [colorChange, setColorChange] = useState(false);
-  const [anchorEl, setAnchorEl] = React.useState<any | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<any | HTMLElement>(null);
+  const drop2 = Boolean(anchorEl);
   let open = Boolean(anchorEl);
   const [bgColor, setBgColor] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [notificationCount, setNotificationCount] = useState<number>(0);
-  const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [logoutAnchor, setLogoutAnchor] = useState<null | HTMLElement>(null);
   const logoutOpen = Boolean(logoutAnchor);
 
   const {
     loading: getNotificationsLoading,
     data: getNotificationsData,
     error: getNotificationsError,
-    refetch: getPropertiesRefetch,
+    refetch: getNotificationsRefetch,
   } = useQuery(GET_NOTIFICATIONS, {
     fetchPolicy: "cache-and-network",
-    variables: {},
+    skip: !user._id,
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
       setNotifications(data?.getNotifications?.list);
-      setNotificationCount(data?.getNotifications?.list.length);
     },
   });
+
+  const {
+    loading: getUnreadNotificationsLoading,
+    data: getUnreadNotificationsData,
+    error: getUnreadNotificationsError,
+    refetch: getUnreadNotificationsRefetch,
+  } = useQuery(GET_UNREAD_NOTIFICATIONS, {
+    fetchPolicy: "cache-and-network",
+    skip: !user._id,
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data: T) => {
+      setNotificationCount(data?.getUnreadNotifications.length);
+    },
+  });
+
+  console.log(notifications);
   /** LIFECYCLES **/
+
+  useEffect(() => {
+    getNotificationsRefetch();
+  }, [user._id, getNotificationsRefetch]);
+
   useEffect(() => {
     if (localStorage.getItem("locale") === null) {
       localStorage.setItem("locale", "en");
@@ -85,6 +113,14 @@ const Top = () => {
 
   const langClose = () => {
     setAnchorEl2(null);
+  };
+
+  const menuClick = (e: any) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  const menuClose = () => {
+    setAnchorEl(null);
   };
 
   const langChoice = useCallback(
@@ -271,8 +307,23 @@ const Top = () => {
 
               <div className={"lan-box"}>
                 {user?._id && (
-                  <NotificationsOutlinedIcon className={"notification-icon"} />
+                  <div className="ripple-badge" onClick={menuClick}>
+                    <RippleBadge
+                      style={{
+                        position: "absolute",
+                        top: "25px",
+                        right: "70px",
+                      }}
+                      badgeContent={notificationCount}
+                      onClick={menuClick}
+                    />
+                    <NotificationsOutlinedIcon
+                      className={"notification-icon"}
+                      onClick={menuClick}
+                    />
+                  </div>
                 )}
+
                 <Button
                   disableRipple
                   className="btn-lang"
@@ -289,6 +340,128 @@ const Top = () => {
                     )}
                   </Box>
                 </Button>
+                <StyledMenu
+                  anchorEl={anchorEl}
+                  open={drop2}
+                  onClose={menuClose}
+                >
+                  <div className="notification-container">
+                    <div className="divider">
+                      <span>Notifications</span>
+                    </div>
+                    {notifications.map((ele: Notification, index) => {
+                      // Declare memberImage variable
+                      const memberImage = (
+                        <Avatar
+                          className="avatar"
+                          alt="user-photo"
+                          src={`${REACT_APP_API_URL}/${ele.authorData?.memberImage}`}
+                        />
+                      );
+
+                      return (
+                        <div key={index} className="notification">
+                          {(() => {
+                            if (
+                              ele.notificationType === NotificationType.LIKE
+                            ) {
+                              return (
+                                <div className="notice-line">
+                                  {memberImage}{" "}
+                                  {ele.notificationStatus === "UNREAD" ? (
+                                    <span className="dot"></span>
+                                  ) : (
+                                    ""
+                                  )}
+                                  <p>
+                                    <strong>
+                                      {ele.authorData?.memberNick}
+                                    </strong>{" "}
+                                    liked your{" "}
+                                    {ele.propertyId ? (
+                                      <>
+                                        <i className="title-italic">
+                                          {ele.propertyData?.propertyTitle}
+                                        </i>{" "}
+                                        property
+                                      </>
+                                    ) : ele.articleId ? (
+                                      <>
+                                        <i className="title-italic">
+                                          {ele.articleData?.articleTitle}
+                                        </i>{" "}
+                                        article
+                                      </>
+                                    ) : (
+                                      "your profile"
+                                    )}
+                                  </p>
+                                </div>
+                              );
+                            } else if (
+                              ele.notificationType === NotificationType.FOLLOW
+                            ) {
+                              return (
+                                <div className="notice-line">
+                                  {memberImage}{" "}
+                                  {ele.notificationStatus === "UNREAD" ? (
+                                    <span className="dot"></span>
+                                  ) : (
+                                    ""
+                                  )}
+                                  <p>
+                                    <strong>
+                                      {ele.authorData?.memberNick}
+                                    </strong>{" "}
+                                    followed you
+                                  </p>
+                                </div>
+                              );
+                            } else if (
+                              ele.notificationType === NotificationType.COMMENT
+                            ) {
+                              return (
+                                <div className="notice-line">
+                                  {memberImage}{" "}
+                                  {ele.notificationStatus === "UNREAD" ? (
+                                    <span className="dot"></span>
+                                  ) : (
+                                    ""
+                                  )}
+                                  <p>
+                                    <strong>
+                                      {ele.authorData?.memberNick}{" "}
+                                    </strong>
+                                    commented on your{" "}
+                                    {ele.propertyId ? (
+                                      <>
+                                        <i className="comment-italic">
+                                          {ele.propertyData?.propertyTitle}
+                                        </i>{" "}
+                                        property: "{ele.notificationDesc}"
+                                      </>
+                                    ) : ele.articleId ? (
+                                      <>
+                                        <i className="comment-italic">
+                                          {ele.articleData?.articleTitle}
+                                        </i>{" "}
+                                        article: "{ele.notificationDesc}"
+                                      </>
+                                    ) : (
+                                      <>profile: "{ele.notificationDesc}"</>
+                                    )}
+                                  </p>
+                                </div>
+                              );
+                            } else {
+                              return <p>New notification</p>;
+                            }
+                          })()}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </StyledMenu>
 
                 <StyledMenu
                   anchorEl={anchorEl2}

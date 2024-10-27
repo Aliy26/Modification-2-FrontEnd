@@ -10,7 +10,7 @@ import { Property } from "../property/property";
 
 export interface Notification {
   _id: string;
-  notificaitonType: NotificationType;
+  notificationType: NotificationType;
   notificationStatus: NotificationStatus;
   notificationGroup: NotificationGroup;
   notificationTitle: NotificationTitle;
@@ -22,4 +22,5 @@ export interface Notification {
   authorData?: Member;
   propertyData?: Property;
   articleData?: BoardArticle;
+  createdAt: Date;
 }

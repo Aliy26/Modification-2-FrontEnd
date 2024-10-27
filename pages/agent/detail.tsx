@@ -139,7 +139,9 @@ const AgentDetail: NextPage = ({
   }, [router]);
 
   useEffect(() => {}, [searchFilter]);
-  useEffect(() => {}, [commentInquiry]);
+  useEffect(() => {
+    getCommentsRefetch();
+  }, [commentInquiry]);
 
   /** HANDLERS **/
   const redirectToMemberPageHandler = async (memberId: string) => {
@@ -164,6 +166,7 @@ const AgentDetail: NextPage = ({
     event: ChangeEvent<unknown>,
     value: number
   ) => {
+    console.log(value, "im heeeeeereee");
     commentInquiry.page = value;
     setCommentInquiry({ ...commentInquiry });
   };

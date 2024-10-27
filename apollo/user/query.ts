@@ -632,6 +632,7 @@ export const GET_NOTIFICATIONS = gql`
         receiverId
         propertyId
         articleId
+        createdAt
         authorData {
           _id
           memberType
@@ -701,6 +702,24 @@ export const GET_NOTIFICATIONS = gql`
           updatedAt
         }
       }
+    }
+  }
+`;
+
+export const GET_UNREAD_NOTIFICATIONS = gql`
+  query GetUnreadNotifications {
+    getUnreadNotifications {
+      _id
+      notificationType
+      notificationStatus
+      notificationGroup
+      notificationTitle
+      notificationDesc
+      authorId
+      receiverId
+      propertyId
+      articleId
+      createdAt
     }
   }
 `;

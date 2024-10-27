@@ -37,6 +37,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
     refetch: getPropertiesRefetch,
   } = useQuery(GET_PROPERTIES, {
     fetchPolicy: "cache-and-network",
+    skip: !initialInput,
     variables: { input: initialInput },
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
