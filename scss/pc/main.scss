@@ -177,10 +177,6 @@ body::-webkit-scrollbar {
     }
   }
 
-  .badge-content {
-    color: red !important;
-  }
-
   .header-main {
     position: relative;
     width: 100%;
@@ -1071,7 +1067,7 @@ body::-webkit-scrollbar {
 
 .notification-container {
   background-color: #e4e0e0;
-  min-height: 200px;
+  height: 360px;
   min-width: 380px;
   overflow-y: auto;
   padding-right: 8px; // Optional: for a better scroll experience

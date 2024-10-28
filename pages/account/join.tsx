@@ -31,6 +31,7 @@ const Join: NextPage = () => {
     type: "USER",
   });
   const [loginView, setLoginView] = useState<boolean>(true);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   /** HANDLERS **/
   const viewChangeHandler = (state: boolean) => {
@@ -74,6 +75,7 @@ const Join: NextPage = () => {
   }, [input]);
 
   console.log("+input: ", input);
+  console.log("<<<<<<<", showPassword, ">>>>>>>>>");
 
   if (device === "mobile") {
     return <div>LOGIN MOBILE</div>;
@@ -112,7 +114,7 @@ const Join: NextPage = () => {
                 <div className={"input-box"}>
                   <span>Password</span>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder={"Enter Password"}
                     onChange={(e) => handleInput("password", e.target.value)}
                     required={true}
@@ -143,7 +145,16 @@ const Join: NextPage = () => {
                     <div className="show-password">
                       <FormGroup>
                         <FormControlLabel
-                          control={<Checkbox />}
+                          control={
+                            <Checkbox
+                              checked={showPassword}
+                              onClick={() => {
+                                !showPassword
+                                  ? setShowPassword(true)
+                                  : setShowPassword(false);
+                              }}
+                            />
+                          }
                           label="Show password"
                         />
                       </FormGroup>
@@ -188,7 +199,16 @@ const Join: NextPage = () => {
                   <div className={"remember-info"}>
                     <FormGroup>
                       <FormControlLabel
-                        control={<Checkbox />}
+                        control={
+                          <Checkbox
+                            checked={showPassword}
+                            onClick={() => {
+                              !showPassword
+                                ? setShowPassword(true)
+                                : setShowPassword(false);
+                            }}
+                          />
+                        }
                         label="Show password"
                       />
                     </FormGroup>

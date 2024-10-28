@@ -332,15 +332,10 @@ const Top = () => {
                         color: "red",
                       }}
                       badgeContent={
-                        <span style={{ color: "red" }}>
-                          {
-                            notifications.filter(
-                              (ele: Notification) =>
-                                ele.notificationStatus !==
-                                NotificationStatus.READ
-                            ).length
-                          }
-                        </span>
+                        notifications.filter(
+                          (ele: Notification) =>
+                            ele.notificationStatus !== NotificationStatus.READ
+                        ).length
                       }
                       onClick={menuClick}
                     />
@@ -375,11 +370,14 @@ const Top = () => {
                   >
                     <div className="notification-container">
                       <div className="divider">
-                        <span>Notifications</span>
+                        {notifications.length === 0 ? (
+                          <span>No notifications</span>
+                        ) : (
+                          <span>Notifications</span>
+                        )}
                       </div>
 
                       {notifications.map((ele: Notification, index) => {
-                        // Declare memberImage variable
                         const memberImage = (
                           <Avatar
                             className="avatar"
