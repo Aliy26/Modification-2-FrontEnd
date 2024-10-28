@@ -185,7 +185,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
       });
 
       await getCommentsRefetch({ input: searchFilter });
-      setComment("");
+      setWordsCnt(0);
       await sweetMixinSuccessAlert("Successfully commented!");
     } catch (err: any) {
       await sweetMixinErrorAlert(err.message);

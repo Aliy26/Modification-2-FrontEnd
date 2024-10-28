@@ -13,7 +13,7 @@ import { CaretDown } from "phosphor-react";
 import useDeviceDetect from "../hooks/useDeviceDetect";
 import Link from "next/link";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import { useQuery, useReactiveVar } from "@apollo/client";
+import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import { userVar } from "../../apollo/store";
 import { Logout } from "@mui/icons-material";
 import { REACT_APP_API_URL } from "../config";
@@ -24,10 +24,12 @@ import {
 import { T } from "../types/common";
 import { Notification } from "../types/notification/notification";
 import {
+  NotificationStatus,
   NotificationTitle,
   NotificationType,
 } from "../enums/notification.enum";
 import { RippleBadge } from "../../scss/MaterialTheme/styled";
+import { UPDATE_NOTIFICATION } from "../../apollo/user/mutation";
 
 const Top = () => {
   const device = useDeviceDetect();
@@ -47,6 +49,8 @@ const Top = () => {
   const [logoutAnchor, setLogoutAnchor] = useState<null | HTMLElement>(null);
   const logoutOpen = Boolean(logoutAnchor);
 
+  const [updateNotification] = useMutation(UPDATE_NOTIFICATION);
+
   const {
     loading: getNotificationsLoading,
     data: getNotificationsData,
@@ -54,6 +58,7 @@ const Top = () => {
     refetch: getNotificationsRefetch,
   } = useQuery(GET_NOTIFICATIONS, {
     fetchPolicy: "cache-and-network",
+    variables: {},
     skip: !user._id,
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
@@ -61,26 +66,8 @@ const Top = () => {
     },
   });
 
-  const {
-    loading: getUnreadNotificationsLoading,
-    data: getUnreadNotificationsData,
-    error: getUnreadNotificationsError,
-    refetch: getUnreadNotificationsRefetch,
-  } = useQuery(GET_UNREAD_NOTIFICATIONS, {
-    fetchPolicy: "cache-and-network",
-    skip: !user._id,
-    notifyOnNetworkStatusChange: true,
-    onCompleted: (data: T) => {
-      setNotificationCount(data?.getUnreadNotifications.length);
-    },
-  });
-
   console.log(notifications);
   /** LIFECYCLES **/
-
-  useEffect(() => {
-    getNotificationsRefetch();
-  }, [user._id, getNotificationsRefetch]);
 
   useEffect(() => {
     if (localStorage.getItem("locale") === null) {
@@ -133,16 +120,32 @@ const Top = () => {
     [router]
   );
 
-  const handleMemberPage = async (id: string) => {
-    await router.push(`/member?memberId=${id}`);
+  const handleMemberPage = async (memberid: string, id: string) => {
+    await router.push(`/member?memberId=${memberid}`);
+    await updateNotification({
+      variables: {
+        input: id,
+      },
+    });
   };
 
-  const handlePropertyPage = async (id: string) => {
-    await router.push(`/property/detail?id=${id}`);
+  const handlePropertyPage = async (propertyId: string, id: string) => {
+    await router.push(`/property/detail?id=${propertyId}`);
+    await updateNotification({
+      variables: {
+        input: id,
+      },
+    });
   };
 
-  const handleArticle = async () => {
+  const handleArticle = async (id: string) => {
     await router.push("/community");
+    await updateNotification({
+      variables: {
+        input: id,
+      },
+    });
+    await getNotificationsRefetch();
   };
 
   const changeNavbarColor = () => {
@@ -321,12 +324,24 @@ const Top = () => {
                 {user?._id && (
                   <div className="ripple-badge" onClick={menuClick}>
                     <RippleBadge
+                      className="badge-content"
                       style={{
                         position: "absolute",
                         top: "25px",
                         right: "70px",
+                        color: "red",
                       }}
-                      badgeContent={notificationCount}
+                      badgeContent={
+                        <span style={{ color: "red" }}>
+                          {
+                            notifications.filter(
+                              (ele: Notification) =>
+                                ele.notificationStatus !==
+                                NotificationStatus.READ
+                            ).length
+                          }
+                        </span>
+                      }
                       onClick={menuClick}
                     />
                     <NotificationsOutlinedIcon
@@ -352,172 +367,187 @@ const Top = () => {
                     )}
                   </Box>
                 </Button>
-                <StyledMenu
-                  anchorEl={anchorEl}
-                  open={drop2}
-                  onClose={menuClose}
-                >
-                  <div className="notification-container">
-                    <div className="divider">
-                      <span>Notifications</span>
-                    </div>
-                    {notifications.map((ele: Notification, index) => {
-                      // Declare memberImage variable
-                      const memberImage = (
-                        <Avatar
-                          className="avatar"
-                          alt="user-photo"
-                          src={`${REACT_APP_API_URL}/${ele.authorData?.memberImage}`}
-                          onClick={() => {
-                            handleMemberPage(ele.authorData?._id as string);
-                          }}
-                        />
-                      );
+                {user._id && (
+                  <StyledMenu
+                    anchorEl={anchorEl}
+                    open={drop2}
+                    onClose={menuClose}
+                  >
+                    <div className="notification-container">
+                      <div className="divider">
+                        <span>Notifications</span>
+                      </div>
 
-                      return (
-                        <div key={index} className="notification">
-                          {(() => {
-                            if (
-                              ele.notificationType === NotificationType.LIKE
-                            ) {
-                              return (
-                                <div className="notice-line">
-                                  <span>{memberImage} </span>
-                                  {ele.notificationStatus === "UNREAD" ? (
-                                    <span className="dot"></span>
-                                  ) : (
-                                    ""
-                                  )}
-                                  <p>
-                                    <strong>
-                                      <span
-                                        onClick={() => {
-                                          handleMemberPage(
-                                            ele.authorData?._id as string
-                                          );
-                                        }}
-                                      >
-                                        {ele.authorData?.memberNick}
-                                      </span>
-                                    </strong>{" "}
-                                    liked your{" "}
-                                    {ele.propertyId ? (
-                                      <>
-                                        <i
-                                          className="title-italic"
+                      {notifications.map((ele: Notification, index) => {
+                        // Declare memberImage variable
+                        const memberImage = (
+                          <Avatar
+                            className="avatar"
+                            alt="user-photo"
+                            src={`${REACT_APP_API_URL}/${ele.authorData?.memberImage}`}
+                            onClick={() => {
+                              handleMemberPage(
+                                ele.authorData?._id as string,
+                                ele._id as string
+                              );
+                            }}
+                          />
+                        );
+
+                        return (
+                          <div key={index} className="notification">
+                            {(() => {
+                              if (
+                                ele.notificationType === NotificationType.LIKE
+                              ) {
+                                return (
+                                  <div className="notice-line">
+                                    <span>{memberImage} </span>
+                                    {ele.notificationStatus === "UNREAD" ? (
+                                      <span className="dot"></span>
+                                    ) : (
+                                      ""
+                                    )}
+                                    <p>
+                                      <strong>
+                                        <span
                                           onClick={() => {
-                                            handlePropertyPage(
-                                              ele.propertyId as string
+                                            handleMemberPage(
+                                              ele.authorData?._id as string,
+                                              ele._id as string
                                             );
                                           }}
                                         >
-                                          {ele.propertyData?.propertyTitle}
-                                        </i>{" "}
-                                        property
-                                      </>
-                                    ) : ele.articleId ? (
-                                      <>
-                                        <i
-                                          className="title-italic"
-                                          onClick={handleArticle}
-                                        >
-                                          {ele.articleData?.articleTitle}
-                                        </i>{" "}
-                                        article
-                                      </>
+                                          {ele.authorData?.memberNick}
+                                        </span>
+                                      </strong>{" "}
+                                      liked your{" "}
+                                      {ele.propertyId ? (
+                                        <>
+                                          <i
+                                            className="title-italic"
+                                            onClick={() => {
+                                              handlePropertyPage(
+                                                ele.propertyId as string,
+                                                ele._id as string
+                                              );
+                                            }}
+                                          >
+                                            {ele.propertyData?.propertyTitle}
+                                          </i>{" "}
+                                          property
+                                        </>
+                                      ) : ele.articleId ? (
+                                        <>
+                                          <i
+                                            className="title-italic"
+                                            onClick={() => {
+                                              handleArticle(ele._id as string);
+                                            }}
+                                          >
+                                            {ele.articleData?.articleTitle}
+                                          </i>{" "}
+                                          article
+                                        </>
+                                      ) : (
+                                        "your profile"
+                                      )}
+                                    </p>
+                                  </div>
+                                );
+                              } else if (
+                                ele.notificationType === NotificationType.FOLLOW
+                              ) {
+                                return (
+                                  <div className="notice-line">
+                                    {memberImage}{" "}
+                                    {ele.notificationStatus === "UNREAD" ? (
+                                      <span className="dot"></span>
                                     ) : (
-                                      "your profile"
+                                      ""
                                     )}
-                                  </p>
-                                </div>
-                              );
-                            } else if (
-                              ele.notificationType === NotificationType.FOLLOW
-                            ) {
-                              return (
-                                <div className="notice-line">
-                                  {memberImage}{" "}
-                                  {ele.notificationStatus === "UNREAD" ? (
-                                    <span className="dot"></span>
-                                  ) : (
-                                    ""
-                                  )}
-                                  <p
-                                    onClick={() => {
-                                      handleMemberPage(
-                                        ele.authorData?._id as string
-                                      );
-                                    }}
-                                  >
-                                    <strong>
-                                      {ele.authorData?.memberNick}
-                                    </strong>{" "}
-                                    followed you
-                                  </p>
-                                </div>
-                              );
-                            } else if (
-                              ele.notificationType === NotificationType.COMMENT
-                            ) {
-                              return (
-                                <div className="notice-line">
-                                  {memberImage}{" "}
-                                  {ele.notificationStatus === "UNREAD" ? (
-                                    <span className="dot"></span>
-                                  ) : (
-                                    ""
-                                  )}
-                                  <p>
-                                    <strong
+                                    <p
                                       onClick={() => {
                                         handleMemberPage(
-                                          ele.authorData?._id as string
+                                          ele.authorData?._id as string,
+                                          ele._id as string
                                         );
                                       }}
                                     >
-                                      {ele.authorData?.memberNick}{" "}
-                                    </strong>
-                                    commented on your{" "}
-                                    {ele.propertyId ? (
-                                      <>
-                                        <i
-                                          className="comment-italic"
-                                          onClick={() => {
-                                            handlePropertyPage(
-                                              ele.propertyId as string
-                                            );
-                                          }}
-                                        >
-                                          {ele.propertyData?.propertyTitle}
-                                        </i>{" "}
-                                        property: "{ele.notificationDesc}"
-                                      </>
-                                    ) : ele.articleId ? (
-                                      <>
-                                        <i
-                                          className="comment-italic"
-                                          onClick={handleArticle}
-                                        >
-                                          {ele.articleData?.articleTitle}
-                                        </i>{" "}
-                                        article: "{ele.notificationDesc}"
-                                      </>
+                                      <strong>
+                                        {ele.authorData?.memberNick}
+                                      </strong>{" "}
+                                      followed you
+                                    </p>
+                                  </div>
+                                );
+                              } else if (
+                                ele.notificationType ===
+                                NotificationType.COMMENT
+                              ) {
+                                return (
+                                  <div className="notice-line">
+                                    {memberImage}{" "}
+                                    {ele.notificationStatus === "UNREAD" ? (
+                                      <span className="dot"></span>
                                     ) : (
-                                      <>profile: "{ele.notificationDesc}"</>
+                                      ""
                                     )}
-                                  </p>
-                                </div>
-                              );
-                            } else {
-                              return <p>New notification</p>;
-                            }
-                          })()}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </StyledMenu>
-
+                                    <p>
+                                      <strong
+                                        onClick={() => {
+                                          handleMemberPage(
+                                            ele.authorData?._id as string,
+                                            ele._id as string
+                                          );
+                                        }}
+                                      >
+                                        {ele.authorData?.memberNick}{" "}
+                                      </strong>
+                                      commented on your{" "}
+                                      {ele.propertyId ? (
+                                        <>
+                                          <i
+                                            className="comment-italic"
+                                            onClick={() => {
+                                              handlePropertyPage(
+                                                ele.propertyId as string,
+                                                ele._id as string
+                                              );
+                                            }}
+                                          >
+                                            {ele.propertyData?.propertyTitle}
+                                          </i>{" "}
+                                          property: "{ele.notificationDesc}"
+                                        </>
+                                      ) : ele.articleId ? (
+                                        <>
+                                          <i
+                                            className="comment-italic"
+                                            onClick={() => {
+                                              handleArticle(ele._id as string);
+                                            }}
+                                          >
+                                            {ele.articleData?.articleTitle}
+                                          </i>{" "}
+                                          article: "{ele.notificationDesc}"
+                                        </>
+                                      ) : (
+                                        <>profile: "{ele.notificationDesc}"</>
+                                      )}
+                                    </p>
+                                  </div>
+                                );
+                              } else {
+                                return <p>New notification</p>;
+                              }
+                            })()}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </StyledMenu>
+                )}
                 <StyledMenu
                   anchorEl={anchorEl2}
                   open={drop}
