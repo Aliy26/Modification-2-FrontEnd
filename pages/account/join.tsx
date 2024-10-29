@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import { logIn, signUp } from "../../libs/auth";
 import { sweetMixinErrorAlert } from "../../libs/sweetAlert";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { Messages } from "../../libs/config";
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
@@ -38,6 +39,14 @@ const Join: NextPage = () => {
     setLoginView(state);
   };
 
+  const isLoginDataChanged = () => {
+    return input.nick !== "" && input.password !== "";
+  };
+
+  const isSignupDataChanged = () => {
+    return input.nick !== "" && input.password !== "" && input.phone !== "";
+  };
+
   const checkUserTypeHandler = (e: any) => {
     const checked = e.target.checked;
     if (checked) {
@@ -57,6 +66,10 @@ const Join: NextPage = () => {
   const doLogin = useCallback(async () => {
     console.warn(input);
     try {
+      if (!isLoginDataChanged()) {
+        await sweetMixinErrorAlert(Messages.error3);
+        return false;
+      }
       await logIn(input.nick, input.password);
       await router.push(`${router.query.referrer ?? "/"}`);
     } catch (err: any) {
@@ -67,6 +80,10 @@ const Join: NextPage = () => {
   const doSignUp = useCallback(async () => {
     console.warn(input);
     try {
+      if (!isSignupDataChanged()) {
+        await sweetMixinErrorAlert(Messages.error3);
+        return false;
+      }
       await signUp(input.nick, input.password, input.phone, input.type);
       await router.push(`${router.query.referrer ?? "/"}`);
     } catch (err: any) {
@@ -75,7 +92,6 @@ const Join: NextPage = () => {
   }, [input]);
 
   console.log("+input: ", input);
-  console.log("<<<<<<<", showPassword, ">>>>>>>>>");
 
   if (device === "mobile") {
     return <div>LOGIN MOBILE</div>;
@@ -111,19 +127,7 @@ const Join: NextPage = () => {
                     }}
                   />
                 </div>
-                <div className={"input-box"}>
-                  <span>Password</span>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder={"Enter Password"}
-                    onChange={(e) => handleInput("password", e.target.value)}
-                    required={true}
-                    onKeyDown={(event) => {
-                      if (event.key == "Enter" && loginView) doLogin();
-                      if (event.key == "Enter" && !loginView) doSignUp();
-                    }}
-                  />
-                </div>
+
                 {!loginView && (
                   <div className={"input-box"}>
                     <span>Phone</span>
@@ -138,6 +142,19 @@ const Join: NextPage = () => {
                     />
                   </div>
                 )}
+                <div className={"input-box"}>
+                  <span>Password</span>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder={"Enter Password"}
+                    onChange={(e) => handleInput("password", e.target.value)}
+                    required={true}
+                    onKeyDown={(event) => {
+                      if (event.key == "Enter" && loginView) doLogin();
+                      if (event.key == "Enter" && !loginView) doSignUp();
+                    }}
+                  />
+                </div>
               </Box>
               <Box className={"register"}>
                 {!loginView && (
