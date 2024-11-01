@@ -5,7 +5,7 @@ import { gql } from "@apollo/client";
  *************************/
 
 export const GET_ALL_MEMBERS_BY_ADMIN = gql`
-  query GetAllMembersByAdmin($input: MembersInquiry!) {
+  query GetAllMembersByAdmin2($input: MembersInquiry!) {
     getAllMembersByAdmin(input: $input) {
       list {
         _id
@@ -18,19 +18,23 @@ export const GET_ALL_MEMBERS_BY_ADMIN = gql`
         memberImage
         memberAddress
         memberDesc
-        memberWarnings
-        memberBlocks
-        memberProperties
-        mainMember
-        memberRank
+        memberProducts
         memberArticles
+        memberFollowers
+        memberFollowings
         memberPoints
         memberLikes
         memberViews
+        memberComments
+        memberRank
+        memberWarnings
+        memberBlocks
         deletedAt
         createdAt
         updatedAt
         accessToken
+        memberEmail
+        mainMember
       }
       metaCounter {
         total
@@ -43,30 +47,29 @@ export const GET_ALL_MEMBERS_BY_ADMIN = gql`
  *        PROPERTY        *
  *************************/
 
-export const GET_ALL_PROPERTIES_BY_ADMIN = gql`
-  query GetAllPropertiesByAdmin($input: AllPropertiesInquiry!) {
-    getAllPropertiesByAdmin(input: $input) {
+export const GET_ALL_PRODUCTS_BY_ADMIN = gql`
+  query GetAllProductsByAdmin($input: AllProductsInquiry!) {
+    getAllProductsByAdmin(input: $input) {
       list {
         _id
-        propertyType
-        propertyStatus
-        propertyLocation
-        propertyAddress
-        propertyTitle
-        propertyPrice
-        propertySquare
-        propertyBeds
-        propertyRooms
-        propertyViews
-        propertyLikes
-        propertyImages
-        propertyDesc
-        propertyBarter
-        propertyRent
+        productType
+        productStatus
+        productCategory
+        productBrand
+        productName
+        productPrice
+        productViews
+        productLikes
+        productComments
+        productRank
+        productImages
+        productDesc
+        productInstallment
+        productRent
         memberId
         soldAt
         deletedAt
-        constructedAt
+        manufacturedIn
         createdAt
         updatedAt
         memberData {
@@ -76,17 +79,23 @@ export const GET_ALL_PROPERTIES_BY_ADMIN = gql`
           memberAuthType
           memberPhone
           memberNick
+          memberEmail
           memberFullName
           memberImage
           memberAddress
           memberDesc
-          memberWarnings
-          memberBlocks
-          memberProperties
-          memberRank
+          mainMember
+          memberProducts
+          memberArticles
+          memberFollowers
+          memberFollowings
           memberPoints
           memberLikes
           memberViews
+          memberComments
+          memberRank
+          memberWarnings
+          memberBlocks
           deletedAt
           createdAt
           updatedAt
@@ -116,6 +125,7 @@ export const GET_ALL_BOARD_ARTICLES_BY_ADMIN = gql`
         articleImage
         articleViews
         articleLikes
+        articleComments
         memberId
         createdAt
         updatedAt
@@ -130,13 +140,17 @@ export const GET_ALL_BOARD_ARTICLES_BY_ADMIN = gql`
           memberImage
           memberAddress
           memberDesc
-          memberWarnings
-          memberBlocks
           memberProperties
-          memberRank
+          memberArticles
+          memberFollowers
+          memberFollowings
           memberPoints
           memberLikes
           memberViews
+          memberComments
+          memberRank
+          memberWarnings
+          memberBlocks
           deletedAt
           createdAt
           updatedAt
@@ -173,17 +187,23 @@ export const GET_COMMENTS = gql`
           memberAuthType
           memberPhone
           memberNick
+          memberEmail
           memberFullName
           memberImage
           memberAddress
           memberDesc
-          memberWarnings
-          memberBlocks
-          memberProperties
-          memberRank
+          mainMember
+          memberProducts
+          memberArticles
+          memberFollowers
+          memberFollowings
           memberPoints
           memberLikes
           memberViews
+          memberComments
+          memberRank
+          memberWarnings
+          memberBlocks
           deletedAt
           createdAt
           updatedAt

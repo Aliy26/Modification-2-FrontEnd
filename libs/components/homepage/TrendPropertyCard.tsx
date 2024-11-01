@@ -38,13 +38,13 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
           component={"div"}
           className={"card-img"}
           style={{
-            backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})`,
+            backgroundImage: `url(${REACT_APP_API_URL}/${property?.productImages[0]})`,
           }}
           onClick={() => {
             pushDetailHandler(property._id);
           }}
         >
-          <div>${property.propertyPrice}</div>
+          <div>${property.productPrice}</div>
         </Box>
         <Box component={"div"} className={"info"}>
           <strong
@@ -53,36 +53,36 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
               pushDetailHandler(property._id);
             }}
           >
-            {property.propertyTitle}
+            {property.productName}
           </strong>
-          <p className={"desc"}>{property.propertyDesc ?? "no description"}</p>
+          <p className={"desc"}>{property.productDesc ?? "no description"}</p>
           <div className={"options"}>
             <div>
               <img src="/img/icons/bed.svg" alt="" />
-              <span>{property.propertyBeds} bed</span>
+              <span>{property.manufacturedIn} year</span>
             </div>
             <div>
               <img src="/img/icons/room.svg" alt="" />
-              <span>{property.propertyRooms} rooms</span>
+              {/* <span>{property.propertyRooms} rooms</span> */}
             </div>
             <div>
               <img src="/img/icons/expand.svg" alt="" />
-              <span>{property.propertySquare} m2</span>
+              {/* <span>{property.propertySquare} m2</span> */}
             </div>
           </div>
           <Divider sx={{ mt: "15px", mb: "17px" }} />
           <div className={"bott"}>
             <p>
-              {property.propertyRent ? "Rent" : ""}{" "}
-              {property.propertyRent && property.propertyBarter && "/"}{" "}
-              {property.propertyBarter ? "Barter" : ""}
+              {property.productRent ? "Rent" : ""}{" "}
+              {property.productRent && property.productInstallment && "/"}{" "}
+              {property.productInstallment ? "Barter" : ""}
             </p>
             <div className="view-like-box">
               <IconButton color={"default"}>
                 <RemoveRedEyeIcon />
               </IconButton>
               <Typography className="view-cnt">
-                {property?.propertyViews}
+                {property?.productViews}
               </Typography>
               <IconButton
                 color={"default"}
@@ -97,7 +97,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
                 )}
               </IconButton>
               <Typography className="view-cnt">
-                {property?.propertyLikes}
+                {property?.productLikes}
               </Typography>
             </div>
           </div>
@@ -111,13 +111,13 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
           component={"div"}
           className={"card-img"}
           style={{
-            backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})`,
+            backgroundImage: `url(${REACT_APP_API_URL}/${property?.productImages[0]})`,
           }}
           onClick={() => {
             pushDetailHandler(property._id);
           }}
         >
-          <div>${property.propertyPrice}</div>
+          <div>${property.productPrice}</div>
         </Box>
         <Box component={"div"} className={"info"}>
           <strong
@@ -126,36 +126,36 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
               pushDetailHandler(property._id);
             }}
           >
-            {property.propertyTitle}
+            {property.productName}
           </strong>
-          <p className={"desc"}>{property.propertyDesc ?? "no description"}</p>
+          <p className={"desc"}>{property.productDesc ?? "no description"}</p>
           <div className={"options"}>
             <div>
               <img src="/img/icons/bed.svg" alt="" />
-              <span>{property.propertyBeds} bed</span>
+              {/* <span>{property.propertyBeds} bed</span> */}
             </div>
             <div>
               <img src="/img/icons/room.svg" alt="" />
-              <span>{property.propertyRooms} rooms</span>
+              {/* <span>{property.propertyRooms} rooms</span> */}
             </div>
             <div>
               <img src="/img/icons/expand.svg" alt="" />
-              <span>{property.propertySquare} m2</span>
+              {/* <span>{property.propertySquare} m2</span> */}
             </div>
           </div>
           <Divider sx={{ mt: "15px", mb: "17px" }} />
           <div className={"bott"}>
             <p>
-              {property.propertyRent ? "Rent" : ""}{" "}
-              {property.propertyRent && property.propertyBarter && "/"}{" "}
-              {property.propertyBarter ? "Barter" : ""}
+              {property.productRent ? "Rent" : ""}{" "}
+              {property.productRent && property.productInstallment && "/"}{" "}
+              {property.productInstallment ? "Barter" : ""}
             </p>
             <div className="view-like-box">
               <IconButton color={"default"}>
                 <RemoveRedEyeIcon />
               </IconButton>
               <Typography className="view-cnt">
-                {property?.propertyViews}
+                {property?.productViews}
               </Typography>
               <IconButton
                 color={"default"}
@@ -170,7 +170,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
                 )}
               </IconButton>
               <Typography className="view-cnt">
-                {property?.propertyLikes}
+                {property?.productLikes}
               </Typography>
             </div>
           </div>

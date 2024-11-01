@@ -61,7 +61,7 @@ export const PropertyCard = (props: PropertyCardProps) => {
           onClick={() => pushPropertyDetail(property?._id)}
         >
           <img
-            src={`${process.env.REACT_APP_API_URL}/${property.propertyImages[0]}`}
+            src={`${process.env.REACT_APP_API_URL}/${property.productImages[0]}`}
             alt=""
           />
         </Stack>
@@ -69,12 +69,10 @@ export const PropertyCard = (props: PropertyCardProps) => {
           className="information-box"
           onClick={() => pushPropertyDetail(property?._id)}
         >
-          <Typography className="name">{property.propertyTitle}</Typography>
-          <Typography className="address">
-            {property.propertyAddress}
-          </Typography>
+          <Typography className="name">{property.productName}</Typography>
+          <Typography className="address">No address</Typography>
           <Typography className="price">
-            <strong>${formatterStr(property?.propertyPrice)}</strong>/
+            <strong>${formatterStr(property?.productPrice)}</strong>/
           </Typography>
         </Stack>
         <Stack className="date-box">
@@ -89,11 +87,11 @@ export const PropertyCard = (props: PropertyCardProps) => {
             onClick={handleClick}
           >
             <Typography className="status" sx={{ color: "#3554d1" }}>
-              {property.propertyStatus}
+              {property.productStatus}
             </Typography>
           </Stack>
         </Stack>
-        {!memberPage && property.propertyStatus !== "SOLD" && (
+        {!memberPage && property.productStatus !== "SOLD" && (
           <Menu
             anchorEl={anchorEl}
             open={open}
@@ -114,7 +112,7 @@ export const PropertyCard = (props: PropertyCardProps) => {
               },
             }}
           >
-            {property.propertyStatus === "ACTIVE" && (
+            {property.productStatus === "ACTIVE" && (
               <>
                 <MenuItem
                   disableRipple
@@ -132,10 +130,10 @@ export const PropertyCard = (props: PropertyCardProps) => {
 
         <Stack className="views-box">
           <Typography className="views">
-            {property.propertyViews.toLocaleString()}
+            {property.productViews.toLocaleString()}
           </Typography>
         </Stack>
-        {!memberPage && property.propertyStatus === PropertyStatus.ACTIVE && (
+        {!memberPage && property.productStatus === PropertyStatus.ACTIVE && (
           <Stack className="action-box">
             <IconButton
               className="icon-button"

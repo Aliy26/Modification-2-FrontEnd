@@ -39,13 +39,13 @@ import "swiper/css/pagination";
 import { T } from "../../libs/types/common";
 import {
   GET_COMMENTS,
-  GET_PROPERTIES,
-  GET_PROPERTY,
+  GET_PRODUCTS,
+  GET_PRODUCT,
 } from "../../apollo/user/query";
 import { Direction, Message } from "../../libs/enums/common.enum";
 import {
   CREATE_COMMENT,
-  LIKE_TARGET_PROPERTY,
+  LIKE_TARGET_PRODUCT,
 } from "../../apollo/user/mutation";
 import {
   sweetErrorHandling,
@@ -85,7 +85,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 
   /** APOLLO REQUESTS **/
 
-  const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+  const [likeTargetProperty] = useMutation(LIKE_TARGET_PRODUCT);
   const [createComment] = useMutation(CREATE_COMMENT);
 
   const {
@@ -93,7 +93,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
     data: getPropertyData,
     error: getPropertyError,
     refetch: getPropertyRefetch,
-  } = useQuery(GET_PROPERTY, {
+  } = useQuery(GET_PRODUCT, {
     fetchPolicy: "network-only",
     variables: { input: propertyId },
     skip: !propertyId,
@@ -109,7 +109,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
     data: getPropertiesData,
     error: getPropertiesError,
     refetch: getPropertiesRefetch,
-  } = useQuery(GET_PROPERTIES, {
+  } = useQuery(GET_PRODUCTS, {
     fetchPolicy: "cache-and-network",
     variables: {
       input: {
@@ -118,9 +118,9 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
         sort: "createdAt",
         direction: Direction.DESC,
         search: {
-          locationList: property?.propertyLocation
-            ? [property.propertyLocation]
-            : [],
+          // locationList: property?.propertyLocation
+          //   ? [property.propertyLocation]
+          //   : [],
         },
       },
     },
@@ -208,9 +208,9 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
           sort: "createdAt",
           direction: Direction.DESC,
           search: {
-            locationList: property?.propertyLocation
-              ? [property.propertyLocation]
-              : [],
+            // locationList: property?.propertyLocation
+            //   ? [property.propertyLocation]
+            //   : [],
           },
         },
       });
@@ -270,15 +270,15 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
               <Stack className={"info"}>
                 <Stack className={"left-box"}>
                   <Typography className={"title-main"}>
-                    {property?.propertyTitle}
+                    {property?.productName}
                   </Typography>
                   <Stack className={"top-box"}>
                     <Typography className={"city"}>
-                      {property?.propertyLocation}
+                      {/* {property?.propertyLocation} */}
                     </Typography>
                     <Stack className={"divider"}></Stack>
                     <Stack className={"buy-rent-box"}>
-                      {property?.propertyBarter && (
+                      {property?.productInstallment && (
                         <>
                           <Stack className={"circle"}>
                             <svg
@@ -295,7 +295,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                         </>
                       )}
 
-                      {property?.propertyRent && (
+                      {property?.productRent && (
                         <>
                           <Stack className={"circle"}>
                             <svg
@@ -343,15 +343,15 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                   <Stack className={"bottom-box"}>
                     <Stack className="option">
                       <img src="/img/icons/bed.svg" alt="" />{" "}
-                      <Typography>{property?.propertyBeds} bed</Typography>
+                      {/* <Typography>{property?.propertyBeds} bed</Typography> */}
                     </Stack>
                     <Stack className="option">
                       <img src="/img/icons/room.svg" alt="" />{" "}
-                      <Typography>{property?.propertyRooms} room</Typography>
+                      {/* <Typography>{property?.propertyRooms} room</Typography> */}
                     </Stack>
                     <Stack className="option">
                       <img src="/img/icons/expand.svg" alt="" />{" "}
-                      <Typography>{property?.propertySquare} m2</Typography>
+                      {/* <Typography>{property?.propertySquare} m2</Typography> */}
                     </Stack>
                   </Stack>
                 </Stack>
@@ -359,7 +359,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                   <Stack className="buttons">
                     <Stack className="button-box">
                       <RemoveRedEyeIcon fontSize="medium" />
-                      <Typography>{property?.propertyViews}</Typography>
+                      <Typography>{property?.productViews}</Typography>
                     </Stack>
                     <Stack className="button-box">
                       {property?.meLiked && property?.meLiked[0]?.myFavorite ? (
@@ -379,11 +379,11 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                           }}
                         />
                       )}
-                      <Typography>{property?.propertyLikes}</Typography>
+                      <Typography>{property?.productLikes}</Typography>
                     </Stack>
                   </Stack>
                   <Typography>
-                    ${formatterStr(property?.propertyPrice)}
+                    ${formatterStr(property?.productLikes)}
                   </Typography>
                 </Stack>
               </Stack>
@@ -399,7 +399,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                   />
                 </Stack>
                 <Stack className={"sub-images"}>
-                  {property?.propertyImages.map((subImg: string) => {
+                  {property?.productImages.map((subImg: string) => {
                     const imagePath: string = `${REACT_APP_API_URL}/${subImg}`;
                     return (
                       <Stack
@@ -435,7 +435,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                     <Stack className={"option-includes"}>
                       <Typography className={"title"}>Bedroom</Typography>
                       <Typography className={"option-data"}>
-                        {property?.propertyBeds}
+                        {/* {property?.propertyBeds} */}
                       </Typography>
                     </Stack>
                   </Stack>
@@ -446,7 +446,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                     <Stack className={"option-includes"}>
                       <Typography className={"title"}>Room</Typography>
                       <Typography className={"option-data"}>
-                        {property?.propertyRooms}
+                        {/* {property?.propertyRooms} */}
                       </Typography>
                     </Stack>
                   </Stack>
@@ -514,7 +514,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                     <Stack className={"option-includes"}>
                       <Typography className={"title"}>Size</Typography>
                       <Typography className={"option-data"}>
-                        {property?.propertySquare} m2
+                        {/* {property?.propertySquare} m2 */}
                       </Typography>
                     </Stack>
                   </Stack>
@@ -540,7 +540,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                     <Stack className={"option-includes"}>
                       <Typography className={"title"}>Property Type</Typography>
                       <Typography className={"option-data"}>
-                        {property?.propertyType}
+                        {property?.productType}
                       </Typography>
                     </Stack>
                   </Stack>
@@ -551,7 +551,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                       Property Description
                     </Typography>
                     <Typography className={"desc"}>
-                      {property?.propertyDesc ?? "No Description!"}
+                      {property?.productDesc ?? "No Description!"}
                     </Typography>
                   </Stack>
                   <Stack className={"bottom"}>
@@ -563,7 +563,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                         <Box component={"div"} className={"info"}>
                           <Typography className={"title"}>Price</Typography>
                           <Typography className={"data"}>
-                            ${formatterStr(property?.propertyPrice)}
+                            ${formatterStr(property?.productPrice)}
                           </Typography>
                         </Box>
                         <Box component={"div"} className={"info"}>
@@ -571,19 +571,19 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                             Property Size
                           </Typography>
                           <Typography className={"data"}>
-                            {property?.propertySquare} m2
+                            {/* {property?.propertySquare} m2 */}
                           </Typography>
                         </Box>
                         <Box component={"div"} className={"info"}>
                           <Typography className={"title"}>Rooms</Typography>
                           <Typography className={"data"}>
-                            {property?.propertyRooms}
+                            {/* {property?.propertyRooms} */}
                           </Typography>
                         </Box>
                         <Box component={"div"} className={"info"}>
                           <Typography className={"title"}>Bedrooms</Typography>
                           <Typography className={"data"}>
-                            {property?.propertyBeds}
+                            {/* {property?.propertyBeds} */}
                           </Typography>
                         </Box>
                       </Stack>
@@ -601,7 +601,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                             Property Type
                           </Typography>
                           <Typography className={"data"}>
-                            {property?.propertyType}
+                            {property?.productType}
                           </Typography>
                         </Box>
                         <Box component={"div"} className={"info"}>
@@ -609,8 +609,8 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                             Property Options
                           </Typography>
                           <Typography className={"data"}>
-                            For {property?.propertyBarter && "Barter"}{" "}
-                            {property?.propertyRent && "Rent"}
+                            For {property?.productInstallment && "Barter"}{" "}
+                            {property?.productRent && "Rent"}
                           </Typography>
                         </Box>
                       </Stack>
@@ -917,7 +917,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                       return (
                         <SwiperSlide
                           className={"similar-homes-slide"}
-                          key={property.propertyTitle}
+                          key={property.productName}
                         >
                           <PropertyBigCard
                             property={property}

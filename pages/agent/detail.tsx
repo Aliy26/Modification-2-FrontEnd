@@ -27,12 +27,12 @@ import { Messages, REACT_APP_API_URL } from "../../libs/config";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import {
   CREATE_COMMENT,
-  LIKE_TARGET_PROPERTY,
+  LIKE_TARGET_PRODUCT,
 } from "../../apollo/user/mutation";
 import {
   GET_COMMENTS,
   GET_MEMBER,
-  GET_PROPERTIES,
+  GET_PRODUCTS,
 } from "../../apollo/user/query";
 import { T } from "../../libs/types/common";
 
@@ -69,7 +69,7 @@ const AgentDetail: NextPage = ({
 
   /** APOLLO REQUESTS **/
   const [createComment] = useMutation(CREATE_COMMENT);
-  const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+  const [likeTargetProperty] = useMutation(LIKE_TARGET_PRODUCT);
 
   const {
     loading: getMemberLoading,
@@ -106,7 +106,7 @@ const AgentDetail: NextPage = ({
     data: getPropertiesData,
     error: getPropertiesError,
     refetch: getPropertiesRefetch,
-  } = useQuery(GET_PROPERTIES, {
+  } = useQuery(GET_PRODUCTS, {
     fetchPolicy: "network-only",
     variables: { input: searchFilter },
     skip: !searchFilter.search.memberId,

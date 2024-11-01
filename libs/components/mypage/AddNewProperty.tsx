@@ -15,11 +15,8 @@ import {
 } from "../../sweetAlert";
 import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
-import {
-  CREATE_PROPERTY,
-  UPDATE_PROPERTY,
-} from "../../../apollo/user/mutation";
-import { GET_PROPERTY } from "../../../apollo/user/query";
+import { CREATE_PRODUCT, UPDATE_PRODUCT } from "../../../apollo/user/mutation";
+import { GET_PRODUCT } from "../../../apollo/user/query";
 
 const AddProperty = ({ initialValues, ...props }: any) => {
   const device = useDeviceDetect();
@@ -37,8 +34,8 @@ const AddProperty = ({ initialValues, ...props }: any) => {
   const user = useReactiveVar(userVar);
 
   /** APOLLO REQUESTS **/
-  const [createProperty] = useMutation(CREATE_PROPERTY);
-  const [updateProperty] = useMutation(UPDATE_PROPERTY);
+  const [createProperty] = useMutation(CREATE_PRODUCT);
+  const [updateProperty] = useMutation(UPDATE_PRODUCT);
   console.log(propertyType);
 
   const {
@@ -46,7 +43,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
     data: getPropertyData,
     error: getPropertyError,
     refetch: getPropertyRefetch,
-  } = useQuery(GET_PROPERTY, {
+  } = useQuery(GET_PRODUCT, {
     fetchPolicy: "network-only",
     variables: {
       input: router.query.propertyId,

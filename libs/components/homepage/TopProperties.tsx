@@ -9,9 +9,9 @@ import TopPropertyCard from "./TopPropertyCard";
 import { PropertiesInquiry } from "../../types/property/property.input";
 import { Property } from "../../types/property/property";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_PROPERTIES } from "../../../apollo/user/query";
+import { GET_PRODUCTS } from "../../../apollo/user/query";
 import { T } from "../../types/common";
-import { LIKE_TARGET_PROPERTY } from "../../../apollo/user/mutation";
+import { LIKE_TARGET_PRODUCT } from "../../../apollo/user/mutation";
 import { Message } from "../../enums/common.enum";
 import {
   sweetMixinErrorAlert,
@@ -26,7 +26,7 @@ const TopProperties = (props: TopPropertiesProps) => {
   const { initialInput } = props;
   const device = useDeviceDetect();
   const [topProperties, setTopProperties] = useState<Property[]>([]);
-  const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+  const [likeTargetProperty] = useMutation(LIKE_TARGET_PRODUCT);
 
   /** APOLLO REQUESTS **/
   const {
@@ -34,12 +34,12 @@ const TopProperties = (props: TopPropertiesProps) => {
     data: getPropertiesData,
     error: getPropertiesError,
     refetch: getPropertiesRefetch,
-  } = useQuery(GET_PROPERTIES, {
+  } = useQuery(GET_PRODUCTS, {
     fetchPolicy: "cache-and-network",
     variables: { input: initialInput },
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
-      setTopProperties(data?.getProperties?.list);
+      setTopProperties(data?.getProducts?.list);
     },
   });
   /** HANDLERS **/
@@ -150,7 +150,7 @@ TopProperties.defaultProps = {
   initialInput: {
     page: 1,
     limit: 8,
-    sort: "propertyRank",
+    sort: "productRank",
     direction: "DESC",
     search: {},
   },

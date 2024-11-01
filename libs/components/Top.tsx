@@ -17,10 +17,7 @@ import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import { userVar } from "../../apollo/store";
 import { Logout } from "@mui/icons-material";
 import { REACT_APP_API_URL } from "../config";
-import {
-  GET_NOTIFICATIONS,
-  GET_UNREAD_NOTIFICATIONS,
-} from "../../apollo/user/query";
+import { GET_NOTIFICATIONS } from "../../apollo/user/query";
 import { T } from "../types/common";
 import { Notification } from "../types/notification/notification";
 import {
@@ -329,7 +326,6 @@ const Top = () => {
                         position: "absolute",
                         top: "25px",
                         right: "70px",
-                        color: "red",
                       }}
                       badgeContent={
                         notifications.filter(
@@ -431,7 +427,7 @@ const Top = () => {
                                               );
                                             }}
                                           >
-                                            {ele.propertyData?.propertyTitle}
+                                            {ele.propertyData?.productName}
                                           </i>{" "}
                                           property
                                         </>
@@ -514,7 +510,7 @@ const Top = () => {
                                               );
                                             }}
                                           >
-                                            {ele.propertyData?.propertyTitle}
+                                            {ele.propertyData?.productName}
                                           </i>{" "}
                                           property: "{ele.notificationDesc}"
                                         </>

@@ -68,6 +68,7 @@ export const signUp = async (
   nick: string,
   password: string,
   phone: string,
+  email: string,
   type: string
 ): Promise<void> => {
   try {
@@ -75,6 +76,7 @@ export const signUp = async (
       nick,
       password,
       phone,
+      email,
       type,
     });
 
@@ -93,11 +95,13 @@ const requestSignUpJwtToken = async ({
   nick,
   password,
   phone,
+  email,
   type,
 }: {
   nick: string;
   password: string;
   phone: string;
+  email: string;
   type: string;
 }): Promise<{ jwtToken: string }> => {
   const apolloClient = await initializeApollo();
@@ -110,6 +114,7 @@ const requestSignUpJwtToken = async ({
           memberNick: nick,
           memberPassword: password,
           memberPhone: phone,
+          memberEmail: email,
           memberType: type,
         },
       },
@@ -150,6 +155,7 @@ export const updateUserInfo = (jwtToken: any) => {
     memberAuthType: claims.memberAuthType,
     memberPhone: claims.memberPhone ?? "",
     memberNick: claims.memberNick ?? "",
+    memberEmail: claims.memberEmail ?? "",
     memberFullName: claims.memberFullName ?? "",
     memberImage:
       claims.memberImage === null || claims.memberImage === undefined
@@ -157,7 +163,7 @@ export const updateUserInfo = (jwtToken: any) => {
         : `${claims.memberImage}`,
     memberAddress: claims.memberAddress ?? "",
     memberDesc: claims.memberDesc ?? "",
-    memberProperties: claims.memberProperties ?? "",
+    memberProducts: claims.memberProducts ?? "",
     mainMember: claims.mainMember ?? null,
     memberRank: claims.memberRank,
     memberArticles: claims.memberArticles,
@@ -188,11 +194,12 @@ const deleteUserInfo = () => {
     memberAuthType: "",
     memberPhone: "",
     memberNick: "",
+    memberEmail: "",
     memberFullName: "",
     memberImage: "",
     memberAddress: "",
     memberDesc: "",
-    memberProperties: 0,
+    memberProducts: 0,
     memberRank: 0,
     memberArticles: 0,
     memberPoints: 0,

@@ -9,9 +9,9 @@ import { Property } from "../../types/property/property";
 import { PropertiesInquiry } from "../../types/property/property.input";
 import TrendPropertyCard from "./TrendPropertyCard";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_PROPERTIES } from "../../../apollo/user/query";
+import { GET_PRODUCTS } from "../../../apollo/user/query";
 import { T } from "../../types/common";
-import { LIKE_TARGET_PROPERTY } from "../../../apollo/user/mutation";
+import { LIKE_TARGET_PRODUCT } from "../../../apollo/user/mutation";
 import {
   sweetMixinErrorAlert,
   sweetTopSmallSuccessAlert,
@@ -28,20 +28,19 @@ const TrendProperties = (props: TrendPropertiesProps) => {
   const [trendProperties, setTrendProperties] = useState<Property[]>([]);
 
   /** APOLLO REQUESTS **/
-  const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+  const [likeTargetProperty] = useMutation(LIKE_TARGET_PRODUCT);
 
   const {
-    loading: getPropertiesLoading,
-    data: getPropertiesData,
-    error: getPropertiesError,
-    refetch: getPropertiesRefetch,
-  } = useQuery(GET_PROPERTIES, {
-    fetchPolicy: "cache-and-network",
-    skip: !initialInput,
+    loading: getProductsLoading,
+    data: getProductsData,
+    error: getProductsError,
+    refetch: getProductsRefetch,
+  } = useQuery(GET_PRODUCTS, {
+    fetchPolicy: "network-only",
     variables: { input: initialInput },
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
-      setTrendProperties(data?.getProperties?.list);
+      setTrendProperties(data?.getProducts?.list);
     },
   });
 
@@ -56,7 +55,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
       });
 
       // execute getPropertiesRefetch
-      await getPropertiesRefetch({ input: initialInput });
+      await getProductsRefetch({ input: initialInput });
       await sweetTopSmallSuccessAlert("success", 800);
     } catch (err: any) {
       console.log("Error, likePropertyHandler", err.message);
@@ -168,7 +167,7 @@ TrendProperties.defaultProps = {
   initialInput: {
     page: 1,
     limit: 8,
-    sort: "propertyLikes",
+    sort: "productLikes",
     direction: "DESC",
     search: {},
   },

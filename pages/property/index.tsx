@@ -20,9 +20,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import { Direction, Message } from "../../libs/enums/common.enum";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_PROPERTIES } from "../../apollo/user/query";
+import { GET_PRODUCTS } from "../../apollo/user/query";
 import { T } from "../../libs/types/common";
-import { LIKE_TARGET_PROPERTY } from "../../apollo/user/mutation";
+import { LIKE_TARGET_PRODUCT } from "../../apollo/user/mutation";
 import {
   sweetMixinErrorAlert,
   sweetTopSmallSuccessAlert,
@@ -50,14 +50,14 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
   const [filterSortName, setFilterSortName] = useState("New");
 
   /** APOLLO REQUESTS **/
-  const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+  const [likeTargetProperty] = useMutation(LIKE_TARGET_PRODUCT);
 
   const {
     loading: getPropertiesLoading,
     data: getPropertiesData,
     error: getPropertiesError,
     refetch: getPropertiesRefetch,
-  } = useQuery(GET_PROPERTIES, {
+  } = useQuery(GET_PRODUCTS, {
     fetchPolicy: "network-only",
     variables: { input: searchFilter },
     notifyOnNetworkStatusChange: true,

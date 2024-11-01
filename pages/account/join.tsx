@@ -29,6 +29,7 @@ const Join: NextPage = () => {
     nick: "",
     password: "",
     phone: "",
+    email: "",
     type: "USER",
   });
   const [loginView, setLoginView] = useState<boolean>(true);
@@ -44,7 +45,12 @@ const Join: NextPage = () => {
   };
 
   const isSignupDataChanged = () => {
-    return input.nick !== "" && input.password !== "" && input.phone !== "";
+    return (
+      input.nick !== "" &&
+      input.password !== "" &&
+      input.phone !== "" &&
+      input.email !== ""
+    );
   };
 
   const checkUserTypeHandler = (e: any) => {
@@ -84,7 +90,13 @@ const Join: NextPage = () => {
         await sweetMixinErrorAlert(Messages.error3);
         return false;
       }
-      await signUp(input.nick, input.password, input.phone, input.type);
+      await signUp(
+        input.nick,
+        input.password,
+        input.phone,
+        input.email,
+        input.type
+      );
       await router.push(`${router.query.referrer ?? "/"}`);
     } catch (err: any) {
       await sweetMixinErrorAlert(err.message);
@@ -135,6 +147,21 @@ const Join: NextPage = () => {
                       type="text"
                       placeholder={"Enter Phone"}
                       onChange={(e) => handleInput("phone", e.target.value)}
+                      required={true}
+                      onKeyDown={(event) => {
+                        if (event.key == "Enter") doSignUp();
+                      }}
+                    />
+                  </div>
+                )}
+
+                {!loginView && (
+                  <div className={"input-box"}>
+                    <span>Email</span>
+                    <input
+                      type="text"
+                      placeholder={"Enter Email"}
+                      onChange={(e) => handleInput("email", e.target.value)}
                       required={true}
                       onKeyDown={(event) => {
                         if (event.key == "Enter") doSignUp();
@@ -249,6 +276,7 @@ const Join: NextPage = () => {
                       input.nick == "" ||
                       input.password == "" ||
                       input.phone == "" ||
+                      input.email == "" ||
                       input.type == ""
                     }
                     onClick={doSignUp}

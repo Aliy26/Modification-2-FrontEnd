@@ -23,9 +23,9 @@ import { PropertyUpdate } from "../../../libs/types/property/property.update";
 import { useMutation, useQuery } from "@apollo/client";
 import {
   REMOVE_PROPERTY_BY_ADMIN,
-  UPDATE_PROPERTY_BY_ADMIN,
+  UPDATE_PRODUCT_BY_ADMIN,
 } from "../../../apollo/admin/mutation";
-import { GET_ALL_PROPERTIES_BY_ADMIN } from "../../../apollo/admin/query";
+import { GET_ALL_PRODUCTS_BY_ADMIN } from "../../../apollo/admin/query";
 import { T } from "../../../libs/types/common";
 
 const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
@@ -42,7 +42,7 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
   const [searchType, setSearchType] = useState("ALL");
 
   /** APOLLO REQUESTS **/
-  const [updatePropertyByAdmin] = useMutation(UPDATE_PROPERTY_BY_ADMIN);
+  const [updatePropertyByAdmin] = useMutation(UPDATE_PRODUCT_BY_ADMIN);
   const [removePropertyByAdmin] = useMutation(REMOVE_PROPERTY_BY_ADMIN);
 
   const {
@@ -50,7 +50,7 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
     data: getAllPropertiesByAdminData,
     error: getAllPropertiesByAdminError,
     refetch: getAllPropertiesByAdminRefetch,
-  } = useQuery(GET_ALL_PROPERTIES_BY_ADMIN, {
+  } = useQuery(GET_ALL_PRODUCTS_BY_ADMIN, {
     fetchPolicy: "network-only",
     variables: { input: propertiesInquiry },
     notifyOnNetworkStatusChange: true,
