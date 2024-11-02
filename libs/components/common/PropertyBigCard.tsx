@@ -39,49 +39,51 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
           component={"div"}
           className={"card-img"}
           style={{
-            backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages?.[0]})`,
+            backgroundImage: `url(${REACT_APP_API_URL}/${property?.productImages?.[0]})`,
           }}
         >
-          {property && property?.propertyRank >= topPropertyRank && (
+          {property && property?.productRank >= topPropertyRank && (
             <div className={"status"}>
               <img src="/img/icons/electricity.svg" alt="" />
               <span>top</span>
             </div>
           )}
 
-          <div className={"price"}>
-            ${formatterStr(property?.propertyPrice)}
-          </div>
+          <div className={"price"}>${formatterStr(property?.productPrice)}</div>
         </Box>
         <Box component={"div"} className={"info"}>
-          <strong className={"title"}>{property?.propertyTitle}</strong>
-          <p className={"desc"}>{property?.propertyAddress}</p>
+          <strong className={"title"}>{property?.productName}</strong>
+          <p className={"desc"}>{property?.productBrand}</p>
           <div className={"options"}>
             <div>
               <img src="/img/icons/bed.svg" alt="" />
-              <span>{property?.propertyBeds} bed</span>
+              <span>{property?.productBrand} bed</span>
             </div>
             <div>
               <img src="/img/icons/room.svg" alt="" />
-              <span>{property?.propertyRooms} rooms</span>
+              <span>{property?.productBrand} rooms</span>
             </div>
             <div>
               <img src="/img/icons/expand.svg" alt="" />
-              <span>{property?.propertySquare} m2</span>
+              <span>{property?.productBrand} m2</span>
             </div>
           </div>
           <Divider sx={{ mt: "15px", mb: "17px" }} />
           <div className={"bott"}>
             <div>
-              {property?.propertyRent ? <p>Rent</p> : <span>Rent</span>}
-              {property?.propertyBarter ? <p>Barter</p> : <span>Barter</span>}
+              {property?.productRent ? <p>Rent</p> : <span>Rent</span>}
+              {property?.productInstallment ? (
+                <p>Barter</p>
+              ) : (
+                <span>Barter</span>
+              )}
             </div>
             <div className="buttons-box">
               <IconButton color={"default"}>
                 <RemoveRedEyeIcon />
               </IconButton>
               <Typography className="view-cnt">
-                {property?.propertyViews}
+                {property?.productViews}
               </Typography>
               <IconButton
                 color={"default"}
@@ -97,7 +99,7 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
                 )}
               </IconButton>
               <Typography className="view-cnt">
-                {property?.propertyLikes}
+                {property?.productLikes}
               </Typography>
             </div>
           </div>

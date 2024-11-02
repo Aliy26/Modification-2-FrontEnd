@@ -54,8 +54,8 @@ const AgentDetail: NextPage = ({
   const [agent, setAgent] = useState<Member | null>(null);
   const [searchFilter, setSearchFilter] =
     useState<PropertiesInquiry>(initialInput);
-  const [agentProperties, setAgentProperties] = useState<Property[]>([]);
-  const [propertyTotal, setPropertyTotal] = useState<number>(0);
+  const [agentProducts, setAgentProducts] = useState<Property[]>([]);
+  const [propertyTotal, setProductsTotal] = useState<number>(0);
   const [commentInquiry, setCommentInquiry] =
     useState<CommentsInquiry>(initialComment);
   const [agentComments, setAgentComments] = useState<Comment[]>([]);
@@ -102,18 +102,18 @@ const AgentDetail: NextPage = ({
   });
 
   const {
-    loading: getPropertiesLoading,
-    data: getPropertiesData,
-    error: getPropertiesError,
-    refetch: getPropertiesRefetch,
+    loading: getProductsLoading,
+    data: getProductsData,
+    error: getProductsError,
+    refetch: getProductsRefetch,
   } = useQuery(GET_PRODUCTS, {
     fetchPolicy: "network-only",
     variables: { input: searchFilter },
     skip: !searchFilter.search.memberId,
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
-      setAgentProperties(data?.getProperties?.list);
-      setPropertyTotal(data?.getProperties?.metaCounter[0]?.total ?? 0);
+      setAgentProducts(data?.getProducts?.list);
+      setProductsTotal(data?.getProducts?.metaCounter[0]?.total ?? 0);
     },
   });
 
@@ -200,7 +200,7 @@ const AgentDetail: NextPage = ({
           input: id,
         },
       }),
-        await getPropertiesRefetch({ input: searchFilter });
+        await getProductsRefetch({ input: searchFilter });
       await sweetTopSmallSuccessAlert("success", 800);
     } catch (err: any) {
       console.log("Error likePropertyHandler", err.message);
@@ -237,7 +237,7 @@ const AgentDetail: NextPage = ({
           </Stack>
           <Stack className={"agent-home-list"}>
             <Stack className={"card-wrap"}>
-              {agentProperties.map((property: Property) => {
+              {agentProducts.map((property: Property) => {
                 return (
                   <div className={"wrap-main"} key={property?._id}>
                     <PropertyBigCard

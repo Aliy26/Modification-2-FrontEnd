@@ -128,7 +128,7 @@ const Chat = () => {
   };
 
   const onClickHandler = () => {
-    if (!messageInput) sweetErrorAlert(Messages.error4);
+    if (!messageInput) return;
     // replace this error message with return false in your modification
     else {
       socket.send(JSON.stringify({ event: "message", data: messageInput }));
@@ -140,7 +140,11 @@ const Chat = () => {
   return (
     <Stack className="chatting">
       {openButton ? (
-        <button className="chat-button" onClick={handleOpenChat}>
+        <button
+          className="chat-button"
+          onClick={handleOpenChat}
+          onKeyDown={handleOpenChat}
+        >
           {open ? <CloseFullscreenIcon /> : <MarkChatUnreadIcon />}
         </button>
       ) : null}
@@ -219,7 +223,11 @@ const Chat = () => {
             onChange={getInputMessageHandler}
             onKeyDown={getKeyHandler}
           />
-          <button className={"send-msg-btn"} onClick={onClickHandler}>
+          <button
+            className={"send-msg-btn"}
+            onClick={onClickHandler}
+            style={{ cursor: "pointer" }}
+          >
             <SendIcon style={{ color: "#fff" }} />
           </button>
         </Box>
