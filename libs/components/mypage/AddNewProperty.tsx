@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { Button, Stack, Typography } from "@mui/material";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
-import { PropertyLocation, PropertyType } from "../../enums/property.enum";
+import { ProductCategory, PropertyType } from "../../enums/property.enum";
 import { REACT_APP_API_URL, propertySquare } from "../../config";
 import { PropertyInput } from "../../types/property/property.input";
 import axios from "axios";
@@ -27,8 +27,8 @@ const AddProperty = ({ initialValues, ...props }: any) => {
   const [propertyType, setPropertyType] = useState<PropertyType[]>(
     Object.values(PropertyType)
   );
-  const [propertyLocation, setPropertyLocation] = useState<PropertyLocation[]>(
-    Object.values(PropertyLocation)
+  const [propertyLocation, setPropertyLocation] = useState<ProductCategory[]>(
+    Object.values(ProductCategory)
   );
   const token = getJwtToken();
   const user = useReactiveVar(userVar);
@@ -46,7 +46,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
   } = useQuery(GET_PRODUCT, {
     fetchPolicy: "network-only",
     variables: {
-      input: router.query.propertyId,
+      input: router.query.productId,
     },
   });
 
@@ -605,7 +605,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
             </Stack>
 
             <Stack className="buttons-row">
-              {router.query.propertyId ? (
+              {router.query.productId ? (
                 <Button
                   className="next-button"
                   disabled={doDisabledCheck()}

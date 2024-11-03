@@ -1,6 +1,6 @@
 import {
-  PropertyLocation,
-  PropertyStatus,
+  ProductCategory,
+  ProductStatus,
   PropertyType,
 } from "../../enums/property.enum";
 import { Member } from "../member/member";
@@ -15,10 +15,10 @@ export interface TotalCounter {
   total: number;
 }
 
-export interface Property {
+export interface Product {
   _id: string;
   productType: PropertyType;
-  productStatus: PropertyStatus;
+  productStatus: ProductStatus;
   productName: string;
   productPrice: number;
   productViews: number;
@@ -28,6 +28,8 @@ export interface Property {
   productBrand: string;
   productImages: string[];
   productDesc?: string;
+  productSoldCout: number;
+  productStock: number;
   productInstallment?: boolean;
   productRent: boolean;
   manufacturedIn?: number;
@@ -42,7 +44,7 @@ export interface Property {
   memberData?: Member;
 }
 
-export interface Properties {
-  list: Property[];
+export interface Products {
+  list: Product[];
   metaCounter: TotalCounter[];
 }

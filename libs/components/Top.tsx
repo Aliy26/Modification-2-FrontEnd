@@ -126,8 +126,8 @@ const Top = () => {
     });
   };
 
-  const handlePropertyPage = async (propertyId: string, id: string) => {
-    await router.push(`/property/detail?id=${propertyId}`);
+  const handlePropertyPage = async (productId: string, id: string) => {
+    await router.push(`/property/detail?id=${productId}`);
     await updateNotification({
       variables: {
         input: id,
@@ -416,13 +416,13 @@ const Top = () => {
                                         </span>
                                       </strong>{" "}
                                       liked your{" "}
-                                      {ele.propertyId ? (
+                                      {ele.productId ? (
                                         <>
                                           <i
                                             className="title-italic"
                                             onClick={() => {
                                               handlePropertyPage(
-                                                ele.propertyId as string,
+                                                ele.productId as string,
                                                 ele._id as string
                                               );
                                             }}
@@ -499,13 +499,13 @@ const Top = () => {
                                         {ele.authorData?.memberNick}{" "}
                                       </strong>
                                       commented on your{" "}
-                                      {ele.propertyId ? (
+                                      {ele.productId ? (
                                         <>
                                           <i
                                             className="comment-italic"
                                             onClick={() => {
                                               handlePropertyPage(
-                                                ele.propertyId as string,
+                                                ele.productId as string,
                                                 ele._id as string
                                               );
                                             }}

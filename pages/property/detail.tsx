@@ -66,7 +66,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
   const device = useDeviceDetect();
   const router = useRouter();
   const user = useReactiveVar(userVar);
-  const [propertyId, setPropertyId] = useState<string | null>(null);
+  const [productId, setproductId] = useState<string | null>(null);
   const [property, setProperty] = useState<Property | null>(null);
   const [slideImage, setSlideImage] = useState<string>("");
   const [destinationProperties, setDestinationProperties] = useState<
@@ -85,7 +85,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 
   /** APOLLO REQUESTS **/
 
-  const [likeTargetProperty] = useMutation(LIKE_TARGET_PRODUCT);
+  const [likeTargetProduct] = useMutation(LIKE_TARGET_PRODUCT);
   const [createComment] = useMutation(CREATE_COMMENT);
 
   const {
@@ -95,8 +95,8 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
     refetch: getPropertyRefetch,
   } = useQuery(GET_PRODUCT, {
     fetchPolicy: "network-only",
-    variables: { input: propertyId },
-    skip: !propertyId,
+    variables: { input: productId },
+    skip: !productId,
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
       if (data?.getProperty) setProperty(data.getProperty);
@@ -124,7 +124,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
         },
       },
     },
-    skip: !propertyId && !property,
+    skip: !productId && !property,
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
       if (data?.getProperties?.list)
@@ -151,7 +151,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
   /** LIFECYCLES **/
   useEffect(() => {
     if (router.query.id) {
-      setPropertyId(router.query.id as string);
+      setproductId(router.query.id as string);
       setCommentInquiry({
         ...commentInquiry,
         search: {
@@ -190,17 +190,17 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
     await router.push(`/agent/detail?agentId=${memberId}`);
   };
 
-  const likePropertyHandler = async (user: T, id: string) => {
+  const likeProductHandler = async (user: T, id: string) => {
     try {
       if (!id) return;
       if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
-      // execute likeTargetProperty
-      await likeTargetProperty({
+      // execute likeTargetProduct
+      await likeTargetProduct({
         variables: { input: id },
       });
 
       // execute getPropertiesRefetch
-      await getPropertyRefetch({ input: propertyId });
+      await getPropertyRefetch({ input: productId });
       await getPropertiesRefetch({
         input: {
           page: 1,
@@ -216,7 +216,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
       });
       await sweetTopSmallSuccessAlert("success", 800);
     } catch (err: any) {
-      console.log("Error, likePropertyHandler", err.message);
+      console.log("Error, likeProductHandler", err.message);
       sweetMixinErrorAlert(err.message);
     }
   };
@@ -367,7 +367,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                           color="primary"
                           fontSize={"medium"}
                           onClick={() => {
-                            likePropertyHandler(user, property?._id);
+                            likeProductHandler(user, property?._id);
                           }}
                         />
                       ) : (
@@ -375,7 +375,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                           fontSize={"medium"}
                           onClick={() => {
                             // @ts-ignore
-                            likePropertyHandler(user, property?._id);
+                            likeProductHandler(user, property?._id);
                           }}
                         />
                       )}
@@ -921,7 +921,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                         >
                           <PropertyBigCard
                             property={property}
-                            likePropertyHandler={likePropertyHandler}
+                            likeProductHandler={likeProductHandler}
                             key={property?._id}
                           />
                         </SwiperSlide>

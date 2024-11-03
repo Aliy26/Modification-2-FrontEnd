@@ -14,13 +14,13 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 interface PropertyCardType {
   property: Property;
-  likePropertyHandler?: any;
+  likeProductHandler?: any;
   myFavorites?: boolean;
   recentlyVisited?: boolean;
 }
 
 const PropertyCard = (props: PropertyCardType) => {
-  const { property, likePropertyHandler, myFavorites, recentlyVisited } = props;
+  const { property, likeProductHandler, myFavorites, recentlyVisited } = props;
   const device = useDeviceDetect();
   const user = useReactiveVar(userVar);
   const imagePath: string = property?.productImages[0]
@@ -98,7 +98,7 @@ const PropertyCard = (props: PropertyCardType) => {
                 </Typography>
                 <IconButton
                   color={"default"}
-                  onClick={() => likePropertyHandler(user, property?._id)}
+                  onClick={() => likeProductHandler(user, property?._id)}
                 >
                   {myFavorites ? (
                     <FavoriteIcon color="primary" />

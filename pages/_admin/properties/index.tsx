@@ -12,8 +12,8 @@ import { PropertyPanelList } from "../../../libs/components/admin/properties/Pro
 import { AllPropertiesInquiry } from "../../../libs/types/property/property.input";
 import { Property } from "../../../libs/types/property/property";
 import {
-  PropertyLocation,
-  PropertyStatus,
+  ProductCategory,
+  ProductStatus,
 } from "../../../libs/enums/property.enum";
 import {
   sweetConfirmAlert,
@@ -100,19 +100,19 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
       case "ACTIVE":
         setPropertiesInquiry({
           ...propertiesInquiry,
-          search: { propertyStatus: PropertyStatus.ACTIVE },
+          search: { propertyStatus: ProductStatus.ACTIVE },
         });
         break;
       case "SOLD":
         setPropertiesInquiry({
           ...propertiesInquiry,
-          search: { propertyStatus: PropertyStatus.SOLD },
+          search: { propertyStatus: ProductStatus.SOLD },
         });
         break;
       case "DELETE":
         setPropertiesInquiry({
           ...propertiesInquiry,
-          search: { propertyStatus: PropertyStatus.DELETE },
+          search: { propertyStatus: ProductStatus.DELETE },
         });
         break;
       default:
@@ -149,7 +149,7 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
           sort: "createdAt",
           search: {
             ...propertiesInquiry.search,
-            propertyLocationList: [newValue as PropertyLocation],
+            propertyLocationList: [newValue as ProductCategory],
           },
         });
       } else {
@@ -225,7 +225,7 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
                   >
                     ALL
                   </MenuItem>
-                  {Object.values(PropertyLocation).map((location: string) => (
+                  {Object.values(ProductCategory).map((location: string) => (
                     <MenuItem
                       value={location}
                       onClick={() => searchTypeHandler(location)}

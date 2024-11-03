@@ -13,18 +13,18 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 interface PropertyBigCardProps {
   property: Property;
-  likePropertyHandler: any;
+  likeProductHandler: any;
 }
 
 const PropertyBigCard = (props: PropertyBigCardProps) => {
-  const { property, likePropertyHandler } = props;
+  const { property, likeProductHandler } = props;
   const device = useDeviceDetect();
   const user = useReactiveVar(userVar);
   const router = useRouter();
 
   /** HANDLERS **/
-  const goPropertyDetatilPage = (propertyId: string) => {
-    router.push(`/property/detail?id=${propertyId}`);
+  const goPropertyDetatilPage = (productId: string) => {
+    router.push(`/property/detail?id=${productId}`);
   };
 
   if (device === "mobile") {
@@ -89,7 +89,7 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
                 color={"default"}
                 onClick={(e: any) => {
                   e.stopPropagation();
-                  likePropertyHandler(user, property?._id);
+                  likeProductHandler(user, property?._id);
                 }}
               >
                 {property?.meLiked && property?.meLiked[0]?.myFavorite ? (

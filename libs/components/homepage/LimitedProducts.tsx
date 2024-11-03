@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Stack, Box } from "@mui/material";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper";
-import TopPropertyCard from "./TopPropertyCard";
-import { PropertiesInquiry } from "../../types/property/property.input";
-import { Property } from "../../types/property/property";
+import TopPropertyCard from "./LimitedProductsCard";
+import { ProductsInquiry } from "../../types/property/property.input";
+import { Product } from "../../types/property/property";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_PRODUCTS } from "../../../apollo/user/query";
 import { T } from "../../types/common";
@@ -17,46 +17,48 @@ import {
   sweetMixinErrorAlert,
   sweetTopSmallSuccessAlert,
 } from "../../sweetAlert";
+import LimitedProductsCard from "./LimitedProductsCard";
 
-interface TopPropertiesProps {
-  initialInput: PropertiesInquiry;
+interface LimitedProductsProps {
+  initialInput: ProductsInquiry;
 }
 
-const TopProperties = (props: TopPropertiesProps) => {
+const LimitedProducts = (props: LimitedProductsProps) => {
   const { initialInput } = props;
   const device = useDeviceDetect();
-  const [topProperties, setTopProperties] = useState<Property[]>([]);
-  const [likeTargetProperty] = useMutation(LIKE_TARGET_PRODUCT);
+  const [limitedProducts, setLimitedProducts] = useState<Product[]>([]);
+  const [likeTargetProduct] = useMutation(LIKE_TARGET_PRODUCT);
 
   /** APOLLO REQUESTS **/
   const {
-    loading: getPropertiesLoading,
-    data: getPropertiesData,
-    error: getPropertiesError,
-    refetch: getPropertiesRefetch,
+    loading: getProductsLoading,
+    data: getProductsData,
+    error: getProductsError,
+    refetch: getProductsRefetch,
   } = useQuery(GET_PRODUCTS, {
     fetchPolicy: "cache-and-network",
     variables: { input: initialInput },
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
-      setTopProperties(data?.getProducts?.list);
+      setLimitedProducts(data?.getProducts?.list);
     },
   });
+
   /** HANDLERS **/
-  const likePropertyHandler = async (user: T, id: string) => {
+  const likeProductHandler = async (user: T, id: string) => {
     try {
       if (!id) return;
       if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
-      // execute likeTargetProperty
-      await likeTargetProperty({
+      // execute likeTargetProduct
+      await likeTargetProduct({
         variables: { input: id },
       });
 
       // execute getPropertiesRefetch
-      await getPropertiesRefetch({ input: initialInput });
+      await getProductsRefetch({ input: initialInput });
       await sweetTopSmallSuccessAlert("success", 800);
     } catch (err: any) {
-      console.log("Error, likePropertyHandler", err.message);
+      console.log("Error, likeProductHandler", err.message);
       sweetMixinErrorAlert(err.message);
     }
   };
@@ -66,7 +68,7 @@ const TopProperties = (props: TopPropertiesProps) => {
       <Stack className={"top-properties"}>
         <Stack className={"container"}>
           <Stack className={"info-box"}>
-            <span>Top properties</span>
+            <span>Limited Quantity Products</span>
           </Stack>
           <Stack className={"card-box"}>
             <Swiper
@@ -76,15 +78,15 @@ const TopProperties = (props: TopPropertiesProps) => {
               spaceBetween={15}
               modules={[Autoplay]}
             >
-              {topProperties.map((property: Property) => {
+              {limitedProducts.map((product: Product) => {
                 return (
                   <SwiperSlide
                     className={"top-property-slide"}
-                    key={property?._id}
+                    key={product?._id}
                   >
-                    <TopPropertyCard
-                      property={property}
-                      likePropertyHandler={likePropertyHandler}
+                    <LimitedProductsCard
+                      product={product}
+                      likeProductHandler={likeProductHandler}
                     />
                   </SwiperSlide>
                 );
@@ -100,8 +102,11 @@ const TopProperties = (props: TopPropertiesProps) => {
         <Stack className={"container"}>
           <Stack className={"info-box"}>
             <Box component={"div"} className={"left"}>
-              <span>Top properties</span>
-              <p>Check out our Top Properties</p>
+              <span>Limited Quantity Products</span>
+              <p>
+                Check out our Products that are high in demend before they run
+                out of stock!
+              </p>
             </Box>
             <Box component={"div"} className={"right"}>
               <div className={"pagination-box"}>
@@ -125,15 +130,15 @@ const TopProperties = (props: TopPropertiesProps) => {
                 el: ".swiper-top-pagination",
               }}
             >
-              {topProperties.map((property: Property) => {
+              {limitedProducts.map((product: Product) => {
                 return (
                   <SwiperSlide
                     className={"top-property-slide"}
-                    key={property?._id}
+                    key={product?._id}
                   >
                     <TopPropertyCard
-                      property={property}
-                      likePropertyHandler={likePropertyHandler}
+                      product={product}
+                      likeProductHandler={likeProductHandler}
                     />
                   </SwiperSlide>
                 );
@@ -146,7 +151,7 @@ const TopProperties = (props: TopPropertiesProps) => {
   }
 };
 
-TopProperties.defaultProps = {
+LimitedProducts.defaultProps = {
   initialInput: {
     page: 1,
     limit: 8,
@@ -156,4 +161,4 @@ TopProperties.defaultProps = {
   },
 };
 
-export default TopProperties;
+export default LimitedProducts;

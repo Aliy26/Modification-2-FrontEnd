@@ -18,7 +18,7 @@ import { Property } from "../../../types/property/property";
 import { REACT_APP_API_URL } from "../../../config";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
-import { PropertyStatus } from "../../../enums/property.enum";
+import { ProductStatus } from "../../../enums/property.enum";
 
 interface Data {
   id: string;
@@ -166,7 +166,7 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
                   >
                     <TableCell align="left">{property._id}</TableCell>
                     <TableCell align="left" className={"name"}>
-                      {property.propertyStatus === PropertyStatus.ACTIVE ? (
+                      {property.propertyStatus === ProductStatus.ACTIVE ? (
                         <Stack direction={"row"}>
                           <Link href={`/property/detail?id=${property?._id}`}>
                             <div>
@@ -209,7 +209,7 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
                       {property.propertyType}
                     </TableCell>
                     <TableCell align="center">
-                      {property.propertyStatus === PropertyStatus.DELETE && (
+                      {property.propertyStatus === ProductStatus.DELETE && (
                         <Button
                           variant="outlined"
                           sx={{
@@ -223,13 +223,13 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
                         </Button>
                       )}
 
-                      {property.propertyStatus === PropertyStatus.SOLD && (
+                      {property.propertyStatus === ProductStatus.SOLD && (
                         <Button className={"badge warning"}>
                           {property.propertyStatus}
                         </Button>
                       )}
 
-                      {property.propertyStatus === PropertyStatus.ACTIVE && (
+                      {property.propertyStatus === ProductStatus.ACTIVE && (
                         <>
                           <Button
                             onClick={(e: any) => menuIconClickHandler(e, index)}
@@ -249,7 +249,7 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
                             TransitionComponent={Fade}
                             sx={{ p: 1 }}
                           >
-                            {Object.values(PropertyStatus)
+                            {Object.values(ProductStatus)
                               .filter((ele) => ele !== property.propertyStatus)
                               .map((status: string) => (
                                 <MenuItem

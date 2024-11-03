@@ -8,7 +8,7 @@ import { Property } from "../../types/property/property";
 import { formatterStr } from "../../utils";
 import Moment from "react-moment";
 import { useRouter } from "next/router";
-import { PropertyStatus } from "../../enums/property.enum";
+import { ProductStatus } from "../../enums/property.enum";
 
 interface PropertyCardProps {
   property: Property;
@@ -30,7 +30,7 @@ export const PropertyCard = (props: PropertyCardProps) => {
     console.log("+pushEditProperty: ", id);
     await router.push({
       pathname: "/mypage",
-      query: { category: "addProperty", propertyId: id },
+      query: { category: "addProperty", productId: id },
     });
   };
 
@@ -118,7 +118,7 @@ export const PropertyCard = (props: PropertyCardProps) => {
                   disableRipple
                   onClick={() => {
                     handleClose();
-                    updatePropertyHandler(PropertyStatus.SOLD, property?._id);
+                    updatePropertyHandler(ProductStatus.SOLD, property?._id);
                   }}
                 >
                   Sold
@@ -133,7 +133,7 @@ export const PropertyCard = (props: PropertyCardProps) => {
             {property.productViews.toLocaleString()}
           </Typography>
         </Stack>
-        {!memberPage && property.productStatus === PropertyStatus.ACTIVE && (
+        {!memberPage && property.productStatus === ProductStatus.ACTIVE && (
           <Stack className="action-box">
             <IconButton
               className="icon-button"

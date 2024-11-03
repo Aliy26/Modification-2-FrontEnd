@@ -7,7 +7,7 @@ import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import { Property } from "../../types/property/property";
 import { AgentPropertiesInquiry } from "../../types/property/property.input";
 import { T } from "../../types/common";
-import { PropertyStatus } from "../../enums/property.enum";
+import { ProductStatus } from "../../enums/property.enum";
 import { userVar } from "../../../apollo/store";
 import { useRouter } from "next/router";
 import { UPDATE_PRODUCT } from "../../../apollo/user/mutation";
@@ -50,7 +50,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
     setSearchFilter({ ...searchFilter, page: value });
   };
 
-  const changeStatusHandler = (value: PropertyStatus) => {
+  const changeStatusHandler = (value: ProductStatus) => {
     setSearchFilter({ ...searchFilter, search: { propertyStatus: value } });
   };
 
@@ -111,7 +111,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
         <Stack className="property-list-box">
           <Stack className="tab-name-box">
             <Typography
-              onClick={() => changeStatusHandler(PropertyStatus.ACTIVE)}
+              onClick={() => changeStatusHandler(ProductStatus.ACTIVE)}
               className={
                 searchFilter.search.propertyStatus === "ACTIVE"
                   ? "active-tab-name"
@@ -121,7 +121,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
               On Sale
             </Typography>
             <Typography
-              onClick={() => changeStatusHandler(PropertyStatus.SOLD)}
+              onClick={() => changeStatusHandler(ProductStatus.SOLD)}
               className={
                 searchFilter.search.propertyStatus === "SOLD"
                   ? "active-tab-name"

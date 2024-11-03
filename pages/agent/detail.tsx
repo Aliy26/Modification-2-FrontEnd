@@ -69,7 +69,7 @@ const AgentDetail: NextPage = ({
 
   /** APOLLO REQUESTS **/
   const [createComment] = useMutation(CREATE_COMMENT);
-  const [likeTargetProperty] = useMutation(LIKE_TARGET_PRODUCT);
+  const [likeTargetProduct] = useMutation(LIKE_TARGET_PRODUCT);
 
   const {
     loading: getMemberLoading,
@@ -190,12 +190,12 @@ const AgentDetail: NextPage = ({
     }
   };
 
-  const likePropertyHandler = async (user: any, id: string) => {
+  const likeProductHandler = async (user: any, id: string) => {
     try {
       if (!id) return;
       if (!user._id) throw new Error(Messages.error2);
 
-      await likeTargetProperty({
+      await likeTargetProduct({
         variables: {
           input: id,
         },
@@ -203,7 +203,7 @@ const AgentDetail: NextPage = ({
         await getProductsRefetch({ input: searchFilter });
       await sweetTopSmallSuccessAlert("success", 800);
     } catch (err: any) {
-      console.log("Error likePropertyHandler", err.message);
+      console.log("Error likeProductHandler", err.message);
       sweetMixinErrorAlert(err.message).then();
     }
   };
@@ -242,7 +242,7 @@ const AgentDetail: NextPage = ({
                   <div className={"wrap-main"} key={property?._id}>
                     <PropertyBigCard
                       property={property}
-                      likePropertyHandler={likePropertyHandler}
+                      likeProductHandler={likeProductHandler}
                       key={property?._id}
                     />
                   </div>

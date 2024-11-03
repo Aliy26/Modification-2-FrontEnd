@@ -50,7 +50,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
   const [filterSortName, setFilterSortName] = useState("New");
 
   /** APOLLO REQUESTS **/
-  const [likeTargetProperty] = useMutation(LIKE_TARGET_PRODUCT);
+  const [likeTargetProduct] = useMutation(LIKE_TARGET_PRODUCT);
 
   const {
     loading: getPropertiesLoading,
@@ -98,12 +98,12 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
     setCurrentPage(value);
   };
 
-  const likePropertyHandler = async (user: T, id: string) => {
+  const likeProductHandler = async (user: T, id: string) => {
     try {
       if (!id) return;
       if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
-      // execute likeTargetProperty
-      await likeTargetProperty({
+      // execute likeTargetProduct
+      await likeTargetProduct({
         variables: { input: id },
       });
 
@@ -111,7 +111,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
       await getPropertiesRefetch({ input: initialInput });
       await sweetTopSmallSuccessAlert("success", 800);
     } catch (err: any) {
-      console.log("Error, likePropertyHandler", err.message);
+      console.log("Error, likeProductHandler", err.message);
       sweetMixinErrorAlert(err.message);
     }
   };
@@ -225,7 +225,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
                     return (
                       <PropertyCard
                         property={property}
-                        likePropertyHandler={likePropertyHandler}
+                        likeProductHandler={likeProductHandler}
                         key={property?._id}
                       />
                     );

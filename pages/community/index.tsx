@@ -107,7 +107,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
         await boardArticleRefetch({ input: searchCommunity });
       await sweetTopSmallSuccessAlert("success", 800);
     } catch (err: any) {
-      console.log("ERROR, likePropertyHandler", err.massage);
+      console.log("ERROR, likeProductHandler", err.massage);
       sweetMixinErrorAlert(err.message).then();
     }
   };

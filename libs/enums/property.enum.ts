@@ -1,23 +1,28 @@
 export enum PropertyType {
-	APARTMENT = 'APARTMENT',
-	VILLA = 'VILLA',
-	HOUSE = 'HOUSE',
+  FURNITURE = "FURNITURE",
+  APPLIANCES = "APPLIANCES",
 }
 
-export enum PropertyStatus {
-	ACTIVE = 'ACTIVE',
-	SOLD = 'SOLD',
-	DELETE = 'DELETE',
+export enum ProductStatus {
+  ACTIVE = "ACTIVE",
+  SOLD = "SOLD",
+  DELETE = "DELETE",
 }
 
-export enum PropertyLocation {
-	SEOUL = 'SEOUL',
-	BUSAN = 'BUSAN',
-	INCHEON = 'INCHEON',
-	DAEGU = 'DAEGU',
-	GYEONGJU = 'GYEONGJU',
-	GWANGJU = 'GWANGJU',
-	CHONJU = 'CHONJU',
-	DAEJON = 'DAEJON',
-	JEJU = 'JEJU',
+export enum ProductBrand {
+  SAMSUNG = "SAMSUNG",
+  LG = "LG",
+  CUCKOO = "CUCKOO",
+}
+
+export enum ProductCategory {
+  LivingRoom = "Living Room",
+  Bedroom = "Bedroom",
+  Kitchen = "Kitchen",
+  Kids = "Baby & Kids",
+  Appliances = "Appliances",
+  Pet = "Pet",
+  Outdoors = "Outdoors",
+  Lightning = "Lightning",
+  Decor = "Decor & Pillows",
 }

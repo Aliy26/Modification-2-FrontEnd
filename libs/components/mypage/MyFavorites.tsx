@@ -21,7 +21,7 @@ const MyFavorites: NextPage = () => {
   });
 
   /** APOLLO REQUESTS **/
-  const [likeTargetProperty] = useMutation(LIKE_TARGET_PRODUCT);
+  const [likeTargetProduct] = useMutation(LIKE_TARGET_PRODUCT);
 
   const {
     loading: getFavoritesLoading,
@@ -45,12 +45,12 @@ const MyFavorites: NextPage = () => {
     setSearchFavorites({ ...searchFavorites, page: value });
   };
 
-  const likePropertyHandler = async (user: any, id: string) => {
+  const likeProductHandler = async (user: any, id: string) => {
     try {
       if (!id) return;
       if (!user._id) throw new Error(Messages.error2);
 
-      await likeTargetProperty({
+      await likeTargetProduct({
         variables: {
           input: id,
         },
@@ -59,7 +59,7 @@ const MyFavorites: NextPage = () => {
         input: searchFavorites,
       });
     } catch (err: any) {
-      console.log("ERROR, likePropertyHandler", err.message);
+      console.log("ERROR, likeProductHandler", err.message);
       sweetMixinErrorAlert(err.message).then();
     }
   };
@@ -84,7 +84,7 @@ const MyFavorites: NextPage = () => {
                 <PropertyCard
                   property={property}
                   myFavorites={true}
-                  likePropertyHandler={likePropertyHandler}
+                  likeProductHandler={likeProductHandler}
                   key={property?._id}
                 />
               );
