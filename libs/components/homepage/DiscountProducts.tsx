@@ -13,11 +13,11 @@ import { GET_PRODUCTS } from "../../../apollo/user/query";
 import { useQuery } from "@apollo/client";
 import { T } from "../../types/common";
 
-interface PopularProductsProps {
+interface DiscountedProductsProp {
   initialInput: ProductsInquiry;
 }
 
-const PopularProducts = (props: PopularProductsProps) => {
+const DiscountedProducts = (props: DiscountedProductsProp) => {
   const { initialInput } = props;
   const device = useDeviceDetect();
   const [popularProducts, setPopularProducts] = useState<Product[]>([]);
@@ -124,7 +124,7 @@ const PopularProducts = (props: PopularProductsProps) => {
   }
 };
 
-PopularProducts.defaultProps = {
+DiscountedProducts.defaultProps = {
   initialInput: {
     page: 1,
     limit: 7,
@@ -134,4 +134,4 @@ PopularProducts.defaultProps = {
   },
 };
 
-export default PopularProducts;
+export default DiscountedProducts;

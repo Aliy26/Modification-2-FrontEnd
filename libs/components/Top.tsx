@@ -22,7 +22,6 @@ import { T } from "../types/common";
 import { Notification } from "../types/notification/notification";
 import {
   NotificationStatus,
-  NotificationTitle,
   NotificationType,
 } from "../enums/notification.enum";
 import { RippleBadge } from "../../scss/MaterialTheme/styled";
@@ -77,7 +76,7 @@ const Top = () => {
 
   useEffect(() => {
     switch (router.pathname) {
-      case "/property/detail":
+      case "/product/detail":
         setBgColor(true);
         break;
       default:
@@ -127,7 +126,7 @@ const Top = () => {
   };
 
   const handlePropertyPage = async (productId: string, id: string) => {
-    await router.push(`/property/detail?id=${productId}`);
+    await router.push(`/product/detail?id=${productId}`);
     await updateNotification({
       variables: {
         input: id,
@@ -219,8 +218,8 @@ const Top = () => {
         <Link href={"/"}>
           <div>{t("Home")}</div>
         </Link>
-        <Link href={"/property"}>
-          <div>{t("Properties")}</div>
+        <Link href={"/product"}>
+          <div>{t("Products")}</div>
         </Link>
         <Link href={"/agent"}>
           <div> {t("Agents")} </div>
@@ -244,15 +243,18 @@ const Top = () => {
           <Stack className={"container"}>
             <Box component={"div"} className={"logo-box"}>
               <Link href={"/"}>
-                <img src="/img/logo/logo3.svg" alt="" />
+                <div className="company-name">
+                  <img src="/img/logo/logo3.svg" alt="" />
+                  <h2>Apt Decor`</h2>
+                </div>
               </Link>
             </Box>
             <Box component={"div"} className={"router-box"}>
               <Link href={"/"}>
                 <div>{t("Home")}</div>
               </Link>
-              <Link href={"/property"}>
-                <div>{t("Properties")}</div>
+              <Link href={"/product"}>
+                <div>{t("Products")}</div>
               </Link>
               <Link href={"/agent"}>
                 <div> {t("Agents")} </div>

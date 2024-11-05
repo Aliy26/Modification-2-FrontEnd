@@ -19,7 +19,7 @@ import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import { useRouter } from "next/router";
-import { Property } from "../../libs/types/property/property";
+import { Product } from "../../libs/types/property/property";
 import moment from "moment";
 import { formatterStr } from "../../libs/utils";
 import { REACT_APP_API_URL } from "../../libs/config";
@@ -67,11 +67,11 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
   const router = useRouter();
   const user = useReactiveVar(userVar);
   const [productId, setproductId] = useState<string | null>(null);
-  const [property, setProperty] = useState<Property | null>(null);
+  const [property, setProperty] = useState<Product | null>(null);
   const [slideImage, setSlideImage] = useState<string>("");
-  const [destinationProperties, setDestinationProperties] = useState<
-    Property[]
-  >([]);
+  const [destinationProperties, setDestinationProperties] = useState<Product[]>(
+    []
+  );
   const [commentInquiry, setCommentInquiry] =
     useState<CommentsInquiry>(initialComment);
   const [propertyComments, setPropertyComments] = useState<Comment[]>([]);
@@ -913,7 +913,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                       el: ".swiper-similar-pagination",
                     }}
                   >
-                    {destinationProperties.map((property: Property) => {
+                    {destinationProperties.map((property: Product) => {
                       return (
                         <SwiperSlide
                           className={"similar-homes-slide"}

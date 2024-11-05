@@ -168,7 +168,7 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
                     <TableCell align="left" className={"name"}>
                       {property.propertyStatus === ProductStatus.ACTIVE ? (
                         <Stack direction={"row"}>
-                          <Link href={`/property/detail?id=${property?._id}`}>
+                          <Link href={`/product/detail?id=${property?._id}`}>
                             <div>
                               <Avatar
                                 alt="Remy Sharp"
@@ -177,7 +177,7 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
                               />
                             </div>
                           </Link>
-                          <Link href={`/property/detail?id=${property?._id}`}>
+                          <Link href={`/product/detail?id=${property?._id}`}>
                             <div>{property.propertyTitle}</div>
                           </Link>
                         </Stack>

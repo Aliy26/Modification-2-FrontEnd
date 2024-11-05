@@ -26,7 +26,7 @@ const TrendProductCard = (props: TrendPropertyCardProps) => {
   const pushDetailHandler = async (productId: string) => {
     console.log("ID:", productId);
     await router.push({
-      pathname: "/property/detail",
+      pathname: "/product/detail",
       query: { id: productId },
     });
   };

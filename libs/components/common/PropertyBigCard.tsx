@@ -24,7 +24,7 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 
   /** HANDLERS **/
   const goPropertyDetatilPage = (productId: string) => {
-    router.push(`/property/detail?id=${productId}`);
+    router.push(`/product/detail?id=${productId}`);
   };
 
   if (device === "mobile") {

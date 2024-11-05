@@ -13,11 +13,14 @@ import Chat from "../Chat";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const withLayoutMain = (Component: any) => {
   return (props: any) => {
     const device = useDeviceDetect();
     const user = useReactiveVar(userVar);
+    const router = useRouter();
 
     /** LIFECYCLES **/
     useEffect(() => {
@@ -26,6 +29,10 @@ const withLayoutMain = (Component: any) => {
     }, []);
 
     /** HANDLERS **/
+
+    const handleProductPage = () => {
+      router.push("/product");
+    };
 
     if (device == "mobile") {
       return (
@@ -62,10 +69,16 @@ const withLayoutMain = (Component: any) => {
             </Stack>
 
             <Stack className={"header-main"}>
-              <FiberContainer />
-              <Stack className={"container"}>
-                <HeaderFilter />
-              </Stack>
+              {/* <FiberContainer />  */}
+
+              <div className="promo" onClick={handleProductPage}>
+                <p>
+                  Elevate Your Space! Shop Stylish Furniture & Essential
+                  Appliances Now!
+                </p>
+              </div>
+
+              <Stack className={"container"}>{/* <HeaderFilter /> */}</Stack>
             </Stack>
 
             <Stack id={"main"}>

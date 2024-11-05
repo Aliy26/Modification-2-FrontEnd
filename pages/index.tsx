@@ -2,14 +2,14 @@ import { NextPage } from "next";
 import useDeviceDetect from "../libs/hooks/useDeviceDetect";
 import withLayoutMain from "../libs/components/layout/LayoutHome";
 import CommunityBoards from "../libs/components/homepage/CommunityBoards";
-import PopularProperties from "../libs/components/homepage/PopularProducts";
 import TopAgents from "../libs/components/homepage/TopAgents";
 import Events from "../libs/components/homepage/Events";
-import TrendProperties from "../libs/components/homepage/TrendProducts";
-import TopProperties from "../libs/components/homepage/LimitedProducts";
+import BestSeller from "../libs/components/homepage/BestSeller";
+import LimitedProducts from "../libs/components/homepage/LimitedProducts";
 import { Stack } from "@mui/material";
 import Advertisement from "../libs/components/homepage/Advertisement";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import DiscountedProducts from "../libs/components/homepage/DiscountProducts";
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
@@ -23,20 +23,20 @@ const Home: NextPage = () => {
   if (device === "mobile") {
     return (
       <Stack className={"home-page"}>
-        <TrendProperties />
-        <PopularProperties />
+        <BestSeller />
         <Advertisement />
-        <TopProperties />
+        <DiscountedProducts />
+        <LimitedProducts />
         <TopAgents />
       </Stack>
     );
   } else {
     return (
       <Stack className={"home-page"}>
-        <TrendProperties />
-        <PopularProperties />
+        <BestSeller />
         <Advertisement />
-        <TopProperties />
+        <DiscountedProducts />
+        <LimitedProducts />
         <TopAgents />
         <Events />
         <CommunityBoards />
