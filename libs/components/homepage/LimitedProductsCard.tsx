@@ -56,20 +56,7 @@ const LimitedProductsCard = (props: LimitedProductsCardProps) => {
             {product?.productName}
           </strong>
           <p className={"desc"}>{product?.productBrand}</p>
-          <div className={"options"}>
-            <div>
-              <img src="/img/icons/bed.svg" alt="" />
-              <span>{product?.productBrand} bed</span>
-            </div>
-            <div>
-              <img src="/img/icons/room.svg" alt="" />
-              {/* <span>{property?.propertyRooms} rooms</span> */}
-            </div>
-            <div>
-              <img src="/img/icons/expand.svg" alt="" />
-              {/* <span>{property?.propertySquare} m2</span> */}
-            </div>
-          </div>
+
           <Divider sx={{ mt: "15px", mb: "17px" }} />
           <div className={"bott"}>
             <p>
@@ -130,28 +117,11 @@ const LimitedProductsCard = (props: LimitedProductsCardProps) => {
             {product?.productName}
           </strong>
           <p className={"desc"}>{product?.productBrand}</p>
-          <div className={"options"}>
-            <div>
-              <img src="/img/icons/bed.svg" alt="" />
-              {/* <span>{property?.propertyBeds} bed</span> */}
-            </div>
-            <div>
-              <img src="/img/icons/room.svg" alt="" />
-              {/* <span>{property?.propertyRooms} rooms</span> */}
-            </div>
-            <div>
-              <img src="/img/icons/expand.svg" alt="" />
-              {/* <span>{property?.propertySquare} m2</span> */}
-            </div>
-          </div>
+          <p className={"desc"}>Only {product.productRank} left in the stock</p>
+
           <Divider sx={{ mt: "15px", mb: "17px" }} />
           <div className={"bott"}>
-            <p>
-              {" "}
-              {product.productRent ? "Rent" : ""}{" "}
-              {product.productRent && product.productInstallment && "/"}{" "}
-              {product.productInstallment ? "Barter" : ""}
-            </p>
+            <p>Made in {"Korea"}</p>
             <div className="view-like-box">
               <IconButton color={"default"}>
                 <RemoveRedEyeIcon />

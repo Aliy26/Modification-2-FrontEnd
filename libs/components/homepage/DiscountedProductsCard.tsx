@@ -62,19 +62,16 @@ const PopularProductCard = (props: PopularProductCardProps) => {
           >
             {product.productName}
           </strong>
-          {/* <p className={"desc"}>{property.propertyAddress}</p> */}
+
           <div className={"options"}>
             <div>
               <img src="/img/icons/bed.svg" alt="" />
-              {/* <span>{property?.propertyBeds} bed</span> */}
             </div>
             <div>
               <img src="/img/icons/room.svg" alt="" />
-              {/* <span>{property?.propertyRooms} rooms</span> */}
             </div>
             <div>
               <img src="/img/icons/expand.svg" alt="" />
-              {/* <span>{property?.propertySquare} m2</span> */}
             </div>
           </div>
           <Divider sx={{ mt: "15px", mb: "17px" }} />
@@ -114,7 +111,7 @@ const PopularProductCard = (props: PopularProductCardProps) => {
             ""
           )}
 
-          <div className={"price"}>${product.productRank}</div>
+          <div className={"price"}>${product.productPrice}</div>
         </Box>
         <Box component={"div"} className={"info"}>
           <strong
@@ -125,31 +122,17 @@ const PopularProductCard = (props: PopularProductCardProps) => {
           >
             {product.productName}
           </strong>
-          {/* <p className={"desc"}>{property.propertyAddress}</p> */}
-          <div className={"options"}>
-            <div>
-              <img src="/img/icons/bed.svg" alt="" />
-              {/* <span>{property?.propertyBeds} bed</span> */}
-            </div>
-            <div>
-              <img src="/img/icons/room.svg" alt="" />
-              {/* <span>{property?.propertyRooms} rooms</span> */}
-            </div>
-            <div>
-              <img src="/img/icons/expand.svg" alt="" />
-              {/* <span>{property?.propertySquare} m2</span> */}
-            </div>
-          </div>
+
           <Divider sx={{ mt: "15px", mb: "17px" }} />
           <div className={"bott"}>
-            <p>{product?.productRent ? "rent" : "sale"}</p>
+            <p>
+              Discounted price: <span>${product.productPrice}</span>
+            </p>
             <div className="view-like-box">
-              <IconButton color={"default"}>
-                <RemoveRedEyeIcon />
-              </IconButton>
               <Typography className="view-cnt">
                 {product?.productViews}
               </Typography>
+              <RemoveRedEyeIcon />
             </div>
           </div>
         </Box>

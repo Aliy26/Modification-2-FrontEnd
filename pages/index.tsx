@@ -9,7 +9,7 @@ import LimitedProducts from "../libs/components/homepage/LimitedProducts";
 import { Stack } from "@mui/material";
 import Advertisement from "../libs/components/homepage/Advertisement";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import DiscountedProducts from "../libs/components/homepage/DiscountProducts";
+import DiscountedProducts from "../libs/components/homepage/DiscountedProducts";
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {

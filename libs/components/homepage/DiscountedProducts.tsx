@@ -45,7 +45,7 @@ const DiscountedProducts = (props: DiscountedProductsProp) => {
       <Stack className={"popular-properties"}>
         <Stack className={"container"}>
           <Stack className={"info-box"}>
-            <span>Most Viewed Products</span>
+            <span>Top Picks on Sale</span>
           </Stack>
           <Stack className={"card-box"}>
             <Swiper
@@ -76,7 +76,7 @@ const DiscountedProducts = (props: DiscountedProductsProp) => {
         <Stack className={"container"}>
           <Stack className={"info-box"}>
             <Box component={"div"} className={"left"}>
-              <span>Most Viewed Products</span>
+              <span>Top Picks on Sale</span>
             </Box>
             <Box component={"div"} className={"right"}>
               <div className={"more-box"}>

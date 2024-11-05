@@ -26,7 +26,7 @@ const TrendProductCard = (props: TrendPropertyCardProps) => {
   const pushDetailHandler = async (productId: string) => {
     console.log("ID:", productId);
     await router.push({
-      pathname: "/product/detail",
+      pathname: "/property/detail",
       query: { id: productId },
     });
   };
@@ -128,27 +128,11 @@ const TrendProductCard = (props: TrendPropertyCardProps) => {
           >
             {product.productName}
           </strong>
-
-          <div className={"options"}>
-            <div>
-              <img src="/img/icons/bed.svg" alt="" />
-              {/* <span>{product.productBeds} bed</span> */}
-            </div>
-            <div>
-              <img src="/img/icons/room.svg" alt="" />
-              {/* <span>{product.productRooms} rooms</span> */}
-            </div>
-            <div>
-              <img src="/img/icons/expand.svg" alt="" />
-              {/* <span>{product.productSquare} m2</span> */}
-            </div>
-          </div>
-          <Divider sx={{ mt: "15px", mb: "17px" }} />
           <div className={"bott"}>
             <p>
               {product.productRent ? "Rent" : ""}{" "}
               {product.productRent && product.productInstallment && "/"}{" "}
-              {product.productInstallment ? "Barter" : ""}
+              {product.productInstallment ? "Installment Available" : ""}
             </p>
             <div className="view-like-box">
               <IconButton color={"default"}>
