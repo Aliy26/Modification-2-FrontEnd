@@ -325,8 +325,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
       }
 
       await router.push(
-        `/property?input=${JSON.stringify(searchFilter)}`,
-        `/property?input=${JSON.stringify(searchFilter)}`
+        `/product?input=${JSON.stringify(searchFilter)}`,
+        `/product?input=${JSON.stringify(searchFilter)}`
       );
     } catch (err: any) {
       console.log("ERROR, pushSearchHandler:", err);
@@ -381,7 +381,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
               className={"advanced-filter"}
               onClick={() => advancedFilterHandler(true)}
             >
-              <img src="/img/icons/tune.svg" alt="" />
+              <img src="/img/icons/switch.svg" alt="" />
               <span>{t("Advanced")}</span>
             </Box>
             <Box className={"search-btn"} onClick={pushSearchHandler}>

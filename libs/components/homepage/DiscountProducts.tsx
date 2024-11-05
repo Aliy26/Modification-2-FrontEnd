@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
-import PopularProductCard from "./PopularProductsCard";
+import PopularProductCard from "./DiscountedProductsCard";
 import { Product } from "../../types/property/property";
 import Link from "next/link";
 import { ProductsInquiry } from "../../types/property/property.input";

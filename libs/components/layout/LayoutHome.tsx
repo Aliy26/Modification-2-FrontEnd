@@ -80,7 +80,9 @@ const withLayoutMain = (Component: any) => {
 
               <Stack className={"container"}>{/* <HeaderFilter /> */}</Stack>
             </Stack>
-
+            <div className="filter-container">
+              <HeaderFilter />
+            </div>
             <Stack id={"main"}>
               <Component {...props} />
             </Stack>

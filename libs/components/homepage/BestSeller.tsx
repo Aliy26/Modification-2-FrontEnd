@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper";
 import { Product } from "../../types/property/property";
 import { ProductsInquiry } from "../../types/property/property.input";
-import TrendProductCard from "./BestSellerCard";
+import TrendProductCard from "./TrendProductsCard";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_PRODUCTS } from "../../../apollo/user/query";
 import { T } from "../../types/common";
