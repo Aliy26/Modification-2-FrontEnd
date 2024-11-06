@@ -217,7 +217,7 @@
               background: #ffffff;
               box-shadow: 0px 1px 4px rgba(24, 26, 32, 0.07);
               transition: background 0.3s;
-              border: 3px solid greenyellow;
+              border: 4px solid rgb(236, 174, 17);
 
               .title {
                 color: #181a20;
@@ -263,12 +263,13 @@
                   font-size: 14px;
                   font-weight: bold;
                   transition: background-color 0.3s;
-                  color: rgb(124, 188, 28);
+                  color: gray;
                 }
 
                 .view-like-box {
                   display: flex;
                   align-items: center;
+                  color: #000;
 
                   gap: 2px;
 

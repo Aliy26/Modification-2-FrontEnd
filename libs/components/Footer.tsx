@@ -82,7 +82,7 @@ const Footer = () => {
               <p>+82 10 4867 2909</p>
             </Box>
             <Box component={"div"} className={"footer-box"}>
-              <span>nee live</span>
+              <span>new live</span>
               <p>+82 10 4867 2909</p>
               <span>Support?</span>
             </Box>
@@ -129,6 +129,9 @@ const Footer = () => {
             </Box>
           </Stack>
         </Stack>
+        <div className="brand-name">
+          <h1>AptDecor`</h1>
+        </div>
         <Stack className={"second"}>
           <span>
             © Aliy of MIT 13 - All rights reserved. AptDecor` {moment().year()}
