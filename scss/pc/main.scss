@@ -242,27 +242,32 @@ body::-webkit-scrollbar {
     flex-direction: row;
     justify-content: center;
     background: black;
+    background-position: center -210px;
+    background-size: cover;
+    background-repeat: no-repeat;
     &.auth {
       height: 300px;
     }
     .container {
-      margin-top: 175px;
+      margin-top: 125px;
       strong {
-        color: #fff;
+        margin-left: 50px;
+        color: rgb(45, 79, 30, 2);
         font-family: $font;
         font-size: 48px;
         font-style: normal;
-        font-weight: 600;
+        font-weight: 700;
         line-height: normal;
         letter-spacing: 0.96px;
         text-transform: capitalize;
       }
       span {
-        color: #fff;
+        margin-left: 170px;
+        color: #2d4f1e;
         font-family: $font;
         font-size: 24px;
         font-style: normal;
-        font-weight: 400;
+        font-weight: 600;
         line-height: 26px;
       }
     }
@@ -498,6 +503,19 @@ body::-webkit-scrollbar {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          .footer-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            p {
+              font-size: 25px;
+              color: rgb(196, 56, 0);
+              font-weight: 500;
+            }
+            img {
+              width: 50px;
+            }
+          }
           .footer-box {
             display: flex;
             flex-direction: column;
@@ -612,6 +630,7 @@ body::-webkit-scrollbar {
                 font-style: normal;
                 font-weight: 400;
                 cursor: pointer;
+                transition: color 0.5s ease, text-decoration-line 0.5s ease;
                 &:hover {
                   color: #ffffff;
                   text-decoration-line: underline;

@@ -1,4 +1,5 @@
 import {
+  ProductBrand,
   ProductCategory,
   ProductStatus,
   PropertyType,
@@ -19,24 +20,24 @@ export interface Product {
   _id: string;
   productType: PropertyType;
   productStatus: ProductStatus;
+  productCategory: ProductCategory;
   productName: string;
   productPrice: number;
+  productBrand: ProductBrand;
   productViews: number;
   productLikes: number;
   productComments: number;
+  productStock: number;
+  productSoldCout: number;
   productRank: number;
-  productBrand: string;
   productImages: string[];
   productDesc?: string;
-  productSoldCout: number;
-  productStock: number;
   productInstallment?: boolean;
   productRent: boolean;
   manufacturedIn?: number;
   memberId: string;
   soldAt?: Date;
   deletedAt?: Date;
-  constructedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
   /** from aggregation **/

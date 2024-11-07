@@ -18,6 +18,8 @@ const CommunityBoards = () => {
   });
   const [newsArticles, setNewsArticles] = useState<BoardArticle[]>([]);
   const [freeArticles, setFreeArticles] = useState<BoardArticle[]>([]);
+  const [humorArticles, setHumorArticles] = useState<BoardArticle[]>([]);
+  const [recommendArticle, setRecommendArticle] = useState<BoardArticle[]>([]);
 
   /** APOLLO REQUESTS **/
   const {
@@ -60,6 +62,46 @@ const CommunityBoards = () => {
     },
   });
 
+  const {
+    loading: getHumorArticlesLoading,
+    data: getHumorArticlesData,
+    error: getHumorArticlesError,
+    refetch: getHumorArticlesRefetch,
+  } = useQuery(GET_BOARD_ARTICLES, {
+    fetchPolicy: "cache-and-network",
+    variables: {
+      input: {
+        ...searchCommunity,
+        limit: 6,
+        search: { articleCategory: BoardArticleCategory.HUMOR },
+      },
+    },
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data: T) => {
+      setHumorArticles(data?.getBoardArticles?.list);
+    },
+  });
+
+  const {
+    loading: getRecommendationArticlesLoading,
+    data: getRecommendationArticlesData,
+    error: getRecommendationArticlesError,
+    refetch: getRecommendationArticlesRefetch,
+  } = useQuery(GET_BOARD_ARTICLES, {
+    fetchPolicy: "cache-and-network",
+    variables: {
+      input: {
+        ...searchCommunity,
+        limit: 6,
+        search: { articleCategory: BoardArticleCategory.RECOMMEND },
+      },
+    },
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data: T) => {
+      setRecommendArticle(data?.getBoardArticles?.list);
+    },
+  });
+
   if (device === "mobile") {
     return <div>COMMUNITY BOARDS (MOBILE)</div>;
   } else {
@@ -70,32 +112,84 @@ const CommunityBoards = () => {
             <Typography variant={"h1"}>COMMUNITY BOARD HIGHLIGHTS</Typography>
           </Stack>
           <Stack className="community-main">
-            <Stack className={"community-left"}>
-              <Stack className={"content-top"}>
-                <Link href={"/community?articleCategory=NEWS"}>
-                  <span>News</span>
-                </Link>
-                <img src="/img/icons/arrowBig.svg" alt="" />
+            {recommendArticle.length ? (
+              <Stack className={"community-news"}>
+                <Stack className={"content-top"}>
+                  <Link href={"/community?articleCategory=NEWS"}>
+                    <span>NEWS</span>
+                  </Link>
+                  <img src="/img/icons/article.svg" alt="" />
+                </Stack>
+                <Stack className={"card-wrap"}>
+                  {newsArticles.map((article, index) => {
+                    return (
+                      <CommunityCard
+                        vertical={true}
+                        article={article}
+                        index={index}
+                        key={article?._id}
+                      />
+                    );
+                  })}
+                </Stack>
               </Stack>
-              <Stack className={"card-wrap"}>
-                {newsArticles.map((article, index) => {
-                  return (
-                    <CommunityCard
-                      vertical={true}
-                      article={article}
-                      index={index}
-                      key={article?._id}
-                    />
-                  );
-                })}
+            ) : (
+              ""
+            )}
+            {recommendArticle.length ? (
+              <Stack className={"community-humor"}>
+                <Stack className={"content-top"}>
+                  <Link href={"/community?articleCategory=HUMOR"}>
+                    <span>Humor</span>
+                  </Link>
+                  <img src="/img/icons/article.svg" alt="" />
+                </Stack>
+                <Stack className={"card-wrap"}>
+                  {humorArticles.map((article, index) => {
+                    return (
+                      <CommunityCard
+                        vertical={true}
+                        article={article}
+                        index={index}
+                        key={article?._id}
+                      />
+                    );
+                  })}
+                </Stack>
               </Stack>
-            </Stack>
-            <Stack className={"community-right"}>
+            ) : (
+              ""
+            )}
+            {recommendArticle.length ? (
+              <Stack className={"community-recommendation"}>
+                <Stack className={"content-top"}>
+                  <Link href={"/community?articleCategory=RECOMMEND"}>
+                    <span>Recommendation</span>
+                  </Link>
+                  <img src="/img/icons/article.svg" alt="" />
+                </Stack>
+                <Stack className={"card-wrap"}>
+                  {recommendArticle.map((article, index) => {
+                    return (
+                      <CommunityCard
+                        vertical={true}
+                        article={article}
+                        index={index}
+                        key={article?._id}
+                      />
+                    );
+                  })}
+                </Stack>
+              </Stack>
+            ) : (
+              ""
+            )}
+            <Stack className={"community-free"}>
               <Stack className={"content-top"}>
                 <Link href={"/community?articleCategory=FREE"}>
                   <span>Free</span>
                 </Link>
-                <img src="/img/icons/arrowBig.svg" alt="" />
+                <img src="/img/icons/article.svg" alt="" />
               </Stack>
               <Stack className={"card-wrap vertical"}>
                 {freeArticles.map((article, index) => {

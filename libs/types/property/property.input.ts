@@ -24,14 +24,11 @@ export interface PropertyInput {
 
 interface PISearch {
   memberId?: string;
-  locationList?: ProductCategory[];
+  productCategory?: ProductCategory[];
   typeList?: PropertyType[];
-  roomsList?: Number[];
   options?: string[];
-  bedsList?: Number[];
   pricesRange?: Range;
   periodsRange?: PeriodsRange;
-  squaresRange?: Range;
   text?: string;
 }
 
