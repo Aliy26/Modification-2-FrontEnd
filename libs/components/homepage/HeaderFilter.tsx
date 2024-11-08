@@ -7,8 +7,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { propertySquare, propertyYears } from "../../config";
-import { ProductCategory, PropertyType } from "../../enums/property.enum";
-import { ProductsInquiry } from "../../types/property/property.input";
+import { ProductCategory, ProductType } from "../../enums/product.enum";
+import { ProductsInquiry } from "../../types/product/product.input";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
@@ -55,8 +55,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
   const [propertyLocation, setPropertyLocation] = useState<ProductCategory[]>(
     Object.values(ProductCategory)
   );
-  const [propertyType, setPropertyType] = useState<PropertyType[]>(
-    Object.values(PropertyType)
+  const [propertyType, setPropertyType] = useState<ProductType[]>(
+    Object.values(ProductType)
   );
   const [yearCheck, setYearCheck] = useState({ start: 1970, end: thisYear });
   const [optionCheck, setOptionCheck] = useState("all");

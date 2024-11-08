@@ -2,8 +2,8 @@ import {
   ProductBrand,
   ProductCategory,
   ProductStatus,
-  PropertyType,
-} from "../../enums/property.enum";
+  ProductType,
+} from "../../enums/product.enum";
 import { Member } from "../member/member";
 
 export interface MeLiked {
@@ -18,7 +18,7 @@ export interface TotalCounter {
 
 export interface Product {
   _id: string;
-  productType: PropertyType;
+  productType: ProductType;
   productStatus: ProductStatus;
   productCategory: ProductCategory;
   productName: string;

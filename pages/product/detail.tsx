@@ -19,7 +19,7 @@ import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import { useRouter } from "next/router";
-import { Product } from "../../libs/types/property/property";
+import { Product } from "../../libs/types/product/product";
 import moment from "moment";
 import { formatterStr } from "../../libs/utils";
 import { REACT_APP_API_URL } from "../../libs/config";
@@ -52,7 +52,6 @@ import {
   sweetMixinErrorAlert,
   sweetTopSmallSuccessAlert,
 } from "../../libs/sweetAlert";
-import agent from "../agent";
 
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 
@@ -67,7 +66,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
   const router = useRouter();
   const user = useReactiveVar(userVar);
   const [productId, setproductId] = useState<string | null>(null);
-  const [property, setProperty] = useState<Product | null>(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [slideImage, setSlideImage] = useState<string>("");
   const [destinationProperties, setDestinationProperties] = useState<Product[]>(
     []
@@ -89,26 +88,26 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
   const [createComment] = useMutation(CREATE_COMMENT);
 
   const {
-    loading: getPropertyLoading,
-    data: getPropertyData,
-    error: getPropertyError,
-    refetch: getPropertyRefetch,
+    loading: getProductLoading,
+    data: getProductData,
+    error: getProductError,
+    refetch: getProductRefetch,
   } = useQuery(GET_PRODUCT, {
     fetchPolicy: "network-only",
     variables: { input: productId },
     skip: !productId,
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
-      if (data?.getProperty) setProperty(data.getProperty);
-      if (data?.getProperty) setSlideImage(data.getProperty?.propertyImages[0]);
+      if (data?.getProduct) setProduct(data.getProduct);
+      if (data?.getProduct) setSlideImage(data.getProduct?.productImages[0]);
     },
   });
 
   const {
-    loading: getPropertiesLoading,
-    data: getPropertiesData,
-    error: getPropertiesError,
-    refetch: getPropertiesRefetch,
+    loading: getProductsLoading,
+    data: getProductsData,
+    error: getProductsError,
+    refetch: getProductsRefetch,
   } = useQuery(GET_PRODUCTS, {
     fetchPolicy: "cache-and-network",
     variables: {
@@ -124,11 +123,11 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
         },
       },
     },
-    skip: !productId && !property,
+    skip: !productId && !product,
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
-      if (data?.getProperties?.list)
-        setDestinationProperties(data?.getProperties?.list);
+      if (data?.getProducts?.list)
+        setDestinationProperties(data?.getProducts?.list);
     },
   });
 
@@ -200,8 +199,8 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
       });
 
       // execute getPropertiesRefetch
-      await getPropertyRefetch({ input: productId });
-      await getPropertiesRefetch({
+      await getProductRefetch({ input: productId });
+      await getProductsRefetch({
         input: {
           page: 1,
           limit: 4,
@@ -243,7 +242,9 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
     }
   };
 
-  if (getPropertyLoading) {
+  console.log("<<<<<<<", product);
+
+  if (getProductLoading) {
     return (
       <Stack
         sx={{
@@ -270,7 +271,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
               <Stack className={"info"}>
                 <Stack className={"left-box"}>
                   <Typography className={"title-main"}>
-                    {property?.productName}
+                    {product?.productName}
                   </Typography>
                   <Stack className={"top-box"}>
                     <Typography className={"city"}>
@@ -278,7 +279,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                     </Typography>
                     <Stack className={"divider"}></Stack>
                     <Stack className={"buy-rent-box"}>
-                      {property?.productInstallment && (
+                      {product?.productInstallment && (
                         <>
                           <Stack className={"circle"}>
                             <svg
@@ -295,7 +296,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                         </>
                       )}
 
-                      {property?.productRent && (
+                      {product?.productRent && (
                         <>
                           <Stack className={"circle"}>
                             <svg
@@ -337,7 +338,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                       </defs>
                     </svg>
                     <Typography className={"date"}>
-                      {moment().diff(property?.createdAt, "days")} days ago
+                      {moment().diff(product?.createdAt, "days")} days ago
                     </Typography>
                   </Stack>
                   <Stack className={"bottom-box"}>
@@ -359,15 +360,15 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                   <Stack className="buttons">
                     <Stack className="button-box">
                       <RemoveRedEyeIcon fontSize="medium" />
-                      <Typography>{property?.productViews}</Typography>
+                      <Typography>{product?.productViews}</Typography>
                     </Stack>
                     <Stack className="button-box">
-                      {property?.meLiked && property?.meLiked[0]?.myFavorite ? (
+                      {product?.meLiked && product?.meLiked[0]?.myFavorite ? (
                         <FavoriteIcon
                           color="primary"
                           fontSize={"medium"}
                           onClick={() => {
-                            likeProductHandler(user, property?._id);
+                            likeProductHandler(user, product?._id);
                           }}
                         />
                       ) : (
@@ -375,15 +376,15 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                           fontSize={"medium"}
                           onClick={() => {
                             // @ts-ignore
-                            likeProductHandler(user, property?._id);
+                            likeProductHandler(user, product?._id);
                           }}
                         />
                       )}
-                      <Typography>{property?.productLikes}</Typography>
+                      <Typography>{product?.productLikes}</Typography>
                     </Stack>
                   </Stack>
                   <Typography>
-                    ${formatterStr(property?.productLikes)}
+                    ${formatterStr(product?.productPrice)}
                   </Typography>
                 </Stack>
               </Stack>
@@ -399,7 +400,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                   />
                 </Stack>
                 <Stack className={"sub-images"}>
-                  {property?.productImages.map((subImg: string) => {
+                  {product?.productImages.map((subImg: string) => {
                     const imagePath: string = `${REACT_APP_API_URL}/${subImg}`;
                     return (
                       <Stack
@@ -472,7 +473,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                     <Stack className={"option-includes"}>
                       <Typography className={"title"}>Year Build</Typography>
                       <Typography className={"option-data"}>
-                        {moment(property?.createdAt).format("YYYY")}
+                        {moment(product?.createdAt).format("YYYY")}
                       </Typography>
                     </Stack>
                   </Stack>
@@ -540,7 +541,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                     <Stack className={"option-includes"}>
                       <Typography className={"title"}>Property Type</Typography>
                       <Typography className={"option-data"}>
-                        {property?.productType}
+                        {product?.productType}
                       </Typography>
                     </Stack>
                   </Stack>
@@ -551,7 +552,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                       Property Description
                     </Typography>
                     <Typography className={"desc"}>
-                      {property?.productDesc ?? "No Description!"}
+                      {product?.productDesc ?? "No Description!"}
                     </Typography>
                   </Stack>
                   <Stack className={"bottom"}>
@@ -563,7 +564,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                         <Box component={"div"} className={"info"}>
                           <Typography className={"title"}>Price</Typography>
                           <Typography className={"data"}>
-                            ${formatterStr(property?.productPrice)}
+                            ${formatterStr(product?.productPrice)}
                           </Typography>
                         </Box>
                         <Box component={"div"} className={"info"}>
@@ -593,7 +594,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                             Year Built
                           </Typography>
                           <Typography className={"data"}>
-                            {moment(property?.createdAt).format("YYYY")}
+                            {moment(product?.createdAt).format("YYYY")}
                           </Typography>
                         </Box>
                         <Box component={"div"} className={"info"}>
@@ -601,7 +602,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                             Property Type
                           </Typography>
                           <Typography className={"data"}>
-                            {property?.productType}
+                            {product?.productType}
                           </Typography>
                         </Box>
                         <Box component={"div"} className={"info"}>
@@ -609,8 +610,8 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                             Property Options
                           </Typography>
                           <Typography className={"data"}>
-                            For {property?.productInstallment && "Barter"}{" "}
-                            {property?.productRent && "Rent"}
+                            For {product?.productInstallment && "Barter"}{" "}
+                            {product?.productRent && "Rent"}
                           </Typography>
                         </Box>
                       </Stack>
@@ -751,14 +752,12 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                     <img
                       className={"member-image"}
                       src={
-                        property?.memberData?.memberImage
-                          ? `${REACT_APP_API_URL}/${property?.memberData?.memberImage}`
+                        product?.memberData?.memberImage
+                          ? `${REACT_APP_API_URL}/${product?.memberData?.memberImage}`
                           : "/img/profile/defaultUser.svg"
                       }
                       onClick={() =>
-                        redirectToMemberPageHandler(
-                          property?.memberId as string
-                        )
+                        redirectToMemberPageHandler(product?.memberId as string)
                       }
                     />
                     <Stack className={"name-phone-listings"}>
@@ -783,11 +782,11 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                         className={"name"}
                         onClick={() =>
                           redirectToMemberPageHandler(
-                            property?.memberId as string
+                            product?.memberId as string
                           )
                         }
                       >
-                        {property?.memberData?.memberNick}
+                        {product?.memberData?.memberNick}
                       </Typography>
 
                       <Stack className={"phone-number"}>
@@ -816,13 +815,13 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                           </defs>
                         </svg>
                         <Typography className={"number"}>
-                          {property?.memberData?.memberPhone}
+                          {product?.memberData?.memberPhone}
                         </Typography>
                       </Stack>
                       <Typography
                         className={"listings"}
                         onClick={() =>
-                          redirectToAgentDetail(property?.memberId as string)
+                          redirectToAgentDetail(product?.memberId as string)
                         }
                       >
                         View Listings

@@ -6,7 +6,7 @@ import {
 } from "../../enums/notification.enum";
 import { BoardArticle } from "../board-article/board-article";
 import { Member } from "../member/member";
-import { Property } from "../property/property";
+import { Property } from "../product/product";
 
 export interface Notification {
   _id: string;

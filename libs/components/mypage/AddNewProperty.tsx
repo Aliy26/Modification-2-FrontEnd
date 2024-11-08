@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { Button, Stack, Typography } from "@mui/material";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
-import { ProductCategory, PropertyType } from "../../enums/property.enum";
+import { ProductCategory, ProductType } from "../../enums/product.enum";
 import { REACT_APP_API_URL, propertySquare } from "../../config";
-import { PropertyInput } from "../../types/property/property.input";
+import { PropertyInput } from "../../types/product/product.input";
 import axios from "axios";
 import { getJwtToken } from "../../auth";
 import {
@@ -24,8 +24,8 @@ const AddProperty = ({ initialValues, ...props }: any) => {
   const inputRef = useRef<any>(null);
   const [insertPropertyData, setInsertPropertyData] =
     useState<PropertyInput>(initialValues);
-  const [propertyType, setPropertyType] = useState<PropertyType[]>(
-    Object.values(PropertyType)
+  const [propertyType, setPropertyType] = useState<ProductType[]>(
+    Object.values(ProductType)
   );
   const [propertyLocation, setPropertyLocation] = useState<ProductCategory[]>(
     Object.values(ProductCategory)
@@ -60,7 +60,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
       propertyPrice: getPropertyData?.getProperty
         ? getPropertyData?.getProperty?.propertyPrice
         : 0,
-      propertyType: getPropertyData?.getProperty
+      productType: getPropertyData?.getProperty
         ? getPropertyData?.getProperty?.propertyType
         : "",
       propertyLocation: getPropertyData?.getProperty
@@ -158,7 +158,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
     if (
       insertPropertyData.propertyTitle === "" ||
       insertPropertyData.propertyPrice === 0 || // @ts-ignore
-      insertPropertyData.propertyType === "" || // @ts-ignore
+      insertPropertyData.productType === "" || // @ts-ignore
       insertPropertyData.propertyLocation === "" || // @ts-ignore
       insertPropertyData.propertyAddress === "" || // @ts-ignore
       insertPropertyData.propertyBarter === "" || // @ts-ignore
@@ -270,8 +270,8 @@ const AddProperty = ({ initialValues, ...props }: any) => {
                   <Typography className="title">Select Type</Typography>
                   <select
                     className={"select-description"}
-                    defaultValue={insertPropertyData.propertyType || "select"}
-                    value={insertPropertyData.propertyType || "select"}
+                    defaultValue={insertPropertyData.productType || "select"}
+                    value={insertPropertyData.productType || "select"}
                     onChange={({ target: { value } }) =>
                       setInsertPropertyData({
                         ...insertPropertyData,

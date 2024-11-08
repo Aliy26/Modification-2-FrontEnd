@@ -1,4 +1,4 @@
-export enum PropertyType {
+export enum ProductType {
   FURNITURE = "FURNITURE",
   APPLIANCES = "APPLIANCES",
 }
@@ -16,13 +16,13 @@ export enum ProductBrand {
 }
 
 export enum ProductCategory {
-  LivingRoom = "Living Room",
+  LivingRoom = "LivingRoom",
   Bedroom = "Bedroom",
   Kitchen = "Kitchen",
-  Kids = "Baby & Kids",
+  Kids = "Kids",
   Appliances = "Appliances",
   Pet = "Pet",
   Outdoors = "Outdoors",
   Lightning = "Lightning",
-  Decor = "Decor & Pillows",
+  Decor = "Pillows",
 }

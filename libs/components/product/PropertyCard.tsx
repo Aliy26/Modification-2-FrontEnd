@@ -3,7 +3,7 @@ import { Stack, Typography, Box } from "@mui/material";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { Product } from "../../types/property/property";
+import { Product } from "../../types/product/product";
 import Link from "next/link";
 import { formatterStr } from "../../utils";
 import { REACT_APP_API_URL, topPropertyRank } from "../../config";
@@ -85,7 +85,7 @@ const ProductCard = (props: PropertyCardType) => {
                 sx={{ fontWeight: 500, fontSize: "13px" }}
                 className={product.productInstallment ? "" : "disabled-type"}
               >
-                Barter
+                Installment
               </Typography>
             </Stack>
             {!recentlyVisited && (

@@ -13,8 +13,8 @@ import {
   IconButton,
 } from "@mui/material";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
-import { ProductCategory, PropertyType } from "../../enums/property.enum";
-import { ProductsInquiry } from "../../types/property/property.input";
+import { ProductCategory, ProductType } from "../../enums/product.enum";
+import { ProductsInquiry } from "../../types/product/product.input";
 import { useRouter } from "next/router";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import { propertySquare } from "../../config";
@@ -41,16 +41,16 @@ const Filter = (props: FilterType) => {
   const [propertyLocation, setPropertyLocation] = useState<ProductCategory[]>(
     Object.values(ProductCategory)
   );
-  const [propertyType, setPropertyType] = useState<PropertyType[]>(
-    Object.values(PropertyType)
+  const [productType, setProductsType] = useState<ProductType[]>(
+    Object.values(ProductType)
   );
   const [searchText, setSearchText] = useState<string>("");
   const [showMore, setShowMore] = useState<boolean>(false);
 
   /** LIFECYCLES **/
   useEffect(() => {
-    if (searchFilter?.search?.locationList?.length == 0) {
-      delete searchFilter.search.locationList;
+    if (searchFilter?.search?.typeList?.length == 0) {
+      delete searchFilter.search.typeList;
       setShowMore(false);
       router
         .push(
@@ -92,8 +92,8 @@ const Filter = (props: FilterType) => {
         .then();
     }
 
-    if (searchFilter?.search?.roomsList?.length == 0) {
-      delete searchFilter.search.roomsList;
+    if (searchFilter?.search?.categoryList?.length == 0) {
+      delete searchFilter.search.categoryList;
       router
         .push(
           `/product?input=${JSON.stringify({
@@ -134,28 +134,28 @@ const Filter = (props: FilterType) => {
         .then();
     }
 
-    if (searchFilter?.search?.bedsList?.length == 0) {
-      delete searchFilter.search.bedsList;
-      router
-        .push(
-          `/product?input=${JSON.stringify({
-            ...searchFilter,
-            search: {
-              ...searchFilter.search,
-            },
-          })}`,
-          `/product?input=${JSON.stringify({
-            ...searchFilter,
-            search: {
-              ...searchFilter.search,
-            },
-          })}`,
-          { scroll: false }
-        )
-        .then();
-    }
+    // if (searchFilter?.search?.bedsList?.length == 0) {
+    //   delete searchFilter.search.bedsList;
+    //   router
+    //     .push(
+    //       `/product?input=${JSON.stringify({
+    //         ...searchFilter,
+    //         search: {
+    //           ...searchFilter.search,
+    //         },
+    //       })}`,
+    //       `/product?input=${JSON.stringify({
+    //         ...searchFilter,
+    //         search: {
+    //           ...searchFilter.search,
+    //         },
+    //       })}`,
+    //       { scroll: false }
+    //     )
+    //     .then();
+    // }
 
-    if (searchFilter?.search?.locationList) setShowMore(true);
+    if (searchFilter?.search?.typeList) setShowMore(true);
   }, [searchFilter]);
 
   /** HANDLERS **/
@@ -170,8 +170,8 @@ const Filter = (props: FilterType) => {
               ...searchFilter,
               search: {
                 ...searchFilter.search,
-                locationList: [
-                  ...(searchFilter?.search?.locationList || []),
+                categoryList: [
+                  ...(searchFilter?.search?.categoryList || []),
                   value,
                 ],
               },
@@ -180,21 +180,21 @@ const Filter = (props: FilterType) => {
               ...searchFilter,
               search: {
                 ...searchFilter.search,
-                locationList: [
-                  ...(searchFilter?.search?.locationList || []),
+                categoryList: [
+                  ...(searchFilter?.search?.categoryList || []),
                   value,
                 ],
               },
             })}`,
             { scroll: false }
           );
-        } else if (searchFilter?.search?.locationList?.includes(value)) {
+        } else if (searchFilter?.search?.categoryList?.includes(value)) {
           await router.push(
             `/product?input=${JSON.stringify({
               ...searchFilter,
               search: {
                 ...searchFilter.search,
-                locationList: searchFilter?.search?.locationList?.filter(
+                categoryList: searchFilter?.search?.categoryList?.filter(
                   (item: string) => item !== value
                 ),
               },
@@ -203,7 +203,7 @@ const Filter = (props: FilterType) => {
               ...searchFilter,
               search: {
                 ...searchFilter.search,
-                locationList: searchFilter?.search?.locationList?.filter(
+                categoryList: searchFilter?.search?.categoryList?.filter(
                   (item: string) => item !== value
                 ),
               },
@@ -610,12 +610,12 @@ const Filter = (props: FilterType) => {
   };
 
   if (device === "mobile") {
-    return <div>PROPERTIES FILTER</div>;
+    return <div>PRODUCTS FILTER</div>;
   } else {
     return (
       <Stack className={"filter-main"}>
         <Stack className={"find-your-home"} mb={"40px"}>
-          <Typography className={"title-main"}>Find Your Home</Typography>
+          <Typography className={"title-main"}>Find Your Product!</Typography>
           <Stack className={"input-box"}>
             <OutlinedInput
               value={searchText}
@@ -655,14 +655,14 @@ const Filter = (props: FilterType) => {
         </Stack>
         <Stack className={"find-your-home"} mb={"30px"}>
           <p className={"title"} style={{ textShadow: "0px 3px 4px #b9b9b9" }}>
-            Location
+            Category
           </p>
           <Stack
             className={`property-location`}
             style={{ height: showMore ? "253px" : "115px" }}
             onMouseEnter={() => setShowMore(true)}
             onMouseLeave={() => {
-              if (!searchFilter?.search?.locationList) {
+              if (!searchFilter?.search?.productCategory) {
                 setShowMore(false);
               }
             }}
@@ -677,7 +677,7 @@ const Filter = (props: FilterType) => {
                     size="small"
                     value={location}
                     checked={(
-                      searchFilter?.search?.locationList || []
+                      searchFilter?.search?.categoryList || []
                     ).includes(location as ProductCategory)}
                     onChange={propertyLocationSelectHandler}
                   />
@@ -692,8 +692,8 @@ const Filter = (props: FilterType) => {
           </Stack>
         </Stack>
         <Stack className={"find-your-home"} mb={"30px"}>
-          <Typography className={"title"}>Property Type</Typography>
-          {propertyType.map((type: string) => (
+          <Typography className={"title"}>Product Type</Typography>
+          {productType.map((type: string) => (
             <Stack className={"input-box"} key={type}>
               <Checkbox
                 id={type}
@@ -703,7 +703,7 @@ const Filter = (props: FilterType) => {
                 value={type}
                 onChange={propertyTypeSelectHandler}
                 checked={(searchFilter?.search?.typeList || []).includes(
-                  type as PropertyType
+                  type as ProductType
                 )}
               />
               <label style={{ cursor: "pointer" }}>
@@ -889,18 +889,18 @@ const Filter = (props: FilterType) => {
           <Typography className={"title"}>Options</Typography>
           <Stack className={"input-box"}>
             <Checkbox
-              id={"Barter"}
+              id={"Installment"}
               className="property-checkbox"
               color="default"
               size="small"
-              value={"propertyBarter"}
+              value={"productInstallment"}
               checked={(searchFilter?.search?.options || []).includes(
-                "propertyBarter"
+                "productInstallment"
               )}
               onChange={propertyOptionSelectHandler}
             />
-            <label htmlFor={"Barter"} style={{ cursor: "pointer" }}>
-              <Typography className="propert-type">Barter</Typography>
+            <label htmlFor={"Installment"} style={{ cursor: "pointer" }}>
+              <Typography className="propert-type">Installment</Typography>
             </label>
           </Stack>
           <Stack className={"input-box"}>
@@ -909,9 +909,9 @@ const Filter = (props: FilterType) => {
               className="property-checkbox"
               color="default"
               size="small"
-              value={"propertyRent"}
+              value={"productRent"}
               checked={(searchFilter?.search?.options || []).includes(
-                "propertyRent"
+                "productRent"
               )}
               onChange={propertyOptionSelectHandler}
             />

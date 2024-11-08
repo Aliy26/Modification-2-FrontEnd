@@ -109,6 +109,40 @@ export const GET_PRODUCT = gql`
       manufacturedIn
       createdAt
       updatedAt
+      meLiked {
+        memberId
+        likeRefId
+        myFavorite
+      }
+      memberData {
+        _id
+        memberType
+        memberStatus
+        memberAuthType
+        memberPhone
+        memberNick
+        memberEmail
+        memberFullName
+        memberImage
+        memberAddress
+        memberDesc
+        mainMember
+        memberProducts
+        memberArticles
+        memberFollowers
+        memberFollowings
+        memberPoints
+        memberLikes
+        memberViews
+        memberComments
+        memberRank
+        memberWarnings
+        memberBlocks
+        deletedAt
+        createdAt
+        updatedAt
+        accessToken
+      }
     }
   }
 `;

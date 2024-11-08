@@ -8,7 +8,7 @@ import { Box, Button, Pagination, Stack, Typography } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import { useRouter } from "next/router";
-import { Property } from "../../libs/types/property/property";
+import { Property } from "../../libs/types/product/product";
 import { Member } from "../../libs/types/member/member";
 import {
   sweetErrorHandling,
@@ -16,7 +16,7 @@ import {
   sweetTopSmallSuccessAlert,
 } from "../../libs/sweetAlert";
 import { userVar } from "../../apollo/store";
-import { PropertiesInquiry } from "../../libs/types/property/property.input";
+import { PropertiesInquiry } from "../../libs/types/product/product.input";
 import {
   CommentInput,
   CommentsInquiry,

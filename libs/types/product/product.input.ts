@@ -1,31 +1,30 @@
 import {
+  ProductBrand,
   ProductCategory,
   ProductStatus,
-  PropertyType,
-} from "../../enums/property.enum";
+  ProductType,
+} from "../../enums/product.enum";
 import { Direction } from "../../enums/common.enum";
 
 export interface PropertyInput {
-  propertyType: PropertyType;
-  propertyLocation: ProductCategory;
-  propertyAddress: string;
-  propertyTitle: string;
-  propertyPrice: number;
-  propertySquare: number;
-  propertyBeds: number;
-  propertyRooms: number;
-  propertyImages: string[];
-  propertyDesc?: string;
-  propertyBarter?: boolean;
-  propertyRent?: boolean;
+  productType: ProductType;
+  productCategory: ProductCategory;
+  productName: string;
+  productBrand: ProductBrand;
+  productPrice: number;
+  productStock?: number;
+  productImages: string[];
+  productDesc?: string;
+  productInstallment?: boolean;
+  productRent?: boolean;
   memberId?: string;
-  constructedAt?: Date;
+  manufacturedIn?: Date;
 }
 
 interface PISearch {
   memberId?: string;
-  productCategory?: ProductCategory[];
-  typeList?: PropertyType[];
+  categoryList?: ProductCategory[];
+  typeList?: ProductType[];
   options?: string[];
   pricesRange?: Range;
   periodsRange?: PeriodsRange;
