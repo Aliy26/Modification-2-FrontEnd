@@ -77,7 +77,7 @@ const TopAgents = (props: TopAgentsProps) => {
         <Stack className={"container"}>
           <Stack className={"info-box"}>
             <Box component={"div"} className={"left"}>
-              <span>Our Top Retailers. 100% Verified!</span>
+              <span>Our Top 100% Verified Retailers!</span>
               <p>
                 Follow our Retailers & get notified each time they post a new
                 product!

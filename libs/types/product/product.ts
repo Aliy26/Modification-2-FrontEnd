@@ -23,6 +23,7 @@ export interface Product {
   productCategory: ProductCategory;
   productName: string;
   productPrice: number;
+  discountedPrice: number;
   productBrand: ProductBrand;
   productViews: number;
   productLikes: number;

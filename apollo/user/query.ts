@@ -82,7 +82,7 @@ query GetMember($input: String!) {
 `);
 
 /**************************
- *        PROPERTY        *
+ *        PRODUCT        *
  *************************/
 
 export const GET_PRODUCT = gql`
@@ -158,6 +158,7 @@ export const GET_PRODUCTS = gql`
         productBrand
         productName
         productPrice
+        discountedPrice
         productViews
         productLikes
         productComments

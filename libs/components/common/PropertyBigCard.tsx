@@ -3,7 +3,7 @@ import { Stack, Box, Divider, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Property } from "../../types/product/product";
+import { Product } from "../../types/product/product";
 import { REACT_APP_API_URL, topPropertyRank } from "../../config";
 import { formatterStr } from "../../utils";
 import { useReactiveVar } from "@apollo/client";
@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 interface PropertyBigCardProps {
-  property: Property;
+  property: Product;
   likeProductHandler: any;
 }
 

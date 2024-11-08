@@ -126,7 +126,7 @@ const PopularProductCard = (props: PopularProductCardProps) => {
           <Divider sx={{ mt: "15px", mb: "17px" }} />
           <div className={"bott"}>
             <p>
-              Discounted price: <span>${product.productPrice}</span>
+              Discounted price: <span>${product?.discountedPrice}</span>
             </p>
             <div className="view-like-box">
               <Typography className="view-cnt">

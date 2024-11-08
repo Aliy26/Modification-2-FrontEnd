@@ -10,7 +10,7 @@ import { TabContext } from "@mui/lab";
 import TablePagination from "@mui/material/TablePagination";
 import { PropertyPanelList } from "../../../libs/components/admin/properties/PropertyList";
 import { AllPropertiesInquiry } from "../../../libs/types/product/product.input";
-import { Property } from "../../../libs/types/product/product";
+import { Product } from "../../../libs/types/product/product";
 import {
   ProductCategory,
   ProductStatus,
@@ -19,7 +19,7 @@ import {
   sweetConfirmAlert,
   sweetErrorHandling,
 } from "../../../libs/sweetAlert";
-import { PropertyUpdate } from "../../../libs/types/product/property.update";
+import { PropertyUpdate } from "../../../libs/types/product/product.update";
 import { useMutation, useQuery } from "@apollo/client";
 import {
   REMOVE_PROPERTY_BY_ADMIN,
@@ -32,7 +32,7 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
   const [anchorEl, setAnchorEl] = useState<[] | HTMLElement[]>([]);
   const [propertiesInquiry, setPropertiesInquiry] =
     useState<AllPropertiesInquiry>(initialInquiry);
-  const [properties, setProperties] = useState<Property[]>([]);
+  const [properties, setProperties] = useState<Product[]>([]);
   const [propertiesTotal, setPropertiesTotal] = useState<number>(0);
   const [value, setValue] = useState(
     propertiesInquiry?.search?.propertyStatus
