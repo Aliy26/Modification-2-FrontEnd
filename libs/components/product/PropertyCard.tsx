@@ -39,7 +39,7 @@ const ProductCard = (props: PropertyCardType) => {
               query: { id: product?._id },
             }}
           >
-            <img src={imagePath} alt="" />
+            <img src={imagePath} alt="card-img" className="card-img" />
           </Link>
           {product && product?.productRank > topPropertyRank && (
             <Box component={"div"} className={"top-badge"}>
@@ -47,8 +47,24 @@ const ProductCard = (props: PropertyCardType) => {
               <Typography>TOP</Typography>
             </Box>
           )}
+          <Box component={"div"} className={"sale-box"}>
+            {product.discountedPrice > 0 ? (
+              <>
+                <img src="/img/icons/sale.svg" alt="sale" />
+              </>
+            ) : (
+              ""
+            )}
+          </Box>
           <Box component={"div"} className={"price-box"}>
-            <Typography>${formatterStr(product?.productPrice)}</Typography>
+            <Typography>
+              $
+              {formatterStr(
+                product?.discountedPrice
+                  ? product.discountedPrice
+                  : product.productPrice
+              )}
+            </Typography>
           </Box>
         </Stack>
         <Stack className="bottom">
@@ -64,12 +80,7 @@ const ProductCard = (props: PropertyCardType) => {
               </Link>
             </Stack>
             <Stack className="address">
-              <Typography>No address & location</Typography>
-            </Stack>
-          </Stack>
-          <Stack className="options">
-            <Stack className="option">
-              <img src="/img/icons/bed.svg" alt="" />{" "}
+              <Typography>{product.productBrand}</Typography>
             </Stack>
           </Stack>
           <Stack className="divider"></Stack>

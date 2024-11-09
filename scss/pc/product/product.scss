@@ -27,24 +27,38 @@
       .property-page {
         position: relative;
         width: 100%;
-        flex-direction: row;
-        gap: 25px;
         padding-top: 96px;
         .filter-config {
-          width: 339px;
+          width: 100%;
           height: auto;
           .filter-main {
+            margin-bottom: 40px;
             width: 100%;
+            flex-direction: row;
+            gap: 30px;
             padding: 30px 24px;
             border-radius: 12px;
             background: #fff;
             box-shadow: 0 1px 4px 0 rgba(24, 26, 32, 0.07);
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transform: scaleY(0.95);
+            transition: max-height 0.4s ease, opacity 0.4s ease,
+              transform 0.4s ease;
+
+            &.show {
+              max-height: 310px;
+              opacity: 1;
+              transform: scaleY(1);
+            }
+
             .find-your-home {
               position: relative;
               width: 100%;
               gap: 10px;
               .property-location {
-                gap: 10px;
+                gap: 5px;
                 height: 115px;
                 overflow: hidden;
                 transition: 1s;
@@ -72,46 +86,7 @@
                 font-weight: 600;
                 line-height: normal;
               }
-              .input-box {
-                position: relative;
-                width: 100%;
-                flex-direction: row;
-                align-items: center;
-                svg {
-                  cursor: pointer;
-                }
-                .search-input {
-                  width: 100%;
-                  height: 53px;
-                  border-radius: 8px;
-                  border: 1px solid #ddd;
-                  background: #fff;
-                  outline: none;
-                  padding-left: 43px;
-                  color: #717171;
-                  font-family: $font;
-                  font-size: 14px;
-                  font-style: normal;
-                  font-weight: 400;
-                  line-height: 26px;
-                }
-                img {
-                  position: absolute;
-                  width: 18px;
-                  height: 17px;
-                  top: 18px;
-                  left: 15px;
-                }
-                .property-checkbox {
-                  width: 16px;
-                  height: 15px;
-                  border-radius: 12px;
-                  margin-right: 10px;
-                  svg {
-                    width: 19px;
-                  }
-                }
-              }
+
               .city-select {
                 width: 100%;
                 height: 49px;
@@ -160,7 +135,7 @@
                 flex-direction: row;
                 button {
                   width: 100%;
-                  color: #181a20;
+                  color: #a0a01a;
                   text-align: center;
                   font-family: $font;
                   font-size: 13px;
@@ -175,7 +150,7 @@
                 flex-direction: row;
                 align-items: center;
                 .central-divider {
-                  width: 22px;
+                  width: 42px;
                   border: 1px solid black;
                 }
                 input {
@@ -203,17 +178,21 @@
           }
         }
         .main-config {
-          width: 936px;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
           align-items: center;
-          gap: 109px;
+
           .list-config {
             display: flex;
+            flex-direction: row;
+            margin-left: 30px;
+            flex-wrap: wrap;
             width: 100%;
             height: auto;
-            flex-direction: row;
-            flex-wrap: wrap;
             gap: 23px;
             .card-config {
+              border: 3px solid rgb(244, 209, 11);
               width: 296px;
               height: 413px;
               margin-bottom: 7px;
@@ -223,13 +202,14 @@
               .top {
                 position: relative;
                 width: 100%;
-                height: 240px;
+                height: 280px;
                 a {
                   height: 100%;
                 }
-                img {
+                .card-img {
+                  border-bottom: 3px solid rgb(244, 209, 11);
                   width: 100%;
-                  height: 100%;
+                  height: 280px;
                   object-fit: cover;
                   border-radius: 12px 12px 0 0;
                 }
@@ -257,6 +237,16 @@
                     height: 16px;
                   }
                 }
+                .sale-box {
+                  position: absolute;
+                  top: -5px;
+                  left: 5px;
+                  img {
+                    width: 70px;
+                    height: 70px;
+                  }
+                }
+
                 .price-box {
                   position: absolute;
                   bottom: 20px;
@@ -286,6 +276,8 @@
                   gap: 5px;
                   margin-bottom: 20px;
                   .name {
+                    display: flex;
+                    justify-content: space-between;
                     width: 100%;
                     height: 23px;
                     overflow: hidden;
@@ -332,12 +324,7 @@
                     }
                   }
                 }
-                .divider {
-                  width: 100%;
-                  height: 1px;
-                  background: #ddd;
-                  margin-bottom: 17px;
-                }
+
                 .type-buttons {
                   flex-direction: row;
                   width: 100%;
@@ -403,4 +390,89 @@
       }
     }
   }
+}
+
+.advanced-button {
+  margin-bottom: 20px;
+  background-color: #d87b1d;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.title-main {
+  margin-left: 10px;
+  width: 100%;
+  height: 25px;
+  color: #181a20;
+  font-family: $font;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.input-box {
+  display: flex;
+  position: relative;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+
+  svg {
+    cursor: pointer;
+  }
+  .search-input {
+    width: 30%;
+    height: 53px;
+    border-radius: 30px;
+    border: 1px solid #ddd;
+    background: #fff;
+    outline: none;
+    padding-left: 43px;
+    color: #320f0f;
+    font-family: $font;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px;
+  }
+  img {
+    position: absolute;
+    width: 18px;
+    height: 17px;
+    top: 18px;
+    left: 15px;
+  }
+  .property-checkbox {
+    width: 16px;
+    height: 15px;
+    border-radius: 12px;
+    margin-right: 10px;
+    svg {
+      width: 19px;
+    }
+  }
+}
+
+.numbers-container {
+  margin-right: 20px;
+}
+
+.range-container {
+  width: 400px;
+
+  margin-right: 20px;
 }

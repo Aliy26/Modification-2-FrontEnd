@@ -56,6 +56,8 @@
   .info {
     padding: 20px 22px 17px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     box-sizing: border-box;
     border-radius: 0px 0px 12px 12px;
@@ -112,8 +114,8 @@
     }
     .bott {
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+      flex-direction: column;
+
       align-items: center;
       div {
         width: 65px;
@@ -148,10 +150,11 @@
         box-sizing: border-box;
       }
       .buttons-box {
+        justify-content: center;
         width: auto;
         height: auto;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         gap: 7px;
       }
     }

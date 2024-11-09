@@ -52,55 +52,40 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
           <div className={"price"}>${formatterStr(property?.productPrice)}</div>
         </Box>
         <Box component={"div"} className={"info"}>
-          <strong className={"title"}>{property?.productName}</strong>
-          <p className={"desc"}>{property?.productBrand}</p>
-          <div className={"options"}>
-            <div>
-              <img src="/img/icons/bed.svg" alt="" />
-              <span>{property?.productBrand} bed</span>
-            </div>
-            <div>
-              <img src="/img/icons/room.svg" alt="" />
-              <span>{property?.productBrand} rooms</span>
-            </div>
-            <div>
-              <img src="/img/icons/expand.svg" alt="" />
-              <span>{property?.productBrand} m2</span>
-            </div>
-          </div>
+          <p>
+            <strong className={"title"}>{property?.productName}</strong>
+            <p className={"desc"}>{property?.productBrand}</p>
+          </p>
+
           <Divider sx={{ mt: "15px", mb: "17px" }} />
           <div className={"bott"}>
-            <div>
-              {property?.productRent ? <p>Rent</p> : <span>Rent</span>}
-              {property?.productInstallment ? (
-                <p>Barter</p>
-              ) : (
-                <span>Barter</span>
-              )}
-            </div>
             <div className="buttons-box">
-              <IconButton color={"default"}>
-                <RemoveRedEyeIcon />
-              </IconButton>
-              <Typography className="view-cnt">
-                {property?.productViews}
-              </Typography>
-              <IconButton
-                color={"default"}
-                onClick={(e: any) => {
-                  e.stopPropagation();
-                  likeProductHandler(user, property?._id);
-                }}
-              >
-                {property?.meLiked && property?.meLiked[0]?.myFavorite ? (
-                  <FavoriteIcon style={{ color: "red" }} />
-                ) : (
-                  <FavoriteIcon />
-                )}
-              </IconButton>
-              <Typography className="view-cnt">
-                {property?.productLikes}
-              </Typography>
+              <div>
+                <IconButton color={"default"}>
+                  <RemoveRedEyeIcon />
+                </IconButton>
+                <Typography className="view-cnt">
+                  {property?.productViews}
+                </Typography>
+              </div>
+              <div>
+                <IconButton
+                  color={"default"}
+                  onClick={(e: any) => {
+                    e.stopPropagation();
+                    likeProductHandler(user, property?._id);
+                  }}
+                >
+                  {property?.meLiked && property?.meLiked[0]?.myFavorite ? (
+                    <FavoriteIcon style={{ color: "red" }} />
+                  ) : (
+                    <FavoriteIcon />
+                  )}
+                </IconButton>
+                <Typography className="view-cnt">
+                  {property?.productLikes}
+                </Typography>
+              </div>
             </div>
           </div>
         </Box>

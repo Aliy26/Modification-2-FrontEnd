@@ -208,7 +208,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
       await getProductsRefetch({
         input: {
           page: 1,
-          limit: 4,
+          limit: 8,
           sort: "createdAt",
           direction: Direction.DESC,
           search: {
@@ -247,8 +247,6 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
     }
   };
 
-  console.log("<<<<<<<", product);
-
   if (getProductLoading) {
     return (
       <Stack
@@ -275,52 +273,10 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
             <Stack className={"property-info-config"}>
               <Stack className={"info"}>
                 <Stack className={"left-box"}>
-                  <Typography className={"title-main"}>
-                    {product?.productName}
-                  </Typography>
                   <Stack className={"top-box"}>
-                    <Typography className={"city"}>
-                      {/* {property?.propertyLocation} */}
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      {product?.productName}
                     </Typography>
-                    <Stack className={"divider"}></Stack>
-                    <Stack className={"buy-rent-box"}>
-                      {product?.productInstallment && (
-                        <>
-                          <Stack className={"circle"}>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="6"
-                              height="6"
-                              viewBox="0 0 6 6"
-                              fill="none"
-                            >
-                              <circle cx="3" cy="3" r="3" fill="#EB6753" />
-                            </svg>
-                          </Stack>
-                          <Typography className={"buy-rent"}>
-                            Installment
-                          </Typography>
-                        </>
-                      )}
-
-                      {product?.productRent && (
-                        <>
-                          <Stack className={"circle"}>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="6"
-                              height="6"
-                              viewBox="0 0 6 6"
-                              fill="none"
-                            >
-                              <circle cx="3" cy="3" r="3" fill="#EB6753" />
-                            </svg>
-                          </Stack>
-                          <Typography className={"buy-rent"}>rent</Typography>
-                        </>
-                      )}
-                    </Stack>
-                    <Stack className={"divider"}></Stack>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="14"
@@ -345,22 +301,8 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                       </defs>
                     </svg>
                     <Typography className={"date"}>
-                      {moment().diff(product?.createdAt, "days")} days ago
+                      added {moment().diff(product?.createdAt, "days")} days ago
                     </Typography>
-                  </Stack>
-                  <Stack className={"bottom-box"}>
-                    <Stack className="option">
-                      <img src="/img/icons/bed.svg" alt="" />{" "}
-                      {/* <Typography>{property?.propertyBeds} bed</Typography> */}
-                    </Stack>
-                    <Stack className="option">
-                      <img src="/img/icons/room.svg" alt="" />{" "}
-                      {/* <Typography>{property?.propertyRooms} room</Typography> */}
-                    </Stack>
-                    <Stack className="option">
-                      <img src="/img/icons/expand.svg" alt="" />{" "}
-                      {/* <Typography>{property?.propertySquare} m2</Typography> */}
-                    </Stack>
                   </Stack>
                 </Stack>
                 <Stack className={"right-box"}>
@@ -431,7 +373,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                         </Typography>
                         <Typography className={"desc"}>
                           {product?.productDesc ??
-                            "The description was not provided for the product."}
+                            "The description for the product was not provided."}
                         </Typography>
                       </Stack>
                       <Stack className={"bottom"}>

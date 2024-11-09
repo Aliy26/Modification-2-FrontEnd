@@ -24,5 +24,4 @@ export enum ProductCategory {
   Pet = "Pet",
   Outdoors = "Outdoors",
   Lightning = "Lightning",
-  Decor = "Pillows",
 }
