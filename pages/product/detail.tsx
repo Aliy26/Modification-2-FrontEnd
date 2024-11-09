@@ -72,11 +72,11 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
   );
   const [commentInquiry, setCommentInquiry] =
     useState<CommentsInquiry>(initialComment);
-  const [propertyComments, setPropertyComments] = useState<Comment[]>([]);
+  const [productComments, setProductComments] = useState<Comment[]>([]);
   const [commentTotal, setCommentTotal] = useState<number>(0);
   const [wordsCnt, setWordsCnt] = useState<number>(0);
   const [insertCommentData, setInsertCommentData] = useState<CommentInput>({
-    commentGroup: CommentGroup.PROPERTY,
+    commentGroup: CommentGroup.PRODUCT,
     commentContent: "",
     commentRefId: "",
   });
@@ -141,7 +141,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
     skip: !commentInquiry.search.commentRefId,
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
-      if (data?.getComments?.list) setPropertyComments(data?.getComments?.list);
+      if (data?.getComments?.list) setProductComments(data?.getComments?.list);
       setCommentTotal(data?.getComments?.metaCounter[0]?.total ?? 0);
     },
   });
@@ -557,7 +557,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                     </Stack>
                   </Stack>
                   <Stack className={"review-list"}>
-                    {propertyComments?.map((comment: Comment) => {
+                    {productComments?.map((comment: Comment) => {
                       return <Review comment={comment} key={comment?._id} />;
                     })}
                     <Box component={"div"} className={"pagination-box"}>
