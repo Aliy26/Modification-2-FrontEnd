@@ -157,7 +157,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
   };
 
   if (device === "mobile") {
-    return <h1>AGENTS PAGE MOBILE</h1>;
+    return <h1>RETAILERS PAGE MOBILE</h1>;
   } else {
     return (
       <Stack className={"agent-list-page"}>
@@ -227,6 +227,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
                     agent={agent}
                     key={agent._id}
                     likeMemberHandler={likeMemberHandler}
+                    getAgentsRefetch={getAgetnsRefetch}
                   />
                 );
               })

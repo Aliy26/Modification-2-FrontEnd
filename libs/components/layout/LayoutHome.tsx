@@ -13,7 +13,7 @@ import Chat from "../Chat";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import Link from "next/link";
+
 import { useRouter } from "next/router";
 
 const withLayoutMain = (Component: any) => {

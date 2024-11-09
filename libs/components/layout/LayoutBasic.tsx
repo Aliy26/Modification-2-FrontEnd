@@ -29,24 +29,25 @@ const withLayoutBasic = (Component: any) => {
 
       switch (router.pathname) {
         case "/product":
-          title = "Checkout Our Products!";
-          desc = "We are glad to see you again!";
+          title = "Discover something new today!";
+          desc =
+            "Check out our latest products and find the perfect addition to your collection!";
           bgImage = "/img/banner/organic.webp";
           break;
         case "/agent":
-          title = "Agents";
-          desc = "Home / For Rent";
-          bgImage = "/img/banner/agents.webp";
+          title = "Retailers";
+          desc = "Follow our Retailers to get notified of their latest posts!";
+          bgImage = "/img/banner/appliances.png";
           break;
         case "/agent/detail":
-          title = "Agent Page";
+          title = "Retailer Page";
           desc = "Home / For Rent";
-          bgImage = "/img/banner/header2.svg";
+          bgImage = "/img/banner/appliances2.png";
           break;
         case "/mypage":
           title = "my page";
           desc = "Home / For Rent";
-          bgImage = "/img/banner/header1.svg";
+          bgImage = "/img/banner/appliances3.webp";
           break;
         case "/community":
           title = "Community";

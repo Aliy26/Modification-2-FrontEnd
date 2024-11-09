@@ -14,20 +14,22 @@ export const GET_AGENTS = gql`
         memberAuthType
         memberPhone
         memberNick
-        memberEmail
         memberFullName
         memberImage
         memberAddress
         memberDesc
-        memberWarnings
-        memberBlocks
         memberProducts
-        memberRank
+        memberArticles
+        memberFollowers
+        memberFollowings
         memberPoints
         memberLikes
         memberViews
+        memberComments
+        memberRank
+        memberWarnings
+        memberBlocks
         deletedAt
-        createdAt
         updatedAt
         accessToken
         meLiked {
@@ -35,6 +37,12 @@ export const GET_AGENTS = gql`
           likeRefId
           myFavorite
         }
+        meFollowed {
+          followingId
+          followerId
+          myFollowing
+        }
+        createdAt
       }
       metaCounter {
         total
