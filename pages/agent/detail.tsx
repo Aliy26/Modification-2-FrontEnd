@@ -8,7 +8,7 @@ import { Box, Button, Pagination, Stack, Typography } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import { useRouter } from "next/router";
-import { Property } from "../../libs/types/product/product";
+import { Product } from "../../libs/types/product/product";
 import { Member } from "../../libs/types/member/member";
 import {
   sweetErrorHandling,
@@ -16,7 +16,7 @@ import {
   sweetTopSmallSuccessAlert,
 } from "../../libs/sweetAlert";
 import { userVar } from "../../apollo/store";
-import { PropertiesInquiry } from "../../libs/types/product/product.input";
+import { ProductsInquiry } from "../../libs/types/product/product.input";
 import {
   CommentInput,
   CommentsInquiry,
@@ -53,8 +53,8 @@ const AgentDetail: NextPage = ({
   const [agentId, setAgentId] = useState<string | null>(null);
   const [agent, setAgent] = useState<Member | null>(null);
   const [searchFilter, setSearchFilter] =
-    useState<PropertiesInquiry>(initialInput);
-  const [agentProducts, setAgentProducts] = useState<Property[]>([]);
+    useState<ProductsInquiry>(initialInput);
+  const [agentProducts, setAgentProducts] = useState<Product[]>([]);
   const [propertyTotal, setProductsTotal] = useState<number>(0);
   const [commentInquiry, setCommentInquiry] =
     useState<CommentsInquiry>(initialComment);
@@ -237,13 +237,13 @@ const AgentDetail: NextPage = ({
           </Stack>
           <Stack className={"agent-home-list"}>
             <Stack className={"card-wrap"}>
-              {agentProducts.map((property: Property) => {
+              {agentProducts.map((product: Product) => {
                 return (
-                  <div className={"wrap-main"} key={property?._id}>
+                  <div className={"wrap-main"} key={product?._id}>
                     <PropertyBigCard
-                      property={property}
+                      property={product}
                       likeProductHandler={likeProductHandler}
-                      key={property?._id}
+                      key={product?._id}
                     />
                   </div>
                 );
