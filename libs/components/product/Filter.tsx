@@ -937,58 +937,31 @@ const Filter = (props: FilterType) => {
             </Stack>
           </Stack>
           <div className="range-container">
-            <Stack className={"find-your-home"} mb={"30px"}>
-              <Typography className={"title"}>Square meter</Typography>
+            <Stack className={"find-your-home"}>
+              <Typography className={"title"}>Manufactured Year</Typography>
               <Stack className="square-year-input">
-                <FormControl>
-                  <InputLabel id="demo-simple-select-label">Min</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={searchFilter?.search?.squaresRange?.start ?? 0}
-                    label="Min"
-                    onChange={(e: any) => propertySquareHandler(e, "start")}
-                    MenuProps={MenuProps}
-                  >
-                    {propertySquare.map((square: number) => (
-                      <MenuItem
-                        value={square}
-                        disabled={
-                          (searchFilter?.search?.squaresRange?.end || 0) <
-                          square
-                        }
-                        key={square}
-                      >
-                        {square}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <input
+                  type="number"
+                  placeholder="$ min"
+                  min={0}
+                  value={searchFilter?.search?.periodsRange?.start ?? 0}
+                  onChange={(e: any) => {
+                    if (e.target.value >= 0) {
+                      propertyPriceHandler(e.target.value, "start");
+                    }
+                  }}
+                />
                 <div className="central-divider"></div>
-                <FormControl>
-                  <InputLabel id="demo-simple-select-label">Max</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={searchFilter?.search?.squaresRange?.end ?? 500}
-                    label="Max"
-                    onChange={(e: any) => propertySquareHandler(e, "end")}
-                    MenuProps={MenuProps}
-                  >
-                    {propertySquare.map((square: number) => (
-                      <MenuItem
-                        value={square}
-                        disabled={
-                          (searchFilter?.search?.squaresRange?.start || 0) >
-                          square
-                        }
-                        key={square}
-                      >
-                        {square}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <input
+                  type="number"
+                  placeholder="$ max"
+                  value={searchFilter?.search?.periodsRange?.end ?? 0}
+                  onChange={(e: any) => {
+                    if (e.target.value >= 0) {
+                      propertyPriceHandler(e.target.value, "end");
+                    }
+                  }}
+                />
               </Stack>
             </Stack>
             <Stack className={"find-your-home"}>

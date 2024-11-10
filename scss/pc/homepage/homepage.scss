@@ -915,89 +915,104 @@
     }
 
     .events {
-      position: relative;
-      padding: 100px 0px 92px;
-      width: 100%;
-      height: 810px;
       display: flex;
-      flex-direction: row;
-      background: #181a20;
-      .container {
-        flex-direction: column;
-        align-items: center;
-        .card-wrapper {
-          position: relative;
-          margin-top: 48px;
-          width: 100%;
-          height: auto;
+      height: 700px;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+
+      .header {
+        text-align: center;
+        color: #333;
+
+        h2 {
+          font-size: 2.5rem;
+          color: #ff6b6b;
+        }
+
+        p {
+          margin-top: 1.5rem;
+          margin-bottom: 1.5rem;
+          font-size: 1.2rem;
+          color: #444;
+        }
+      }
+
+      .cards-container,
+      .swiper-container {
+        width: 100%;
+        padding: 1rem;
+      }
+
+      .cards-container {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+      }
+
+      .swiper-container {
+        .swiper-slide {
           display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          .event-card {
-            position: relative;
-            width: 300px;
-            height: 420px;
-            border-radius: 12px;
-            opacity: 0.9;
-            cursor: pointer;
-            transition: opacity 0.4s;
-            &:hover {
-              opacity: 1;
-              scale: 1.05;
-              transition: 0.3s;
-              .more {
-                opacity: 1;
-              }
-            }
-            .info {
-              position: absolute;
-              display: flex;
-              flex-direction: column;
-              top: 35px;
-              left: 10px;
-              right: 10px;
-              strong {
-                color: #f64747;
-                font-family: $font;
-                font-size: 25px;
-                font-style: normal;
-                font-weight: 600;
-                line-height: normal;
-                text-transform: capitalize;
-              }
-              span {
-                color: #f66767;
-                font-family: $font;
-                font-size: 20px;
-                font-style: normal;
-                font-weight: 500;
-                line-height: 28px;
-                text-transform: capitalize;
-              }
-            }
-            .more {
-              position: absolute;
-              left: 10px;
-              right: 10px;
-              bottom: 41px;
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              opacity: 0;
-              span {
-                padding: 0px 5px;
-                border-radius: 5px;
-                background: #fffdfdc4;
-                color: #9c67f6;
-                font-family: $font;
-                font-size: 16px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 26px;
-                text-align: justify;
-                cursor: pointer;
-              }
-            }
+          justify-content: center;
+        }
+
+        .swiper-pagination-bullet {
+          background-color: #ff6b6b;
+        }
+
+        .swiper-pagination-bullet-active {
+          background-color: #333;
+        }
+      }
+
+      .event-card {
+        width: 320px;
+        height: 460px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 0px 10px 30px 10px rgba(5, 87, 107, 0.33);
+        }
+
+        .image-overlay {
+          width: 100%;
+          height: 290px;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 290px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+          }
+        }
+
+        .event-info {
+          background-color: #fff;
+          padding: 1.5rem;
+          text-align: center;
+
+          h3 {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            margin-bottom: 0.5rem;
+          }
+
+          .city {
+            font-size: 1.1rem;
+            color: #333;
+            font-weight: bold;
+          }
+
+          .description {
+            font-size: 1rem;
+            color: #555;
+            margin-top: 0.5rem;
           }
         }
       }

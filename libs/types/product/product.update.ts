@@ -19,6 +19,7 @@ export interface PropertyUpdate {
   propertyDesc?: string;
   propertyBarter?: boolean;
   propertyRent?: boolean;
+  manufacturedIn?: number;
   soldAt?: Date;
   deletedAt?: Date;
   constructedAt?: Date;

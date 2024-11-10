@@ -348,7 +348,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
               <span>
                 {searchFilter?.search?.locationList
                   ? searchFilter?.search?.locationList[0]
-                  : t("Location")}{" "}
+                  : t("Category")}{" "}
               </span>
               <ExpandMoreIcon />
             </Box>
@@ -360,7 +360,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
                 {" "}
                 {searchFilter?.search?.typeList
                   ? searchFilter?.search?.typeList[0]
-                  : t("Property type")}{" "}
+                  : t("Product type")}{" "}
               </span>
               <ExpandMoreIcon />
             </Box>

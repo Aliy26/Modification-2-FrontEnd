@@ -18,7 +18,7 @@ export interface PropertyInput {
   productInstallment?: boolean;
   productRent?: boolean;
   memberId?: string;
-  manufacturedIn?: Date;
+  manufacturedIn?: number;
 }
 
 interface PISearch {
@@ -70,6 +70,6 @@ interface Range {
 }
 
 interface PeriodsRange {
-  start: Date | number;
-  end: Date | number;
+  start: number;
+  end: number;
 }
