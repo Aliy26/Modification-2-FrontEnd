@@ -3,15 +3,9 @@ import {
   Stack,
   Typography,
   Checkbox,
-  Button,
   OutlinedInput,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Tooltip,
   IconButton,
-  colors,
 } from "@mui/material";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
 import { ProductCategory, ProductType } from "../../enums/product.enum";
@@ -47,7 +41,7 @@ const Filter = (props: FilterType) => {
   );
   const [searchText, setSearchText] = useState<string>("");
   const [showMore, setShowMore] = useState<boolean>(false);
-  const [goAdvanced, setGoAdvanced] = useState<boolean>(false);
+  const [hideAdvanced, setHideAdvanced] = useState<boolean>(false);
 
   /** LIFECYCLES **/
   useEffect(() => {
@@ -656,17 +650,17 @@ const Filter = (props: FilterType) => {
           </Stack>
         </Stack>
         <button
-          style={{ background: goAdvanced ? "green" : "" }}
+          style={{ background: hideAdvanced ? "green" : "" }}
           className="advanced-button"
           onClick={() => {
-            setGoAdvanced((prev) => !prev);
+            setHideAdvanced((prev) => !prev);
           }}
         >
-          {goAdvanced ? "Hide" : "Open"} {""}Advanced Search
+          {hideAdvanced ? "Open" : "Hide"} {""}Advanced Search
         </button>
         <Stack
-          className={`filter-main ${goAdvanced ? "show" : ""}`}
-          sx={{ display: goAdvanced ? "flex" : "none" }}
+          className={`filter-main ${hideAdvanced ? "" : "show"}`}
+          sx={{ display: hideAdvanced ? "none" : "flex" }}
         >
           <Stack className={"find-your-home"} mb={"30px"}>
             <p
