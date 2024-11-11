@@ -139,7 +139,7 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
       case "lowest":
         setSearchFilter({
           ...searchFilter,
-          sort: "propertyPrice",
+          sort: "productPrice",
           direction: Direction.ASC,
         });
         setFilterSortName("Lowest Price");
@@ -147,7 +147,7 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
       case "highest":
         setSearchFilter({
           ...searchFilter,
-          sort: "propertyPrice",
+          sort: "productPrice",
           direction: Direction.DESC,
         });
         setFilterSortName("Highest Price");

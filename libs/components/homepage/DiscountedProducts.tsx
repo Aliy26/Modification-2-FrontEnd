@@ -132,9 +132,11 @@ DiscountedProducts.defaultProps = {
   initialInput: {
     page: 1,
     limit: 7,
-    sort: "productViews",
+    sort: "updatedAt",
     direction: "DESC",
-    search: {},
+    search: {
+      discountedPrice: true,
+    },
   },
 };
 
