@@ -41,7 +41,8 @@ const withLayoutBasic = (Component: any) => {
           break;
         case "/agent/detail":
           title = "Retailer Page";
-          desc = "Home / For Rent";
+          desc =
+            "Be sure to contact our retailer to get any information you need about the product you like!";
           bgImage = "/img/banner/appliances2.png";
           break;
         case "/mypage":
@@ -51,8 +52,9 @@ const withLayoutBasic = (Component: any) => {
           break;
         case "/community":
           title = "Community";
-          desc = "Home / For Rent";
-          bgImage = "/img/banner/header2.svg";
+          desc =
+            "Share your unique voice with a community eager to learn from your insights!";
+          bgImage = "/img/banner/community1.jpg";
           break;
         case "/community/detail":
           title = "Community Detail";
@@ -62,7 +64,7 @@ const withLayoutBasic = (Component: any) => {
         case "/cs":
           title = "CS";
           desc = "We are glad to see you again!";
-          bgImage = "/img/banner/header2.svg";
+          bgImage = "/img/banner/community1.jpg";
           break;
         case "/account/join":
           title = "Login/Signup";

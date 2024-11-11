@@ -123,7 +123,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
           ...searchFilter,
           search: {
             ...searchFilter.search,
-            locationList: [value],
+            categoryList: [value],
           },
         });
         typeStateChangeHandler();
@@ -159,7 +159,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
           ...searchFilter,
           search: {
             ...searchFilter.search,
-            roomsList: [value],
+            options: [value],
           },
         });
         disableAllStateHandler();
@@ -170,41 +170,41 @@ const HeaderFilter = (props: HeaderFilterProps) => {
     [searchFilter]
   );
 
-  const propertyBedSelectHandler = useCallback(
-    async (number: Number) => {
-      try {
-        if (number != 0) {
-          if (searchFilter?.search?.bedsList?.includes(number)) {
-            setSearchFilter({
-              ...searchFilter,
-              search: {
-                ...searchFilter.search,
-                bedsList: searchFilter?.search?.bedsList?.filter(
-                  (item: Number) => item !== number
-                ),
-              },
-            });
-          } else {
-            setSearchFilter({
-              ...searchFilter,
-              search: {
-                ...searchFilter.search,
-                bedsList: [...(searchFilter?.search?.bedsList || []), number],
-              },
-            });
-          }
-        } else {
-          delete searchFilter?.search.bedsList;
-          setSearchFilter({ ...searchFilter });
-        }
+  // const propertyBedSelectHandler = useCallback(
+  //   async (number: Number) => {
+  //     try {
+  //       if (number != 0) {
+  //         if (searchFilter?.search?.bedsList?.includes(number)) {
+  //           setSearchFilter({
+  //             ...searchFilter,
+  //             search: {
+  //               ...searchFilter.search,
+  //               bedsList: searchFilter?.search?.bedsList?.filter(
+  //                 (item: Number) => item !== number
+  //               ),
+  //             },
+  //           });
+  //         } else {
+  //           setSearchFilter({
+  //             ...searchFilter,
+  //             search: {
+  //               ...searchFilter.search,
+  //               bedsList: [...(searchFilter?.search?.bedsList || []), number],
+  //             },
+  //           });
+  //         }
+  //       } else {
+  //         delete searchFilter?.search.bedsList;
+  //         setSearchFilter({ ...searchFilter });
+  //       }
 
-        console.log("propertyBedSelectHandler:", number);
-      } catch (err: any) {
-        console.log("ERROR, propertyBedSelectHandler:", err);
-      }
-    },
-    [searchFilter]
-  );
+  //       console.log("propertyBedSelectHandler:", number);
+  //     } catch (err: any) {
+  //       console.log("ERROR, propertyBedSelectHandler:", err);
+  //     }
+  //   },
+  //   [searchFilter]
+  // );
 
   const propertyOptionSelectHandler = useCallback(
     async (e: any) => {
@@ -236,38 +236,38 @@ const HeaderFilter = (props: HeaderFilterProps) => {
     [searchFilter]
   );
 
-  const propertySquareHandler = useCallback(
-    async (e: any, type: string) => {
-      const value = e.target.value;
+  // const propertySquareHandler = useCallback(
+  //   async (e: any, type: string) => {
+  //     const value = e.target.value;
 
-      if (type == "start") {
-        setSearchFilter({
-          ...searchFilter,
-          search: {
-            ...searchFilter.search,
-            // @ts-ignore
-            squaresRange: {
-              ...searchFilter.search.squaresRange,
-              start: parseInt(value),
-            },
-          },
-        });
-      } else {
-        setSearchFilter({
-          ...searchFilter,
-          search: {
-            ...searchFilter.search,
-            // @ts-ignore
-            squaresRange: {
-              ...searchFilter.search.squaresRange,
-              end: parseInt(value),
-            },
-          },
-        });
-      }
-    },
-    [searchFilter]
-  );
+  //     if (type == "start") {
+  //       setSearchFilter({
+  //         ...searchFilter,
+  //         search: {
+  //           ...searchFilter.search,
+  //           // @ts-ignore
+  //           squaresRange: {
+  //             ...searchFilter.search.squaresRange,
+  //             start: parseInt(value),
+  //           },
+  //         },
+  //       });
+  //     } else {
+  //       setSearchFilter({
+  //         ...searchFilter,
+  //         search: {
+  //           ...searchFilter.search,
+  //           // @ts-ignore
+  //           squaresRange: {
+  //             ...searchFilter.search.squaresRange,
+  //             end: parseInt(value),
+  //           },
+  //         },
+  //       });
+  //     }
+  //   },
+  //   [searchFilter]
+  // );
 
   const yearStartChangeHandler = async (event: any) => {
     setYearCheck({ ...yearCheck, start: Number(event.target.value) });
@@ -304,24 +304,24 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 
   const pushSearchHandler = async () => {
     try {
-      if (searchFilter?.search?.locationList?.length == 0) {
-        delete searchFilter.search.locationList;
+      if (searchFilter?.search?.categoryList?.length == 0) {
+        delete searchFilter.search.categoryList;
       }
 
       if (searchFilter?.search?.typeList?.length == 0) {
         delete searchFilter.search.typeList;
       }
 
-      if (searchFilter?.search?.roomsList?.length == 0) {
-        delete searchFilter.search.roomsList;
+      if (searchFilter?.search?.options?.length == 0) {
+        delete searchFilter.search.options;
       }
 
       if (searchFilter?.search?.options?.length == 0) {
         delete searchFilter.search.options;
       }
 
-      if (searchFilter?.search?.bedsList?.length == 0) {
-        delete searchFilter.search.bedsList;
+      if (searchFilter?.search?.options?.length == 0) {
+        delete searchFilter.search.options;
       }
 
       await router.push(
@@ -346,8 +346,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
               onClick={locationStateChangeHandler}
             >
               <span>
-                {searchFilter?.search?.locationList
-                  ? searchFilter?.search?.locationList[0]
+                {searchFilter?.search?.categoryList
+                  ? searchFilter?.search?.categoryList[0]
                   : t("Category")}{" "}
               </span>
               <ExpandMoreIcon />
@@ -369,8 +369,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
               onClick={roomStateChangeHandler}
             >
               <span>
-                {searchFilter?.search?.roomsList
-                  ? `${searchFilter?.search?.roomsList[0]} rooms}`
+                {searchFilter?.search?.options
+                  ? `${searchFilter?.search?.options[0]} rooms}`
                   : t("Options")}
               </span>
               <ExpandMoreIcon />
