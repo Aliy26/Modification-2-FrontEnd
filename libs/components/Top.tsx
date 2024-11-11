@@ -431,7 +431,7 @@ const Top = () => {
                                           >
                                             {ele.propertyData?.productName}
                                           </i>{" "}
-                                          property
+                                          product
                                         </>
                                       ) : ele.articleId ? (
                                         <>

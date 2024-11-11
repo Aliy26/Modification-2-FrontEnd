@@ -301,7 +301,15 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                       </defs>
                     </svg>
                     <Typography className={"date"}>
-                      added {moment().diff(product?.createdAt, "days")} days ago
+                      added{" "}
+                      {moment().diff(product?.createdAt, "days") === 0
+                        ? "today"
+                        : moment().diff(product?.createdAt, "days") === 1
+                        ? "yesterday"
+                        : `${moment().diff(
+                            product?.createdAt,
+                            "days"
+                          )} days ago`}
                     </Typography>
                   </Stack>
                 </Stack>

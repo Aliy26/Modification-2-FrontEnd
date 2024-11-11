@@ -132,7 +132,7 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
         setSearchFilter({
           ...searchFilter,
           sort: "createdAt",
-          direction: Direction.ASC,
+          direction: Direction.DESC,
         });
         setFilterSortName("New");
         break;
@@ -264,7 +264,7 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
 ProductList.defaultProps = {
   initialInput: {
     page: 1,
-    limit: 9,
+    limit: 12,
     sort: "createdAt",
     direction: "DESC",
     search: {},

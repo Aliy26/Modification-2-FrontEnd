@@ -419,129 +419,129 @@ const Filter = (props: FilterType) => {
     [searchFilter]
   );
 
-  const propertyBedSelectHandler = useCallback(
-    async (number: Number) => {
-      try {
-        if (number != 0) {
-          if (searchFilter?.search?.bedsList?.includes(number)) {
-            await router.push(
-              `/product?input=${JSON.stringify({
-                ...searchFilter,
-                search: {
-                  ...searchFilter.search,
-                  bedsList: searchFilter?.search?.bedsList?.filter(
-                    (item: Number) => item !== number
-                  ),
-                },
-              })}`,
-              `/product?input=${JSON.stringify({
-                ...searchFilter,
-                search: {
-                  ...searchFilter.search,
-                  bedsList: searchFilter?.search?.bedsList?.filter(
-                    (item: Number) => item !== number
-                  ),
-                },
-              })}`,
-              { scroll: false }
-            );
-          } else {
-            await router.push(
-              `/product?input=${JSON.stringify({
-                ...searchFilter,
-                search: {
-                  ...searchFilter.search,
-                  bedsList: [...(searchFilter?.search?.bedsList || []), number],
-                },
-              })}`,
-              `/product?input=${JSON.stringify({
-                ...searchFilter,
-                search: {
-                  ...searchFilter.search,
-                  bedsList: [...(searchFilter?.search?.bedsList || []), number],
-                },
-              })}`,
-              { scroll: false }
-            );
-          }
-        } else {
-          delete searchFilter?.search.bedsList;
-          setSearchFilter({ ...searchFilter });
-          await router.push(
-            `/product?input=${JSON.stringify({
-              ...searchFilter,
-              search: {
-                ...searchFilter.search,
-              },
-            })}`,
-            `/product?input=${JSON.stringify({
-              ...searchFilter,
-              search: {
-                ...searchFilter.search,
-              },
-            })}`,
-            { scroll: false }
-          );
-        }
+  // const propertyBedSelectHandler = useCallback(
+  //   async (number: Number) => {
+  //     try {
+  //       if (number != 0) {
+  //         if (searchFilter?.search?.bedsList?.includes(number)) {
+  //           await router.push(
+  //             `/product?input=${JSON.stringify({
+  //               ...searchFilter,
+  //               search: {
+  //                 ...searchFilter.search,
+  //                 bedsList: searchFilter?.search?.bedsList?.filter(
+  //                   (item: Number) => item !== number
+  //                 ),
+  //               },
+  //             })}`,
+  //             `/product?input=${JSON.stringify({
+  //               ...searchFilter,
+  //               search: {
+  //                 ...searchFilter.search,
+  //                 bedsList: searchFilter?.search?.bedsList?.filter(
+  //                   (item: Number) => item !== number
+  //                 ),
+  //               },
+  //             })}`,
+  //             { scroll: false }
+  //           );
+  //         } else {
+  //           await router.push(
+  //             `/product?input=${JSON.stringify({
+  //               ...searchFilter,
+  //               search: {
+  //                 ...searchFilter.search,
+  //                 bedsList: [...(searchFilter?.search?.bedsList || []), number],
+  //               },
+  //             })}`,
+  //             `/product?input=${JSON.stringify({
+  //               ...searchFilter,
+  //               search: {
+  //                 ...searchFilter.search,
+  //                 bedsList: [...(searchFilter?.search?.bedsList || []), number],
+  //               },
+  //             })}`,
+  //             { scroll: false }
+  //           );
+  //         }
+  //       } else {
+  //         delete searchFilter?.search.bedsList;
+  //         setSearchFilter({ ...searchFilter });
+  //         await router.push(
+  //           `/product?input=${JSON.stringify({
+  //             ...searchFilter,
+  //             search: {
+  //               ...searchFilter.search,
+  //             },
+  //           })}`,
+  //           `/product?input=${JSON.stringify({
+  //             ...searchFilter,
+  //             search: {
+  //               ...searchFilter.search,
+  //             },
+  //           })}`,
+  //           { scroll: false }
+  //         );
+  //       }
 
-        console.log("productBedSelectHandler:", number);
-      } catch (err: any) {
-        console.log("ERROR, productBedSelectHandler:", err);
-      }
-    },
-    [searchFilter]
-  );
+  //       console.log("productBedSelectHandler:", number);
+  //     } catch (err: any) {
+  //       console.log("ERROR, productBedSelectHandler:", err);
+  //     }
+  //   },
+  //   [searchFilter]
+  // );
 
-  const propertySquareHandler = useCallback(
-    async (e: any, type: string) => {
-      const value = e.target.value;
+  // const propertySquareHandler = useCallback(
+  //   async (e: any, type: string) => {
+  //     const value = e.target.value;
 
-      if (type == "start") {
-        await router.push(
-          `/product?input=${JSON.stringify({
-            ...searchFilter,
-            search: {
-              ...searchFilter.search,
-              squaresRange: {
-                ...searchFilter.search.squaresRange,
-                start: value,
-              },
-            },
-          })}`,
-          `/product?input=${JSON.stringify({
-            ...searchFilter,
-            search: {
-              ...searchFilter.search,
-              squaresRange: {
-                ...searchFilter.search.squaresRange,
-                start: value,
-              },
-            },
-          })}`,
-          { scroll: false }
-        );
-      } else {
-        await router.push(
-          `/product?input=${JSON.stringify({
-            ...searchFilter,
-            search: {
-              ...searchFilter.search,
-              squaresRange: { ...searchFilter.search.squaresRange, end: value },
-            },
-          })}`,
-          `/product?input=${JSON.stringify({
-            ...searchFilter,
-            search: {
-              ...searchFilter.search,
-              squaresRange: { ...searchFilter.search.squaresRange, end: value },
-            },
-          })}`,
-          { scroll: false }
-        );
-      }
-    },
-    [searchFilter]
-  );
+  //     if (type == "start") {
+  //       await router.push(
+  //         `/product?input=${JSON.stringify({
+  //           ...searchFilter,
+  //           search: {
+  //             ...searchFilter.search,
+  //             squaresRange: {
+  //               ...searchFilter.search.squaresRange,
+  //               start: value,
+  //             },
+  //           },
+  //         })}`,
+  //         `/product?input=${JSON.stringify({
+  //           ...searchFilter,
+  //           search: {
+  //             ...searchFilter.search,
+  //             squaresRange: {
+  //               ...searchFilter.search.squaresRange,
+  //               start: value,
+  //             },
+  //           },
+  //         })}`,
+  //         { scroll: false }
+  //       );
+  //     } else {
+  //       await router.push(
+  //         `/product?input=${JSON.stringify({
+  //           ...searchFilter,
+  //           search: {
+  //             ...searchFilter.search,
+  //             squaresRange: { ...searchFilter.search.squaresRange, end: value },
+  //           },
+  //         })}`,
+  //         `/product?input=${JSON.stringify({
+  //           ...searchFilter,
+  //           search: {
+  //             ...searchFilter.search,
+  //             squaresRange: { ...searchFilter.search.squaresRange, end: value },
+  //           },
+  //         })}`,
+  //         { scroll: false }
+  //       );
+  //     }
+  //   },
+  //   [searchFilter]
+  // );
 
   const propertyPriceHandler = useCallback(
     async (value: number, type: string) => {
@@ -680,7 +680,7 @@ const Filter = (props: FilterType) => {
               style={{ height: showMore ? "210px" : "115px" }}
               onMouseEnter={() => setShowMore(true)}
               onMouseLeave={() => {
-                if (!searchFilter?.search?.productCategory) {
+                if (!searchFilter?.search?.categoryList) {
                   setShowMore(false);
                 }
               }}
@@ -938,6 +938,34 @@ const Filter = (props: FilterType) => {
           </Stack>
           <div className="range-container">
             <Stack className={"find-your-home"}>
+              <Typography className={"title"}>Price Range</Typography>
+              <Stack className="square-year-input">
+                <input
+                  type="number"
+                  style={{ marginBottom: "5px" }}
+                  placeholder="$ min"
+                  min={0}
+                  value={searchFilter?.search?.pricesRange?.start ?? 0}
+                  onChange={(e: any) => {
+                    if (e.target.value >= 0) {
+                      propertyPriceHandler(e.target.value, "start");
+                    }
+                  }}
+                />
+                <div className="central-divider"></div>
+                <input
+                  type="number"
+                  placeholder="$ max"
+                  value={searchFilter?.search?.pricesRange?.end ?? 0}
+                  onChange={(e: any) => {
+                    if (e.target.value >= 0) {
+                      propertyPriceHandler(e.target.value, "end");
+                    }
+                  }}
+                />
+              </Stack>
+            </Stack>
+            <Stack className={"find-your-home"}>
               <Typography className={"title"}>Manufactured Year</Typography>
               <Stack className="square-year-input">
                 <input
@@ -956,33 +984,6 @@ const Filter = (props: FilterType) => {
                   type="number"
                   placeholder="$ max"
                   value={searchFilter?.search?.periodsRange?.end ?? 0}
-                  onChange={(e: any) => {
-                    if (e.target.value >= 0) {
-                      propertyPriceHandler(e.target.value, "end");
-                    }
-                  }}
-                />
-              </Stack>
-            </Stack>
-            <Stack className={"find-your-home"}>
-              <Typography className={"title"}>Price Range</Typography>
-              <Stack className="square-year-input">
-                <input
-                  type="number"
-                  placeholder="$ min"
-                  min={0}
-                  value={searchFilter?.search?.pricesRange?.start ?? 0}
-                  onChange={(e: any) => {
-                    if (e.target.value >= 0) {
-                      propertyPriceHandler(e.target.value, "start");
-                    }
-                  }}
-                />
-                <div className="central-divider"></div>
-                <input
-                  type="number"
-                  placeholder="$ max"
-                  value={searchFilter?.search?.pricesRange?.end ?? 0}
                   onChange={(e: any) => {
                     if (e.target.value >= 0) {
                       propertyPriceHandler(e.target.value, "end");

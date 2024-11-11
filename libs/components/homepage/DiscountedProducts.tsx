@@ -54,6 +54,10 @@ const DiscountedProducts = (props: DiscountedProductsProp) => {
               centeredSlides={true}
               spaceBetween={25}
               modules={[Autoplay]}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
             >
               {popularProducts.map((product: Product) => {
                 return (

@@ -52,19 +52,7 @@
                 height: 20px;
                 background: #ddd;
               }
-              .buy-rent-box {
-                flex-direction: row;
-                align-items: center;
-                gap: 7px;
-                .buy-rent {
-                  color: #eb6753;
-                  font-family: $font;
-                  font-size: 15px;
-                  font-style: normal;
-                  font-weight: 600;
-                  line-height: normal;
-                }
-              }
+
               .date {
                 color: #181a20;
                 font-family: $font;
@@ -206,7 +194,7 @@
             .left-config {
               width: 100%;
               .prop-desc-config {
-                background-color: #eb6753;
+                background-color: #ffe26d;
                 height: 625px;
                 width: 100%;
                 gap: 50px;

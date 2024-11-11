@@ -36,10 +36,10 @@ const Home: NextPage = () => {
         <DiscountedProducts />
         <Advertisement />
         <LimitedProducts />
-        <BestSeller />
-        <TopAgents />
-        <CommunityBoards />
         <Events />
+        <BestSeller />
+        <CommunityBoards />
+        <TopAgents />
       </Stack>
     );
   }
