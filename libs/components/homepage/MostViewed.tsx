@@ -7,7 +7,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper";
 import { Product } from "../../types/product/product";
 import { ProductsInquiry } from "../../types/product/product.input";
-import TrendProductCard from "./BestSellerCard";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_PRODUCTS } from "../../../apollo/user/query";
 import { T } from "../../types/common";
@@ -17,12 +16,13 @@ import {
   sweetTopSmallSuccessAlert,
 } from "../../sweetAlert";
 import { Message } from "../../enums/common.enum";
+import MostViewedCard from "./MostViewedCard";
 
-interface BestSellersProps {
+interface MostViewed {
   initialInput: ProductsInquiry;
 }
 
-const BestSellers = (props: BestSellersProps) => {
+const MostViewed = (props: MostViewed) => {
   const { initialInput } = props;
   const device = useDeviceDetect();
   const [bestSellers, setBestSellers] = useState<Product[]>([]);
@@ -71,7 +71,7 @@ const BestSellers = (props: BestSellersProps) => {
       <Stack className={"trend-properties"}>
         <Stack className={"container"}>
           <Stack className={"info-box"}>
-            <span>Best Sellers</span>
+            <span>Most Viewed Products</span>
           </Stack>
           <Stack className={"card-box"}>
             {bestSellers.length === 0 ? (
@@ -92,7 +92,7 @@ const BestSellers = (props: BestSellersProps) => {
                       key={product._id}
                       className={"trend-property-slide"}
                     >
-                      <TrendProductCard
+                      <MostViewedCard
                         product={product}
                         likeProductHandler={likeProductHandler}
                       />
@@ -111,8 +111,8 @@ const BestSellers = (props: BestSellersProps) => {
         <Stack className={"container"}>
           <Stack className={"info-box"}>
             <Box component={"div"} className={"left"}>
-              <span>Best Sellers</span>
-              <p>Trend is based on item Sales</p>
+              <span>Most Viewed Products</span>
+              <p>Trend is based on item views</p>
             </Box>
             <Box component={"div"} className={"right"}>
               <div className={"pagination-box"}>
@@ -147,7 +147,7 @@ const BestSellers = (props: BestSellersProps) => {
                       key={product._id}
                       className={"trend-property-slide"}
                     >
-                      <TrendProductCard
+                      <MostViewedCard
                         product={product}
                         likeProductHandler={likeProductHandler}
                       />
@@ -163,14 +163,14 @@ const BestSellers = (props: BestSellersProps) => {
   }
 };
 
-BestSellers.defaultProps = {
+MostViewed.defaultProps = {
   initialInput: {
     page: 1,
     limit: 8,
-    sort: "productLikes",
+    sort: "productViews",
     direction: "DESC",
     search: {},
   },
 };
 
-export default BestSellers;
+export default MostViewed;

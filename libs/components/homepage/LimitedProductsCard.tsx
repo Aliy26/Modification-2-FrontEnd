@@ -117,7 +117,9 @@ const LimitedProductsCard = (props: LimitedProductsCardProps) => {
             {product?.productName}
           </strong>
           <p className={"desc"}>{product?.productBrand}</p>
-          <p className={"desc"}>Only {product.productRank} left in the stock</p>
+          <p className={"desc"}>
+            Only {product.productStock} left in the stock
+          </p>
 
           <Divider sx={{ mt: "15px", mb: "17px" }} />
           <div className={"bott"}>

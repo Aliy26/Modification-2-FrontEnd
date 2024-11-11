@@ -4,12 +4,13 @@ import withLayoutMain from "../libs/components/layout/LayoutHome";
 import CommunityBoards from "../libs/components/homepage/CommunityBoards";
 import TopAgents from "../libs/components/homepage/TopAgents";
 import Events from "../libs/components/homepage/Events";
-import BestSeller from "../libs/components/homepage/BestSeller";
+import BestSeller from "../libs/components/homepage/MostViewed";
 import LimitedProducts from "../libs/components/homepage/LimitedProducts";
 import { Stack } from "@mui/material";
 import Advertisement from "../libs/components/homepage/Advertisement";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import DiscountedProducts from "../libs/components/homepage/DiscountedProducts";
+import MostViewed from "../libs/components/homepage/MostViewed";
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
@@ -26,7 +27,7 @@ const Home: NextPage = () => {
         <DiscountedProducts />
         <Advertisement />
         <LimitedProducts />
-        <BestSeller />
+        <MostViewed />
         <TopAgents />
       </Stack>
     );
@@ -37,7 +38,7 @@ const Home: NextPage = () => {
         <Advertisement />
         <LimitedProducts />
         <Events />
-        <BestSeller />
+        <MostViewed />
         <CommunityBoards />
         <TopAgents />
       </Stack>

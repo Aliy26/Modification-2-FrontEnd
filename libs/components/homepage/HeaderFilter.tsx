@@ -371,7 +371,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
               <span>
                 {searchFilter?.search?.roomsList
                   ? `${searchFilter?.search?.roomsList[0]} rooms}`
-                  : t("Rooms")}
+                  : t("Options")}
               </span>
               <ExpandMoreIcon />
             </Box>

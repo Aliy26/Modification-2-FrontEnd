@@ -44,6 +44,8 @@ const LimitedProducts = (props: LimitedProductsProps) => {
     },
   });
 
+  console.log(",<<<<<<", limitedProducts);
+
   /** HANDLERS **/
   const likeProductHandler = async (user: T, id: string) => {
     try {
@@ -155,9 +157,9 @@ LimitedProducts.defaultProps = {
   initialInput: {
     page: 1,
     limit: 8,
-    sort: "productRank",
-    direction: "DESC",
-    search: {},
+    sort: "updatedAt",
+    direction: "ASC",
+    search: { productStock: true },
   },
 };
 

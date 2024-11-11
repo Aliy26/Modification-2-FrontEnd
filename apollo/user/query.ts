@@ -166,7 +166,6 @@ export const GET_PRODUCTS = gql`
         productBrand
         productName
         productPrice
-        discountedPrice
         productViews
         productLikes
         productComments
@@ -215,6 +214,8 @@ export const GET_PRODUCTS = gql`
           likeRefId
           myFavorite
         }
+        discountedPrice
+        productStock
       }
       metaCounter {
         total
