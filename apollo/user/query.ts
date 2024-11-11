@@ -471,6 +471,11 @@ export const GET_BOARD_ARTICLE = gql`
         updatedAt
         accessToken
       }
+      meLiked {
+        memberId
+        likeRefId
+        myFavorite
+      }
     }
   }
 `;

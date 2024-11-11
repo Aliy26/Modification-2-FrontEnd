@@ -17,9 +17,8 @@
           margin-top: 200px;
           margin-bottom: 50px;
           border-radius: 12px;
-          border: 1px solid rgba(196, 196, 196, 0.79);
-          background: #fff;
-          box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+          background: #e2f049;
+          box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.7);
           .tablist {
             display: flex;
             justify-content: center;
@@ -31,11 +30,12 @@
           }
 
           .right {
+            margin-top: 10px;
             width: 91px;
             height: 42px;
             border-radius: 4px;
-            background: #b1eb53;
-            color: #0b7466;
+            background: #34cade;
+            color: #0a201d;
             font-family: $font;
             font-size: 13px;
             font-weight: 500;
@@ -71,7 +71,7 @@
             .community-name {
               .name {
                 margin-top: 15px;
-                color: #181a20;
+                color: #0c7385;
                 font-family: $font;
                 font-size: 15px;
                 font-style: normal;
@@ -103,9 +103,10 @@
             padding: 0;
             justify-content: center;
             align-items: center;
-            background-color: #000000;
+            background-color: #1d9b6f;
             color: #ffffff;
             border-radius: 6px;
+            border: none;
             margin-bottom: 10px;
             font-family: $font;
             font-size: 14px;

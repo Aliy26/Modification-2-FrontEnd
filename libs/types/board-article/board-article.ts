@@ -19,7 +19,7 @@ export interface BoardArticle {
   createdAt: Date;
   updatedAt: Date;
   /** from aggregation **/
-  meLiked?: MeLiked[];
+  meLiked: MeLiked[];
   memberData?: Member;
 }
 

@@ -276,7 +276,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
       <div id="community-detail-page">
         <div className="container">
           <Stack className="main-box">
-            <Stack className="left-config">
+            {/* <Stack className="left-config">
               <Stack className={"image-info"}>
                 <img src={"/img/logo/logo3.svg"} />
                 <Stack className={"community-name"}>
@@ -323,7 +323,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                   }`}
                 />
               </Tabs>
-            </Stack>
+            </Stack> */}
             <div className="community-detail-config">
               <Stack className="title-box">
                 <Stack className="left">
@@ -346,7 +346,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                   }
                   className="right"
                 >
-                  Write
+                  Publish
                 </Button>
               </Stack>
               <div className="config">
@@ -384,7 +384,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                     </Stack>
                     <Stack className="info">
                       <Stack className="icon-info">
-                        {boardArticle?.meLiked ? (
+                        {boardArticle?.meLiked[0]?.myFavorite ? (
                           <ThumbUpAltIcon
                             onClick={() => {
                               likeBoardArticleHandler(user, boardArticle._id);

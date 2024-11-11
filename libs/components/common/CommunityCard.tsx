@@ -64,17 +64,17 @@ const CommunityCard = (props: CommunityCardProps) => {
         </Stack>
         <Stack className="desc-box" sx={{ marginTop: "-20px" }}>
           <Stack>
+            <Typography className="desc">
+              {boardArticle?.articleTitle}
+            </Typography>
             <Typography
-              className="desc"
+              className="writer"
               onClick={(e: any) => {
                 e.stopPropagation();
                 goMemberPage(boardArticle?.memberData?._id as string);
               }}
             >
-              {boardArticle?.memberData?.memberNick}
-            </Typography>
-            <Typography className="title">
-              {boardArticle?.articleTitle}
+              by {boardArticle?.memberData?.memberNick}
             </Typography>
           </Stack>
           <Stack className={"buttons"}>
