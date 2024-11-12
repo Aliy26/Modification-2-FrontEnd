@@ -30,8 +30,9 @@
             width: 100%;
             height: auto;
             flex-direction: row;
-            gap: 110px;
-            padding: 18px 15px 18px 33px;
+            justify-content: center;
+            gap: 140px;
+            padding: 18px 15px 18px 95px;
             border-radius: 12px;
             background: #f6f6f6;
             .title-text {
@@ -51,6 +52,9 @@
             height: auto;
             flex-direction: row;
             align-items: center;
+            gap: 35px;
+            justify-content: center;
+            margin-left: 40px;
             margin-top: 30px;
             padding-bottom: 30px;
             border-bottom: 1px solid #ddd;

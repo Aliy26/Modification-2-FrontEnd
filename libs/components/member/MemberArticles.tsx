@@ -78,11 +78,8 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
   } else {
     return (
       <div id="member-articles-page">
-        <Stack className="main-title-box">
-          <Stack className="right-box">
-            <Typography className="main-title">Articles</Typography>
-          </Stack>
-        </Stack>
+        <Typography className="main-title">Articles</Typography>
+
         <Stack className="articles-list-box">
           {memberBoArticles?.length === 0 && (
             <div className={"no-data"}>

@@ -16,6 +16,7 @@ export interface Member {
   memberPassword?: string;
   memberFullName?: string;
   memberImage?: string;
+  memberEmail?: string;
   memberAddress?: string;
   memberDesc?: string;
   memberProducts: number;
