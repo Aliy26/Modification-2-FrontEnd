@@ -140,7 +140,7 @@ export const GET_ALL_BOARD_ARTICLES_BY_ADMIN = gql`
           memberImage
           memberAddress
           memberDesc
-          memberProperties
+          memberProducts
           memberArticles
           memberFollowers
           memberFollowings
@@ -155,6 +155,11 @@ export const GET_ALL_BOARD_ARTICLES_BY_ADMIN = gql`
           createdAt
           updatedAt
           accessToken
+        }
+        meLiked {
+          memberId
+          likeRefId
+          myFavorite
         }
       }
       metaCounter {

@@ -335,27 +335,11 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                     restrictions
                   </Typography>
                 </Stack>
-                <Button
-                  onClick={() =>
-                    router.push({
-                      pathname: "/mypage",
-                      query: {
-                        category: "writeArticle",
-                      },
-                    })
-                  }
-                  className="right"
-                >
-                  Publish
-                </Button>
               </Stack>
               <div className="config">
                 <Stack className="first-box-config">
                   <Stack className="content-and-info">
                     <Stack className="content">
-                      <Typography className="content-data">
-                        {boardArticle?.articleTitle}
-                      </Typography>
                       <Stack className="member-info">
                         <img
                           src={memberImage}
@@ -371,7 +355,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                             goMemberPage(boardArticle?.memberData?._id)
                           }
                         >
-                          {boardArticle?.memberData?.memberNick}
+                          by {boardArticle?.memberData?.memberNick}
                         </Typography>
                         <Stack className="divider"></Stack>
                         <Moment
@@ -645,15 +629,33 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                   );
                 })}
                 {total > 0 && (
-                  <Stack className="pagination-box">
-                    <Pagination
-                      count={Math.ceil(total / searchFilter.limit) || 1}
-                      page={searchFilter.page}
-                      shape="circular"
-                      color="primary"
-                      onChange={paginationHandler}
-                    />
-                  </Stack>
+                  <div>
+                    <Stack className="pagination-box">
+                      <Pagination
+                        count={Math.ceil(total / searchFilter.limit) || 1}
+                        page={searchFilter.page}
+                        shape="circular"
+                        color="primary"
+                        onChange={paginationHandler}
+                      />
+                    </Stack>
+
+                    <div className="button-container">
+                      <Button
+                        onClick={() =>
+                          router.push({
+                            pathname: "/mypage",
+                            query: {
+                              category: "writeArticle",
+                            },
+                          })
+                        }
+                        className="right"
+                      >
+                        Publish
+                      </Button>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>

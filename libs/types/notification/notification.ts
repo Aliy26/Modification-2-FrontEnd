@@ -6,7 +6,7 @@ import {
 } from "../../enums/notification.enum";
 import { BoardArticle } from "../board-article/board-article";
 import { Member } from "../member/member";
-import { Property } from "../product/product";
+import { Product } from "../product/product";
 
 export interface Notification {
   _id: string;
@@ -20,7 +20,7 @@ export interface Notification {
   productId?: string;
   articleId?: string;
   authorData?: Member;
-  propertyData?: Property;
+  productData?: Product;
   articleData?: BoardArticle;
   createdAt: Date;
 }

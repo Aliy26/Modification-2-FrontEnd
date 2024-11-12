@@ -3,43 +3,43 @@ import { NextPage } from "next";
 import { Pagination, Stack, Typography } from "@mui/material";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
 import { PropertyCard } from "../mypage/PropertyCard";
-import { Property } from "../../types/product/product";
-import { PropertiesInquiry } from "../../types/product/product.input";
+import { Product } from "../../types/product/product";
+import { ProductsInquiry } from "../../types/product/product.input";
 import { T } from "../../types/common";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import { GET_PRODUCTS } from "../../../apollo/user/query";
 
-const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
+const MyProducts: NextPage = ({ initialInput, ...props }: any) => {
   const device = useDeviceDetect();
   const router = useRouter();
   const { memberId } = router.query;
-  const [searchFilter, setSearchFilter] = useState<PropertiesInquiry>({
+  const [searchFilter, setSearchFilter] = useState<ProductsInquiry>({
     ...initialInput,
   });
-  const [agentProperties, setAgentProperties] = useState<Property[]>([]);
+  const [agentProducts, setAgentProducts] = useState<Product[]>([]);
   const [total, setTotal] = useState<number>(0);
 
   /** APOLLO REQUESTS **/
   const {
-    loading: getPropertiesLoading,
-    data: getPropertiesData,
-    error: getPropertiesError,
-    refetch: getPropertiesRefetch,
+    loading: getProductsLoading,
+    data: getProductsData,
+    error: getProductsError,
+    refetch: getProductsRefetch,
   } = useQuery(GET_PRODUCTS, {
     fetchPolicy: "network-only",
     variables: { input: searchFilter },
     skip: !searchFilter?.search?.memberId,
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: any) => {
-      setAgentProperties(data?.getProperties?.list);
-      setTotal(data?.getProperties?.metaCounter[0]?.total ?? 0);
+      setAgentProducts(data?.getProducts?.list);
+      setTotal(data?.getProducts?.metaCounter[0]?.total ?? 0);
     },
   });
 
   /** LIFECYCLES **/
   useEffect(() => {
-    getPropertiesRefetch().then();
+    getProductsRefetch().then();
   }, [searchFilter]);
 
   useEffect(() => {
@@ -56,18 +56,18 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
   };
 
   if (device === "mobile") {
-    return <div>NESTAR PROPERTIES MOBILE</div>;
+    return <div>Apt Decor` PRODUCTS MOBILE</div>;
   } else {
     return (
       <div id="member-properties-page">
         <Stack className="main-title-box">
           <Stack className="right-box">
-            <Typography className="main-title">Properties</Typography>
+            <Typography className="main-title">Products</Typography>
           </Stack>
         </Stack>
         <Stack className="properties-list-box">
           <Stack className="list-box">
-            {agentProperties?.length > 0 && (
+            {agentProducts?.length > 0 && (
               <Stack className="listing-title-box">
                 <Typography className="title-text">Listing title</Typography>
                 <Typography className="title-text">Date Published</Typography>
@@ -75,13 +75,13 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
                 <Typography className="title-text">View</Typography>
               </Stack>
             )}
-            {agentProperties?.length === 0 && (
+            {agentProducts?.length === 0 && (
               <div className={"no-data"}>
                 <img src="/img/icons/icoAlert.svg" alt="" />
                 <p>No Property found!</p>
               </div>
             )}
-            {agentProperties?.map((property: Property) => {
+            {agentProducts?.map((property: Product) => {
               return (
                 <PropertyCard
                   property={property}
@@ -91,7 +91,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
               );
             })}
 
-            {agentProperties.length !== 0 && (
+            {agentProducts.length !== 0 && (
               <Stack className="pagination-config">
                 <Stack className="pagination-box">
                   <Pagination
@@ -114,7 +114,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
   }
 };
 
-MyProperties.defaultProps = {
+MyProducts.defaultProps = {
   initialInput: {
     page: 1,
     limit: 5,
@@ -125,4 +125,4 @@ MyProperties.defaultProps = {
   },
 };
 
-export default MyProperties;
+export default MyProducts;

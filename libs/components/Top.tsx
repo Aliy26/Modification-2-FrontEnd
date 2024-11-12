@@ -41,7 +41,6 @@ const Top = () => {
   let open = Boolean(anchorEl);
   const [bgColor, setBgColor] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [notificationCount, setNotificationCount] = useState<number>(0);
   const [logoutAnchor, setLogoutAnchor] = useState<null | HTMLElement>(null);
   const logoutOpen = Boolean(logoutAnchor);
 
@@ -117,7 +116,12 @@ const Top = () => {
   );
 
   const handleMemberPage = async (memberid: string, id: string) => {
-    await router.push(`/member?memberId=${memberid}`);
+    console.log(memberid, user._id);
+    if (user._id === memberid) {
+      await router.push(`/agent/detail?agentId=${memberid}`);
+    } else {
+      await router.push(`/member?memberId=${memberid}`);
+    }
     await updateNotification({
       variables: {
         input: id,
@@ -134,8 +138,14 @@ const Top = () => {
     });
   };
 
-  const handleArticle = async (id: string) => {
-    await router.push("/community");
+  const handleArticle = async (
+    id: string,
+    articleId: string,
+    category: string
+  ) => {
+    await router.push(
+      `/community/detail?articleCategory=${category}&id=${articleId}`
+    );
     await updateNotification({
       variables: {
         input: id,
@@ -375,7 +385,7 @@ const Top = () => {
                         )}
                       </div>
 
-                      {notifications.map((ele: Notification, index) => {
+                      {notifications.map((ele: Notification) => {
                         const memberImage = (
                           <Avatar
                             className="avatar"
@@ -391,7 +401,7 @@ const Top = () => {
                         );
 
                         return (
-                          <div key={index} className="notification">
+                          <div key={ele._id} className="notification">
                             {(() => {
                               if (
                                 ele.notificationType === NotificationType.LIKE
@@ -429,7 +439,7 @@ const Top = () => {
                                               );
                                             }}
                                           >
-                                            {ele.propertyData?.productName}
+                                            {ele.productData?.productName}
                                           </i>{" "}
                                           product
                                         </>
@@ -438,7 +448,12 @@ const Top = () => {
                                           <i
                                             className="title-italic"
                                             onClick={() => {
-                                              handleArticle(ele._id as string);
+                                              handleArticle(
+                                                ele._id as string,
+                                                ele.articleData?._id as string,
+                                                ele.articleData
+                                                  ?.articleCategory as string
+                                              );
                                             }}
                                           >
                                             {ele.articleData?.articleTitle}
@@ -512,7 +527,7 @@ const Top = () => {
                                               );
                                             }}
                                           >
-                                            {ele.propertyData?.productName}
+                                            {ele.productData?.productName}
                                           </i>{" "}
                                           property: "{ele.notificationDesc}"
                                         </>
@@ -521,7 +536,12 @@ const Top = () => {
                                           <i
                                             className="comment-italic"
                                             onClick={() => {
-                                              handleArticle(ele._id as string);
+                                              handleArticle(
+                                                ele._id as string,
+                                                ele.articleData?._id as string,
+                                                ele.articleData
+                                                  ?.articleCategory as string as string
+                                              );
                                             }}
                                           >
                                             {ele.articleData?.articleTitle}
@@ -529,7 +549,19 @@ const Top = () => {
                                           article: "{ele.notificationDesc}"
                                         </>
                                       ) : (
-                                        <>profile: "{ele.notificationDesc}"</>
+                                        <>
+                                          <strong
+                                            onClick={() => {
+                                              handleMemberPage(
+                                                ele.receiverId as string,
+                                                ele._id
+                                              );
+                                            }}
+                                          >
+                                            profile:{" "}
+                                          </strong>{" "}
+                                          "{ele.notificationDesc}"
+                                        </>
                                       )}
                                     </p>
                                   </div>
