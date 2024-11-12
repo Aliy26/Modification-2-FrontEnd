@@ -366,6 +366,9 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                         </Moment>
                       </Stack>
                     </Stack>
+                    <Typography className="article-name">
+                      {boardArticle?.articleTitle}
+                    </Typography>
                     <Stack className="info">
                       <Stack className="icon-info">
                         {boardArticle?.meLiked[0]?.myFavorite ? (
@@ -467,7 +470,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                     <Typography className="comments-title">Comments</Typography>
                   </Stack>
                 )}
-                {comments?.map((commentData, index) => {
+                {comments?.map((commentData) => {
                   return (
                     <Stack className="comments-box" key={commentData?._id}>
                       <Stack className="main-comment">

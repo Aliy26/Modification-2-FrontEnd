@@ -269,7 +269,7 @@ const AgentDetail: NextPage = ({
               ) : (
                 <div className={"no-data"}>
                   <img src="/img/icons/icoAlert.svg" alt="" />
-                  <p>No properties found!</p>
+                  <p>No products found!</p>
                 </div>
               )}
             </Stack>

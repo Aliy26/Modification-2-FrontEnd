@@ -78,15 +78,15 @@ const MyProducts: NextPage = ({ initialInput, ...props }: any) => {
             {agentProducts?.length === 0 && (
               <div className={"no-data"}>
                 <img src="/img/icons/icoAlert.svg" alt="" />
-                <p>No Property found!</p>
+                <p>Retailer doesn't have an active products at this point!</p>
               </div>
             )}
-            {agentProducts?.map((property: Product) => {
+            {agentProducts?.map((product: Product) => {
               return (
                 <PropertyCard
-                  property={property}
+                  product={product}
                   memberPage={true}
-                  key={property?._id}
+                  key={product?._id}
                 />
               );
             })}
