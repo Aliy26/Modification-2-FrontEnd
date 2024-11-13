@@ -32,44 +32,48 @@ const MyMenu = () => {
   } else {
     return (
       <Stack width={"100%"} padding={"30px 24px"}>
-        <Stack className={"profile"}>
-          <Box component={"div"} className={"profile-img"}>
-            <img
-              src={
-                user?.memberImage
-                  ? `${REACT_APP_API_URL}/${user?.memberImage}`
-                  : "/img/profile/defaultUser.svg"
-              }
-              alt={"member-photo"}
-            />
-          </Box>
-          <Stack className={"user-info"}>
-            <div className="main-member">
-              {user.mainMember ? <img src="/img/logo/logo.svg" /> : null}
-            </div>
-            <Typography className={"user-name"}>{user?.memberNick}</Typography>
-            <Box component={"div"} className={"user-phone"}>
-              <img src={"/img/icons/call.svg"} alt={"icon"} />
-              <Typography className={"p-number"}>
-                {user?.memberPhone}
-              </Typography>
+        <div className="profile-container">
+          <Stack className={"profile"}>
+            <Box component={"div"} className={"profile-img"}>
+              <img
+                src={
+                  user?.memberImage
+                    ? `${REACT_APP_API_URL}/${user?.memberImage}`
+                    : "/img/profile/defaultUser.svg"
+                }
+                alt={"member-photo"}
+              />
             </Box>
-            {user?.memberType === "ADMIN" ? (
-              <a href="/_admin/users" target={"_blank"}>
+            <Stack className={"user-info"}>
+              <div className="main-member">
+                {user.mainMember ? <img src="/img/logo/logo.svg" /> : null}
+              </div>
+              <Typography className={"user-name user-phone"}>
+                {user?.memberNick}
+              </Typography>
+              <Box component={"div"} className={"user-phone"}>
+                <img src={"/img/icons/call.svg"} alt={"icon"} />
+                <Typography className={"p-number"}>
+                  {user?.memberPhone}
+                </Typography>
+              </Box>
+              {user?.memberType === "ADMIN" ? (
+                <a href="/_admin/users" target={"_blank"}>
+                  <Typography className={"view-list"}>
+                    {user?.memberType}
+                  </Typography>
+                </a>
+              ) : (
                 <Typography className={"view-list"}>
                   {user?.memberType}
                 </Typography>
-              </a>
-            ) : (
-              <Typography className={"view-list"}>
-                {user?.memberType}
-              </Typography>
-            )}
+              )}
+            </Stack>
           </Stack>
-        </Stack>
+        </div>
         <Stack className={"sections"}>
           <Stack
-            className={"section"}
+            className={"section listings-container"}
             style={{ height: user.memberType === "AGENT" ? "228px" : "153px" }}
           >
             <Typography className="title" variant={"h5"}>
@@ -327,7 +331,10 @@ const MyMenu = () => {
               </ListItem>
             </List>
           </Stack>
-          <Stack className={"section"} sx={{ marginTop: "10px" }}>
+          <Stack
+            className={"section community-container"}
+            sx={{ marginTop: "10px" }}
+          >
             <div>
               <Typography className="title" variant={"h5"}>
                 Community
@@ -403,7 +410,10 @@ const MyMenu = () => {
               </List>
             </div>
           </Stack>
-          <Stack className={"section"} sx={{ marginTop: "30px" }}>
+          <Stack
+            className={"section account-container"}
+            sx={{ marginTop: "30px" }}
+          >
             <Typography className="title" variant={"h5"}>
               MANAGE ACCOUNT
             </Typography>

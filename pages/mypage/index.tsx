@@ -122,8 +122,11 @@ const MyPage: NextPage = () => {
         <div className="container">
           <Stack className={"my-page"}>
             <Stack className={"back-frame"}>
+              <h1>My Page</h1>
               <Stack className={"left-config"}>
-                <MyMenu />
+                <div className="left-config-container">
+                  <MyMenu />
+                </div>
               </Stack>
               <Stack className="main-config" mb={"76px"}>
                 <Stack className={"list-config"}>

@@ -156,6 +156,9 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
                   A photo must be in JPG, JPEG or PNG format!
                 </Typography>
               </Stack>
+              <button className="bin">
+                <img src="/img/icons/bin.svg" alt="" />
+              </button>
             </Stack>
           </Stack>
           <Stack className="small-input-box">
@@ -182,7 +185,31 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
               />
             </Stack>
           </Stack>
-          <Stack className="address-box">
+          <Stack className="small-input-box">
+            <Stack className="input-box">
+              <Typography className="title">Address</Typography>
+              <input
+                type="text"
+                placeholder="Your username"
+                value={updateData.memberNick}
+                onChange={({ target: { value } }) =>
+                  setUpdateData({ ...updateData, memberNick: value })
+                }
+              />
+            </Stack>
+            <Stack className="input-box">
+              <Typography className="title">Email</Typography>
+              <input
+                type="text"
+                placeholder="Your Phone"
+                value={updateData.memberPhone}
+                onChange={({ target: { value } }) =>
+                  setUpdateData({ ...updateData, memberPhone: value })
+                }
+              />
+            </Stack>
+          </Stack>
+          {/* <Stack className="address-box">
             <Typography className="title">Address</Typography>
             <input
               type="text"
@@ -192,7 +219,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
                 setUpdateData({ ...updateData, memberAddress: value })
               }
             />
-          </Stack>
+          </Stack> */}
           <Stack className="about-me-box">
             <Button
               className="update-button"

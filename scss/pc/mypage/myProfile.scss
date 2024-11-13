@@ -15,6 +15,7 @@
         .right-box {
           width: 315px;
           .main-title {
+            margin-top: -40px;
             width: 100%;
             color: #181a20;
             font-family: $font;
@@ -147,6 +148,9 @@
           }
         }
         .address-box {
+          display: flex;
+          flex-direction: row;
+          width: 45%;
           gap: 10px;
           .title {
             color: #181a20;
@@ -320,4 +324,12 @@
       }
     }
   }
+}
+
+.bin {
+  cursor: pointer;
+  width: 30px;
+  border: none;
+  background: #fff;
+  margin-top: 15px;
 }
