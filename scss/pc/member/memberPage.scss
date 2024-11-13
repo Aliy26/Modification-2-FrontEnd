@@ -43,7 +43,7 @@
                 flex-direction: column;
                 align-items: center;
                 border-radius: 22px;
-                box-shadow: 0px 1px 4px 0px rgba(10, 40, 130, 0.7);
+                box-shadow: 0px 1px 4px 0px rgba(3, 4, 5, 0.7);
               }
               .profile-img {
                 img {
@@ -58,8 +58,6 @@
 
               .user-info {
                 margin-right: 20px;
-                background: linear-gradient(135deg, #e6ec27, #62eccc);
-
                 border-radius: 12px;
                 width: 40%;
                 display: flex;
@@ -67,7 +65,7 @@
                 gap: 15px;
                 flex-direction: column;
                 padding: 20px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Subtle shadow for a lifted look
+                box-shadow: 0px 1px 4px 0px rgba(13, 14, 15, 0.7);
 
                 .user-name {
                   color: #1a1c23;
@@ -93,15 +91,14 @@
                   flex-direction: row;
                   margin: 20px 0;
                   padding-bottom: 5px;
-                  border-bottom: 2px solid #d0a8a8; // Softened border color
-
+                  border-bottom: 2px solid #d0a8a8;
                   img {
                     margin-right: 12px;
                     margin-bottom: 12px;
                     width: 32px;
                     height: 32px;
-                    border-radius: 50%; // Circular images for a modern look
-                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Light shadow to make the icon pop
+                    border-radius: 50%;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
                   }
                 }
 
@@ -116,15 +113,17 @@
                   transition: color 0.3s ease;
 
                   &:hover {
-                    color: #000; // Darker color on hover
+                    color: #000;
                   }
                 }
               }
             }
             .follow-button-box {
               button {
+                cursor: pointer;
                 margin-top: 100px;
                 margin-bottom: 20px;
+                border: none;
                 color: #ffffff;
                 font-family: $font;
                 font-size: 16px;
@@ -155,7 +154,7 @@
                 justify-content: center;
                 align-items: center;
                 height: 150px;
-                box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.7);
+                box-shadow: 0px 1px 4px 0px rgba(1, 2, 2, 0.7);
                 background-color: rgb(246, 246, 27);
                 border-radius: 25px;
                 &.focus {
@@ -214,7 +213,7 @@
                   margin-left: 12px;
                   color: #181a20;
                   font-family: $font;
-                  font-size: 14px;
+                  font-size: 17px;
                   font-style: normal;
                   font-weight: 600;
                   line-height: 55px;

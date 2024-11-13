@@ -114,10 +114,9 @@ const MemberMenu = (props: MemberMenuProps) => {
             <Stack className="follow-button-box">
               {member?.meFollowed && member?.meFollowed[0]?.myFollowing ? (
                 <>
-                  <Button
-                    sx={{
+                  <button
+                    style={{
                       background: "royalblue",
-                      ":hover": { background: "green" },
                     }}
                     onClick={() =>
                       unsubscribeHandler(
@@ -128,21 +127,19 @@ const MemberMenu = (props: MemberMenuProps) => {
                     }
                   >
                     Unfollow
-                  </Button>
+                  </button>
                 </>
               ) : (
-                <Button
-                  variant="contained"
-                  sx={{
+                <button
+                  style={{
                     background: "#ff5d18",
-                    ":hover": { background: "green" },
                   }}
                   onClick={() =>
                     subscribeHandler(member?._id, getMemberRefetch, memberId)
                   }
                 >
                   Follow
-                </Button>
+                </button>
               )}
             </Stack>
           </div>

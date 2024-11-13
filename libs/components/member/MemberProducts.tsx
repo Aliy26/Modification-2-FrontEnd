@@ -61,9 +61,13 @@ const MyProducts: NextPage = ({ initialInput, ...props }: any) => {
     return (
       <div id="member-properties-page">
         <Stack className="main-title-box">
-          <Stack className="right-box">
-            <Typography className="main-title">Products</Typography>
-          </Stack>
+          {agentProducts.length ? (
+            <Stack className="right-box">
+              <Typography className="main-title">Products</Typography>
+            </Stack>
+          ) : (
+            ""
+          )}
         </Stack>
         <Stack className="properties-list-box">
           <Stack className="list-box">
@@ -78,7 +82,7 @@ const MyProducts: NextPage = ({ initialInput, ...props }: any) => {
             {agentProducts?.length === 0 && (
               <div className={"no-data"}>
                 <img src="/img/icons/icoAlert.svg" alt="" />
-                <p>Retailer doesn't have an active products at this point!</p>
+                <p>No products available!</p>
               </div>
             )}
             {agentProducts?.map((product: Product) => {

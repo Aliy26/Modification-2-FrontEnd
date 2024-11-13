@@ -265,14 +265,14 @@ body::-webkit-scrollbar {
         margin-left: 170px;
         color: #2d4f1e;
         width: 700px;
-        background-color: #f6f6f6;
-        padding: 5px;
-        border-radius: 4px;
+        background-color: rgba(246, 246, 246, 0.7);
+        border-radius: 16px;
+        padding: 15px;
         font-family: $font;
         font-size: 24px;
         font-style: normal;
         font-weight: 600;
-        line-height: 26px;
+        margin-top: 60px;
       }
     }
   }
