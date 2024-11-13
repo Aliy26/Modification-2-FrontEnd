@@ -326,6 +326,9 @@
             }
           }
           .pagination-config {
+            width: 100%;
+            margin-top: 100px;
+            margin-right: 230px;
             width: 442px;
             height: 86px;
             align-items: center;
@@ -336,6 +339,7 @@
             }
             .total-result {
               p {
+                width: 500px;
                 color: #181a20;
                 text-align: center;
                 font-family: $font;

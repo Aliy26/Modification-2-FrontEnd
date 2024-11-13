@@ -8,6 +8,7 @@ import { REACT_APP_API_URL } from "../../config";
 import { GET_MEMBER } from "../../../apollo/user/query";
 import { useQuery } from "@apollo/client";
 import { T } from "../../types/common";
+import { MemberType } from "../../enums/member.enum";
 
 interface MemberMenuProps {
   subscribeHandler: any;
@@ -62,12 +63,16 @@ const MemberMenu = (props: MemberMenuProps) => {
                 <span>Contact:</span> {member?.memberPhone}
               </Typography>
             </Box>
-            <Box component={"div"} className={"user-phone"}>
-              <img src={"/img/icons/fax.svg"} alt={"icon"} />
-              <Typography className={"p-number user-name"}>
-                <span>Fax:</span> {member?.memberPhone}
-              </Typography>
-            </Box>
+            {member?.memberType === MemberType.AGENT ? (
+              <Box component={"div"} className={"user-phone"}>
+                <img src={"/img/icons/fax.svg"} alt={"icon"} />
+                <Typography className={"p-number user-name"}>
+                  <span>Fax:</span> {member?.memberPhone}
+                </Typography>
+              </Box>
+            ) : (
+              ""
+            )}
             <Box component={"div"} className={"user-phone"}>
               <img src={"/img/icons/email.svg"} alt={"icon"} />
               <Typography className={"p-number user-name"}>
@@ -84,12 +89,16 @@ const MemberMenu = (props: MemberMenuProps) => {
             ) : (
               ""
             )}
-            <Box component={"div"} className={"user-phone"}>
-              <img src={"/img/icons/auto-responder.svg"} alt={"icon"} />
-              <Typography className={"p-number user-name"}>
-                Typically replies in: 5mins
-              </Typography>
-            </Box>
+            {member?.memberType === MemberType.AGENT ? (
+              <Box component={"div"} className={"user-phone"}>
+                <img src={"/img/icons/auto-responder.svg"} alt={"icon"} />
+                <Typography className={"p-number user-name"}>
+                  Typically replies in: 5mins
+                </Typography>
+              </Box>
+            ) : (
+              ""
+            )}
           </Stack>
           <div className="img-box">
             <Box component={"div"} className={"profile-img"}>
@@ -106,7 +115,6 @@ const MemberMenu = (props: MemberMenuProps) => {
               {member?.meFollowed && member?.meFollowed[0]?.myFollowing ? (
                 <>
                   <Button
-                    variant="outlined"
                     sx={{
                       background: "royalblue",
                       ":hover": { background: "green" },
@@ -140,49 +148,53 @@ const MemberMenu = (props: MemberMenuProps) => {
           </div>
         </Stack>
         <Stack className={"sections"}>
-          <Stack
-            className={`section ${category === "products" ? "focus" : ""}`}
-            sx={{ marginTop: "10px" }}
-          >
-            <div>
-              <List className={"sub-section"}>
-                <ListItem>
-                  <Link
-                    href={{
-                      pathname: "/member",
-                      query: { ...router.query, category: "products" },
-                    }}
-                    scroll={false}
-                    style={{ width: "100%" }}
-                  >
-                    <div className={"flex-box"}>
-                      {category === "products" ? (
-                        <img
-                          className={"com-icon"}
-                          src={"/img/icons/discoveryWhite.svg"}
-                          alt={"com-icon"}
-                        />
-                      ) : (
-                        <img
-                          className={"com-icon"}
-                          src={"/img/icons/discovery.svg"}
-                          alt={"com-icon"}
-                        />
-                      )}
+          {member?.memberType === MemberType.AGENT ? (
+            <Stack
+              className={`section ${category === "products" ? "focus" : ""}`}
+              sx={{ marginTop: "10px" }}
+            >
+              <div>
+                <List className={"sub-section"}>
+                  <ListItem>
+                    <Link
+                      href={{
+                        pathname: "/member",
+                        query: { ...router.query, category: "products" },
+                      }}
+                      scroll={false}
+                      style={{ width: "100%" }}
+                    >
+                      <div className={"flex-box"}>
+                        {category === "products" ? (
+                          <img
+                            className={"com-icon"}
+                            src={"/img/icons/discoveryWhite.svg"}
+                            alt={"com-icon"}
+                          />
+                        ) : (
+                          <img
+                            className={"com-icon"}
+                            src={"/img/icons/discovery.svg"}
+                            alt={"com-icon"}
+                          />
+                        )}
 
-                      <Typography
-                        className={"sub-title"}
-                        variant={"subtitle1"}
-                        component={"p"}
-                      >
-                        Products
-                      </Typography>
-                    </div>
-                  </Link>
-                </ListItem>
-              </List>
-            </div>
-          </Stack>
+                        <Typography
+                          className={"sub-title"}
+                          variant={"subtitle1"}
+                          component={"p"}
+                        >
+                          Products
+                        </Typography>
+                      </div>
+                    </Link>
+                  </ListItem>
+                </List>
+              </div>
+            </Stack>
+          ) : (
+            ""
+          )}
           <Stack
             className={`section ${category === "followers" ? "focus" : ""}`}
           >
