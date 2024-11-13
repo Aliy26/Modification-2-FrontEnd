@@ -1,4 +1,5 @@
 export enum NotificationType {
+  NEW_PRODUCT = "NEW PRODUCT",
   LIKE = "LIKE",
   COMMENT = "COMMENT",
   FOLLOW = "FOLLOW",

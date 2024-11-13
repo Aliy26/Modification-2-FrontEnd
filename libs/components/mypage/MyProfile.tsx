@@ -8,7 +8,7 @@ import { getJwtToken, updateStorage, updateUserInfo } from "../../auth";
 import { useMutation, useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
 import { MemberUpdate } from "../../types/member/member.update";
-import { UPDATE_MEMBER } from "../../../apollo/user/mutation";
+import { DELETE_IMAGE, UPDATE_MEMBER } from "../../../apollo/user/mutation";
 import { sweetErrorAlert, sweetMixinSuccessAlert } from "../../sweetAlert";
 
 const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
@@ -16,6 +16,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
   const token = getJwtToken();
   const user = useReactiveVar(userVar);
   const [updateData, setUpdateData] = useState<MemberUpdate>(initialValues);
+  const [deleteImage] = useMutation(DELETE_IMAGE);
 
   /** APOLLO REQUESTS **/
   const [updateMember] = useMutation(UPDATE_MEMBER);
@@ -27,6 +28,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
       memberNick: user.memberNick,
       memberPhone: user.memberPhone,
       memberAddress: user.memberAddress,
+      memberEmail: user.memberEmail,
       memberImage: user.memberImage,
     });
   }, [user]);
@@ -81,6 +83,36 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
     }
   };
 
+  // const deleteImageHandler = useCallback(
+  //   async (id: string, memberImage: string) => {
+  //     try {
+  //       if (!user._id) throw new Error(Messages.error2);
+  //       const result = await deleteImage({
+  //         variables: {
+  //           input: {
+  //             _id: id,
+  //             memberImage: memberImage,
+  //           },
+  //         },
+  //       });
+
+  //       //@ts-ignore
+  //       const jwtToken = result.data.deleteImage?.accessToken;
+
+  //       if (jwtToken) {
+  //         await updateStorage({ jwtToken });
+  //         updateUserInfo(result.data.deleteImage?.accessToken);
+  //         await sweetMixinSuccessAlert("image deleted successfully");
+  //       } else {
+  //         console.log("No access token returned");
+  //       }
+  //     } catch (err: any) {
+  //       console.log("ERROR, deleteImageHandler", err.message);
+  //     }
+  //   },
+  //   [updateData]
+  // );
+
   const updatePropertyHandler = useCallback(async () => {
     try {
       if (!user._id) throw new Error(Messages.error2);
@@ -106,7 +138,8 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
       updateData.memberNick === "" ||
       updateData.memberPhone === "" ||
       updateData.memberAddress === "" ||
-      updateData.memberImage === ""
+      updateData.memberImage === "" ||
+      updateData.memberEmail === ""
     ) {
       return true;
     }
@@ -156,7 +189,15 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
                   A photo must be in JPG, JPEG or PNG format!
                 </Typography>
               </Stack>
-              <button className="bin">
+              <button
+                className="bin"
+                // onClick={() =>
+                //   deleteImageHandler(
+                //     user._id as string,
+                //     user.memberImage as string
+                //   )
+                // }
+              >
                 <img src="/img/icons/bin.svg" alt="" />
               </button>
             </Stack>
@@ -191,9 +232,9 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
               <input
                 type="text"
                 placeholder="Your username"
-                value={updateData.memberNick}
+                value={updateData.memberAddress}
                 onChange={({ target: { value } }) =>
-                  setUpdateData({ ...updateData, memberNick: value })
+                  setUpdateData({ ...updateData, memberAddress: value })
                 }
               />
             </Stack>
@@ -202,9 +243,9 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
               <input
                 type="text"
                 placeholder="Your Phone"
-                value={updateData.memberPhone}
+                value={updateData.memberEmail}
                 onChange={({ target: { value } }) =>
-                  setUpdateData({ ...updateData, memberPhone: value })
+                  setUpdateData({ ...updateData, memberEmail: value })
                 }
               />
             </Stack>
@@ -259,6 +300,7 @@ MyProfile.defaultProps = {
     memberImage: "",
     memberNick: "",
     memberPhone: "",
+    memberEmail: "",
     memberAddress: "",
   },
 };

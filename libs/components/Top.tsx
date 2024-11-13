@@ -494,6 +494,46 @@ const Top = () => {
                                 );
                               } else if (
                                 ele.notificationType ===
+                                NotificationType.NEW_PRODUCT
+                              ) {
+                                return (
+                                  <div className="notice-line">
+                                    {memberImage}{" "}
+                                    {ele.notificationStatus === "UNREAD" ? (
+                                      <span className="dot"></span>
+                                    ) : (
+                                      ""
+                                    )}
+                                    <p>
+                                      <strong
+                                        onClick={() => {
+                                          handleMemberPage(
+                                            ele.authorData?._id as string,
+                                            ele._id as string
+                                          );
+                                        }}
+                                      >
+                                        {ele.authorData?.memberNick}
+                                      </strong>{" "}
+                                      posted a new product:{" "}
+                                      <>
+                                        <i
+                                          onClick={() => {
+                                            handlePropertyPage(
+                                              ele.productData?._id as string,
+                                              ele._id as string
+                                            );
+                                          }}
+                                        >
+                                          {ele.productData?.productName}
+                                        </i>
+                                      </>{" "}
+                                      be sure to check that out!
+                                    </p>
+                                  </div>
+                                );
+                              } else if (
+                                ele.notificationType ===
                                 NotificationType.COMMENT
                               ) {
                                 return (

@@ -104,6 +104,40 @@ export const UPDATE_MEMBER = gql`
   }
 `;
 
+export const DELETE_IMAGE = gql`
+  mutation DeleteImage($input: MemberUpdate!) {
+    deleteImage(input: $input) {
+      _id
+      memberType
+      memberStatus
+      memberAuthType
+      memberPhone
+      memberNick
+      memberEmail
+      memberFullName
+      memberImage
+      memberAddress
+      memberDesc
+      mainMember
+      memberProducts
+      memberArticles
+      memberFollowers
+      memberFollowings
+      memberPoints
+      memberLikes
+      memberViews
+      memberComments
+      memberRank
+      memberWarnings
+      memberBlocks
+      deletedAt
+      createdAt
+      updatedAt
+      accessToken
+    }
+  }
+`;
+
 export const LIKE_TARGET_MEMBER = gql`
   mutation LikeTargetMember($input: String!) {
     likeTargetMember(memberId: $input) {
