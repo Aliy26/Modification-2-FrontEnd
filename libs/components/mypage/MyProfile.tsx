@@ -9,7 +9,12 @@ import { useMutation, useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
 import { MemberUpdate } from "../../types/member/member.update";
 import { DELETE_IMAGE, UPDATE_MEMBER } from "../../../apollo/user/mutation";
-import { sweetErrorAlert, sweetMixinSuccessAlert } from "../../sweetAlert";
+import {
+  sweetConfirmAlert,
+  sweetErrorAlert,
+  sweetMixinSuccessAlert,
+} from "../../sweetAlert";
+import member from "../../../pages/member";
 
 const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
   const device = useDeviceDetect();
@@ -83,39 +88,43 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
     }
   };
 
-  // const deleteImageHandler = useCallback(
-  //   async (id: string, memberImage: string) => {
-  //     try {
-  //       if (!user._id) throw new Error(Messages.error2);
-  //       const result = await deleteImage({
-  //         variables: {
-  //           input: {
-  //             _id: id,
-  //             memberImage: memberImage,
-  //           },
-  //         },
-  //       });
+  const deleteImageHandler = useCallback(
+    async (id: string, memberImage: string) => {
+      try {
+        if (!user._id) throw new Error(Messages.error2);
 
-  //       //@ts-ignore
-  //       const jwtToken = result.data.deleteImage?.accessToken;
+        if (
+          await sweetConfirmAlert("Do you want to delete your profile image?")
+        ) {
+          const result = await deleteImage({
+            variables: {
+              input: {
+                _id: id,
+                memberImage: memberImage,
+              },
+            },
+          });
 
-  //       if (jwtToken) {
-  //         await updateStorage({ jwtToken });
-  //         updateUserInfo(result.data.deleteImage?.accessToken);
-  //         await sweetMixinSuccessAlert("image deleted successfully");
-  //       } else {
-  //         console.log("No access token returned");
-  //       }
-  //     } catch (err: any) {
-  //       console.log("ERROR, deleteImageHandler", err.message);
-  //     }
-  //   },
-  //   [updateData]
-  // );
+          const jwtToken = result.data.deleteImage?.accessToken;
+          if (jwtToken) {
+            await updateStorage({ jwtToken });
+            updateUserInfo(result.data.deleteImage?.accessToken);
+            await sweetMixinSuccessAlert("image deleted successfully");
+          }
+        } else {
+          console.log("No access token returned");
+        }
+      } catch (err: any) {
+        console.log("ERROR, deleteImageHandler", err.message);
+      }
+    },
+    [updateData]
+  );
 
   const updatePropertyHandler = useCallback(async () => {
     try {
       if (!user._id) throw new Error(Messages.error2);
+
       updateData._id = user._id;
       const result = await updateMember({
         variables: {
@@ -138,7 +147,6 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
       updateData.memberNick === "" ||
       updateData.memberPhone === "" ||
       updateData.memberAddress === "" ||
-      updateData.memberImage === "" ||
       updateData.memberEmail === ""
     ) {
       return true;
@@ -189,17 +197,21 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
                   A photo must be in JPG, JPEG or PNG format!
                 </Typography>
               </Stack>
-              <button
-                className="bin"
-                // onClick={() =>
-                //   deleteImageHandler(
-                //     user._id as string,
-                //     user.memberImage as string
-                //   )
-                // }
-              >
-                <img src="/img/icons/bin.svg" alt="" />
-              </button>
+              {user.memberImage ? (
+                <button
+                  className="bin"
+                  onClick={() =>
+                    deleteImageHandler(
+                      user._id as string,
+                      user.memberImage as string
+                    )
+                  }
+                >
+                  <img src="/img/icons/bin.svg" alt="" />
+                </button>
+              ) : (
+                ""
+              )}
             </Stack>
           </Stack>
           <Stack className="small-input-box">
