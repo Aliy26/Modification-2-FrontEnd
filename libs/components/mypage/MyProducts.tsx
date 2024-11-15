@@ -152,7 +152,7 @@ const MyProducts: NextPage = ({ initialInput, ...props }: any) => {
                 return (
                   <ProductCard
                     product={product}
-                    memberPage={true}
+                    memberPage={false}
                     deletePropertyHandler={deletePropertyHandler}
                     updatePropertyHandler={updatePropertyHandler}
                     key={product?._id}
@@ -173,7 +173,10 @@ const MyProducts: NextPage = ({ initialInput, ...props }: any) => {
                   />
                 </Stack>
                 <Stack className="total-result">
-                  <Typography>{total} property available</Typography>
+                  <Typography>
+                    {total} product{agentProducts.length > 1 ? "s" : ""}{" "}
+                    available
+                  </Typography>
                 </Stack>
               </Stack>
             )}

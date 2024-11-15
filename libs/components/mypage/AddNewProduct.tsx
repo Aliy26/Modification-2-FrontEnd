@@ -21,6 +21,7 @@ import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
 import { CREATE_PRODUCT, UPDATE_PRODUCT } from "../../../apollo/user/mutation";
 import { GET_PRODUCT } from "../../../apollo/user/query";
+import { T } from "../../types/common";
 
 const AddProperty = ({ initialValues, ...props }: any) => {
   const device = useDeviceDetect();
@@ -44,6 +45,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
   /** APOLLO REQUESTS **/
   const [createProperty] = useMutation(CREATE_PRODUCT);
   const [updateProperty] = useMutation(UPDATE_PRODUCT);
+  const [product, setProduct] = useState<any>();
   console.log(productType);
 
   const {
@@ -56,7 +58,13 @@ const AddProperty = ({ initialValues, ...props }: any) => {
     variables: {
       input: router.query.productId,
     },
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data: T) => {
+      setProduct(data?.getProduct);
+    },
   });
+
+  console.log(product, "<<<<<<<<<<<<<<");
 
   /** LIFECYCLES **/
   useEffect(() => {
@@ -85,6 +93,9 @@ const AddProperty = ({ initialValues, ...props }: any) => {
         : false,
       productStock: getProductData?.getProduct
         ? getProductData?.getProduct?.productStock
+        : 0,
+      manufacturedIn: getProductData?.getProduct
+        ? getProductData?.getProduct?.manufacturedIn
         : 0,
       productDesc: getProductData?.getProduct
         ? getProductData?.getProduct?.productDesc
@@ -180,11 +191,11 @@ const AddProperty = ({ initialValues, ...props }: any) => {
           input: insertProductData,
         },
       });
-      await sweetMixinSuccessAlert("Property has been created!");
+      await sweetMixinSuccessAlert("Product has been created!");
       await router.push({
         pathname: `/mypage`,
         query: {
-          category: "myProperties",
+          category: "myProducts",
         },
       });
     } catch (err: any) {
@@ -195,17 +206,17 @@ const AddProperty = ({ initialValues, ...props }: any) => {
   const updatePropertyHandler = useCallback(async () => {
     try {
       // @ts-ignore
-      insertProductData._id = getPropertyData?.getProperty?._id;
+      insertProductData._id = getProductData?.getProduct?._id;
       const result = await updateProperty({
         variables: {
           input: insertProductData,
         },
       });
-      await sweetMixinSuccessAlert("The property has been updated!");
+      await sweetMixinSuccessAlert("The product has been updated!");
       await router.push({
         pathname: `/mypage`,
         query: {
-          category: "myProperties",
+          category: "myProducts",
         },
       });
     } catch (err: any) {

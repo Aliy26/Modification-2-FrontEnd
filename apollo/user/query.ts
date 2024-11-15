@@ -108,6 +108,8 @@ export const GET_PRODUCT = gql`
       productComments
       productRank
       productImages
+      discountedPrice
+      productStock
       productDesc
       productInstallment
       productRent
@@ -235,6 +237,8 @@ export const GET_AGENT_PRODUCTS = gql`
         productBrand
         productName
         productPrice
+        discountedPrice
+        productStock
         productViews
         productLikes
         productComments

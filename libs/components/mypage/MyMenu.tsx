@@ -83,17 +83,17 @@ const MyMenu = () => {
               {user.memberType === "AGENT" && (
                 <>
                   <ListItem
-                    className={pathname === "addProperty" ? "focus" : ""}
+                    className={pathname === "addProduct" ? "focus" : ""}
                   >
                     <Link
                       href={{
                         pathname: "/mypage",
-                        query: { category: "addProperty" },
+                        query: { category: "addProduct" },
                       }}
                       scroll={false}
                     >
                       <div className={"flex-box"}>
-                        {category === "addProperty" ? (
+                        {category === "addProduct" ? (
                           <img
                             className={"com-icon"}
                             src={"/img/icons/whiteTab.svg"}
@@ -120,17 +120,17 @@ const MyMenu = () => {
                     </Link>
                   </ListItem>
                   <ListItem
-                    className={pathname === "myProperties" ? "focus" : ""}
+                    className={pathname === "myProducts" ? "focus" : ""}
                   >
                     <Link
                       href={{
                         pathname: "/mypage",
-                        query: { category: "myProperties" },
+                        query: { category: "myProducts" },
                       }}
                       scroll={false}
                     >
                       <div className={"flex-box"}>
-                        {category === "myProperties" ? (
+                        {category === "myProducts" ? (
                           <img
                             className={"com-icon"}
                             src={"/img/icons/homeWhite.svg"}

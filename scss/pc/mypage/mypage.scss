@@ -125,13 +125,17 @@
                   }
                   .focus {
                     height: 50px;
-                    background: #000000;
+                    background: linear-gradient(135deg, #e6ec27, #62eccc);
                     border-radius: 10px;
                     p {
                       font-size: 14px;
                       color: #ffffff;
                     }
                   }
+
+                  // background: #efff97;
+                  // &.focus {
+                  //   color: #fff;
                   .flex-box {
                     display: flex;
                     align-items: center;
