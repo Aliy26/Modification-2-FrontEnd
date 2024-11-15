@@ -174,8 +174,7 @@ const MyProducts: NextPage = ({ initialInput, ...props }: any) => {
                 </Stack>
                 <Stack className="total-result">
                   <Typography>
-                    {total} product{agentProducts.length > 1 ? "s" : ""}{" "}
-                    available
+                    {total} product{total > 1 ? "s" : ""} available
                   </Typography>
                 </Stack>
               </Stack>

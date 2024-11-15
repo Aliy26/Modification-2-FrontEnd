@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Stack, Box } from "@mui/material";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
+import { EventNoticeInquiry, Notice } from "../../types/notices/notices";
+import { useQuery } from "@apollo/client";
+import { GET_NOTICES } from "../../../apollo/user/query";
+import { T } from "../../types/common";
+import { NoticeCategory, NoticeStatus } from "../../enums/notice.enum";
 
 interface EventData {
   eventTitle: string;
@@ -62,6 +67,25 @@ const eventsData: EventData[] = [
 const EventCard = ({ event }: { event: EventData }) => {
   const device = useDeviceDetect();
 
+  const input: EventNoticeInquiry = {
+    noticeCategory: NoticeCategory.EVENT,
+    noticeStatus: NoticeStatus.ACTIVE,
+  };
+  const [eventNotices, setEventNotices] = useState<Notice[]>([]);
+  const {
+    loading: getNoticesLoading,
+    data: getNoticesData,
+    error: getNoticesErroc,
+    refetch: getNoticesRefetch,
+  } = useQuery(GET_NOTICES, {
+    fetchPolicy: "cache-and-network",
+    variables: { input: input },
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data: T) => {
+      setEventNotices(data?.getNotices);
+    },
+  });
+
   if (device === "mobile") {
     return <div className="mobile-event-card">EVENT CARD</div>;
   } else {
@@ -83,7 +107,6 @@ const EventCard = ({ event }: { event: EventData }) => {
 const Events = () => {
   const device = useDeviceDetect();
 
-  // Conditionally render Swiper if there are more than 4 events
   if (device === "mobile") {
     return <div className="mobile-events">EVENT CARD</div>;
   } else {

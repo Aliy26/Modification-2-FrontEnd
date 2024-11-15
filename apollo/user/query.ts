@@ -704,6 +704,10 @@ export const GET_MEMBER_FOLLOWINGS = gql`
   }
 `;
 
+/**************************
+ *         NOTIFICATION        *
+ *************************/
+
 export const GET_NOTIFICATIONS = gql`
   query GetNotifications {
     getNotifications {
@@ -786,6 +790,24 @@ export const GET_NOTIFICATIONS = gql`
           updatedAt
         }
       }
+    }
+  }
+`;
+
+/**************************
+ *         NOTICE        *
+ *************************/
+
+export const GET_NOTICES = gql`
+  query GetNotices($input: EventNoticeInquiry!) {
+    getNotices(input: $input) {
+      _id
+      noticeCategory
+      noticeStatus
+      noticeTitle
+      noticeContent
+      noticeImage
+      memberId
     }
   }
 `;
