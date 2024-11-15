@@ -47,7 +47,7 @@ const withLayoutBasic = (Component: any) => {
           break;
         case "/mypage":
           title = "my page";
-          desc = "Home / For Rent";
+          desc = "Explore your personal dashboard and manage your activities.";
           bgImage = "/img/banner/appliances3.webp";
           break;
         case "/community":
@@ -58,12 +58,13 @@ const withLayoutBasic = (Component: any) => {
           break;
         case "/community/detail":
           title = "Community Detail";
-          desc = "Home / For Rent";
+          desc =
+            "Dive deeper into community discussions and shared experiences.";
           bgImage = "/img/banner/community-detail.jpg";
           break;
         case "/cs":
           title = "CS";
-          desc = "We are glad to see you again!";
+          desc = "Welcome back! How can we assist you today?";
           bgImage = "/img/banner/community1.jpg";
           break;
         case "/account/join":

@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import { Stack } from "@mui/material";
-import { Property } from "../../../types/product/product";
+import { Product } from "../../../types/product/product";
 import { REACT_APP_API_URL } from "../../../config";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
@@ -117,7 +117,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 }
 
 interface PropertyPanelListType {
-  properties: Property[];
+  properties: Product[];
   anchorEl: any;
   menuIconClickHandler: any;
   menuIconCloseHandler: any;
@@ -203,7 +203,7 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
                       {property.memberData?.memberNick}
                     </TableCell>
                     <TableCell align="center">
-                      {property.propertyLocation}
+                      {property.productCategory}
                     </TableCell>
                     <TableCell align="center">
                       {property.propertyType}

@@ -6,7 +6,7 @@ import {
 } from "../../enums/product.enum";
 import { Direction } from "../../enums/common.enum";
 
-export interface PropertyInput {
+export interface ProductInput {
   productType: ProductType;
   productCategory: ProductCategory;
   productName: string;

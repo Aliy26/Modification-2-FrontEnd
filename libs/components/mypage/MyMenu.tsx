@@ -113,7 +113,7 @@ const MyMenu = () => {
                         >
                           Add Product
                         </Typography>
-                        <IconButton aria-label="delete" sx={{ ml: "34px" }}>
+                        <IconButton aria-label="delete" sx={{ ml: "35px" }}>
                           <PortraitIcon style={{ color: "red" }} />
                         </IconButton>
                       </div>
