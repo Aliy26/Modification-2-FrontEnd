@@ -12,8 +12,10 @@
         flex-direction: row;
         justify-content: space-between;
         .right-box {
-          width: 315px;
+          width: 100%;
+
           .main-title {
+            text-align: center;
             color: #181a20;
             font-family: $font;
             font-size: 30px;
@@ -24,6 +26,7 @@
             text-transform: capitalize;
           }
           .sub-title {
+            text-align: center;
             color: #181a20;
             font-family: $font;
             font-size: 14px;

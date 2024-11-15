@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { NextPage } from "next";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
 import { Pagination, Stack, Typography } from "@mui/material";
-import PropertyCard from "../product/PropertyCard";
-import { Property } from "../../types/product/product";
+import ProductCard from "../product/ProductCard";
+import { Product } from "../../types/product/product";
 import { T } from "../../types/common";
 import { useMutation, useQuery } from "@apollo/client";
 import { LIKE_TARGET_PRODUCT } from "../../../apollo/user/mutation";
@@ -13,7 +13,7 @@ import { sweetMixinErrorAlert } from "../../sweetAlert";
 
 const MyFavorites: NextPage = () => {
   const device = useDeviceDetect();
-  const [myFavorites, setMyFavorites] = useState<Property[]>([]);
+  const [myFavorites, setMyFavorites] = useState<Product[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [searchFavorites, setSearchFavorites] = useState<T>({
     page: 1,
@@ -79,13 +79,13 @@ const MyFavorites: NextPage = () => {
         </Stack>
         <Stack className="favorites-list-box">
           {myFavorites?.length ? (
-            myFavorites?.map((property: Property) => {
+            myFavorites?.map((product: Product) => {
               return (
-                <PropertyCard
-                  property={property}
+                <ProductCard
+                  product={product}
                   myFavorites={true}
                   likeProductHandler={likeProductHandler}
-                  key={property?._id}
+                  key={product?._id}
                 />
               );
             })

@@ -309,7 +309,11 @@ const Top = () => {
                     }}
                     sx={{ mt: "5px" }}
                   >
-                    <MenuItem onClick={() => logOut()}>
+                    <MenuItem
+                      onClick={() => {
+                        logOut();
+                      }}
+                    >
                       <Logout
                         fontSize="small"
                         style={{ color: "blue", marginRight: "10px" }}
@@ -529,6 +533,48 @@ const Top = () => {
                                         </i>
                                       </>{" "}
                                       be sure to check that out!
+                                    </p>
+                                  </div>
+                                );
+                              } else if (
+                                ele.notificationType ===
+                                NotificationType.NEW_ARTICLE
+                              ) {
+                                return (
+                                  <div className="notice-line">
+                                    {memberImage}{" "}
+                                    {ele.notificationStatus === "UNREAD" ? (
+                                      <span className="dot"></span>
+                                    ) : (
+                                      ""
+                                    )}
+                                    <p>
+                                      <strong
+                                        onClick={() => {
+                                          handleMemberPage(
+                                            ele.authorData?._id as string,
+                                            ele._id as string
+                                          );
+                                        }}
+                                      >
+                                        {ele.authorData?.memberNick}
+                                      </strong>{" "}
+                                      posted a new article:{" "}
+                                      <>
+                                        <i
+                                          onClick={() => {
+                                            handleArticle(
+                                              ele._id as string,
+                                              ele.articleData?._id as string,
+                                              ele.articleData
+                                                ?.articleCategory as string
+                                            );
+                                          }}
+                                        >
+                                          {ele.articleData?.articleTitle}
+                                        </i>
+                                      </>{" "}
+                                      check it out!
                                     </p>
                                   </div>
                                 );

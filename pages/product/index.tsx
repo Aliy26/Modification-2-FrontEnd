@@ -9,7 +9,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import ProductCard from "../../libs/components/product/PropertyCard";
+import ProductCard from "../../libs/components/product/ProductCard";
 import useDeviceDetect from "../../libs/hooks/useDeviceDetect";
 import withLayoutBasic from "../../libs/components/layout/LayoutBasic";
 import Filter from "../../libs/components/product/Filter";

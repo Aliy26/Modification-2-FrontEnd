@@ -6,21 +6,18 @@ import {
 
 export interface PropertyUpdate {
   _id: string;
-  propertyType?: ProductType;
-  propertyStatus?: ProductStatus;
-  propertyLocation?: ProductCategory;
-  propertyAddress?: string;
-  propertyTitle?: string;
-  propertyPrice?: number;
-  propertySquare?: number;
-  propertyBeds?: number;
-  propertyRooms?: number;
-  propertyImages?: string[];
-  propertyDesc?: string;
-  propertyBarter?: boolean;
-  propertyRent?: boolean;
+  productType?: ProductType;
+  productStatus?: ProductStatus;
+  productCategory?: ProductCategory;
+  productName?: string;
+  productPrice?: number;
+  discountedPrice?: number;
+  productStock?: number;
+  productImages?: string[];
+  productDesc?: string;
+  productInstallment?: boolean;
+  productrent?: boolean;
   manufacturedIn?: number;
   soldAt?: Date;
   deletedAt?: Date;
-  constructedAt?: Date;
 }

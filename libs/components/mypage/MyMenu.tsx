@@ -111,9 +111,9 @@ const MyMenu = () => {
                           variant={"subtitle1"}
                           component={"p"}
                         >
-                          Add Property
+                          Add Product
                         </Typography>
-                        <IconButton aria-label="delete" sx={{ ml: "40px" }}>
+                        <IconButton aria-label="delete" sx={{ ml: "34px" }}>
                           <PortraitIcon style={{ color: "red" }} />
                         </IconButton>
                       </div>
@@ -148,7 +148,7 @@ const MyMenu = () => {
                           variant={"subtitle1"}
                           component={"p"}
                         >
-                          My Properties
+                          My Products
                         </Typography>
                         <IconButton aria-label="delete" sx={{ ml: "36px" }}>
                           <PortraitIcon style={{ color: "red" }} />

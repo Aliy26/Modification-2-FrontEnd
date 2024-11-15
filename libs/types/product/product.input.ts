@@ -40,7 +40,7 @@ export interface ProductsInquiry {
 }
 
 interface APISearch {
-  propertyStatus?: ProductStatus;
+  productStatus?: ProductStatus;
 }
 
 export interface AgentPropertiesInquiry {
@@ -52,8 +52,8 @@ export interface AgentPropertiesInquiry {
 }
 
 interface ALPISearch {
-  propertyStatus?: ProductStatus;
-  propertyLocationList?: ProductCategory[];
+  productStatus?: ProductStatus;
+  productCategoryList?: ProductCategory[];
 }
 
 export interface AllPropertiesInquiry {

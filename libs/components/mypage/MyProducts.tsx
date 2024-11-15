@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { NextPage } from "next";
 import { Pagination, Stack, Typography } from "@mui/material";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
-import { PropertyCard } from "./PropertyCard";
+import { ProductCard } from "./ProductCard";
 import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
-import { Property } from "../../types/product/product";
+import { Product } from "../../types/product/product";
 import { AgentPropertiesInquiry } from "../../types/product/product.input";
 import { T } from "../../types/common";
 import { ProductStatus } from "../../enums/product.enum";
@@ -18,30 +18,30 @@ import {
   sweetErrorHandling,
 } from "../../sweetAlert";
 
-const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
+const MyProducts: NextPage = ({ initialInput, ...props }: any) => {
   const device = useDeviceDetect();
   const [searchFilter, setSearchFilter] =
     useState<AgentPropertiesInquiry>(initialInput);
-  const [agentProperties, setAgentProperties] = useState<Property[]>([]);
+  const [agentProducts, setAgentProducts] = useState<Product[]>([]);
   const [total, setTotal] = useState<number>(0);
   const user = useReactiveVar(userVar);
   const router = useRouter();
 
   /** APOLLO REQUESTS **/
-  const [updateProperty] = useMutation(UPDATE_PRODUCT);
+  const [updateProduct] = useMutation(UPDATE_PRODUCT);
 
   const {
-    loading: getAgentPropertiesLoading,
-    data: getAgentPropertiesData,
-    error: getAgentPropertiesError,
-    refetch: getAgentPropertiesRefetch,
+    loading: getAgentProductsLoading,
+    data: getAgentProductsData,
+    error: getAgentProductsError,
+    refetch: getAgentProductsRefetch,
   } = useQuery(GET_AGENT_PRODUCTS, {
     fetchPolicy: "network-only",
     variables: { input: searchFilter },
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
-      setAgentProperties(data?.getAgentProperties?.list);
-      setTotal(data?.getAgentProperties?.metaCounter[0]?.total ?? 0);
+      setAgentProducts(data?.getAgentProducts?.list);
+      setTotal(data?.getAgentProducts?.metaCounter[0]?.total ?? 0);
     },
   });
 
@@ -51,22 +51,22 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
   };
 
   const changeStatusHandler = (value: ProductStatus) => {
-    setSearchFilter({ ...searchFilter, search: { propertyStatus: value } });
+    setSearchFilter({ ...searchFilter, search: { productStatus: value } });
   };
 
   const deletePropertyHandler = async (id: string) => {
     try {
       if (await sweetConfirmAlert("Are you sure to delet this property?")) {
-        await updateProperty({
+        await updateProduct({
           variables: {
             input: {
               _id: id,
-              propertyStatus: "DELETE",
+              productStatus: "DELETE",
             },
           },
         });
 
-        await getAgentPropertiesRefetch({ input: searchFilter });
+        await getAgentProductsRefetch({ input: searchFilter });
       }
     } catch (err: any) {
       await sweetErrorAlert(err);
@@ -76,15 +76,15 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
   const updatePropertyHandler = async (status: string, id: string) => {
     try {
       if (await sweetConfirmAlert(`Are you sure to ${status} status?`)) {
-        await updateProperty({
+        await updateProduct({
           variables: {
             input: {
               _id: id,
-              propertyStatus: status,
+              productStatus: status,
             },
           },
         });
-        await getAgentPropertiesRefetch({ input: searchFilter });
+        await getAgentProductsRefetch({ input: searchFilter });
       }
     } catch (err: any) {
       await sweetErrorHandling(err);
@@ -102,7 +102,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
       <div id="my-property-page">
         <Stack className="main-title-box">
           <Stack className="right-box">
-            <Typography className="main-title">My Properties</Typography>
+            <Typography className="main-title">My Products</Typography>
             <Typography className="sub-title">
               We are glad to see you again!
             </Typography>
@@ -113,7 +113,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
             <Typography
               onClick={() => changeStatusHandler(ProductStatus.ACTIVE)}
               className={
-                searchFilter.search.propertyStatus === "ACTIVE"
+                searchFilter.search.productStatus === "ACTIVE"
                   ? "active-tab-name"
                   : "tab-name"
               }
@@ -123,7 +123,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
             <Typography
               onClick={() => changeStatusHandler(ProductStatus.SOLD)}
               className={
-                searchFilter.search.propertyStatus === "SOLD"
+                searchFilter.search.productStatus === "SOLD"
                   ? "active-tab-name"
                   : "tab-name"
               }
@@ -137,31 +137,31 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
               <Typography className="title-text">Date Published</Typography>
               <Typography className="title-text">Status</Typography>
               <Typography className="title-text">View</Typography>
-              {searchFilter.search.propertyStatus === "ACTIVE" && (
+              {searchFilter.search.productStatus === "ACTIVE" && (
                 <Typography className="title-text">Action</Typography>
               )}
             </Stack>
 
-            {agentProperties?.length === 0 ? (
+            {agentProducts?.length === 0 ? (
               <div className={"no-data"}>
                 <img src="/img/icons/icoAlert.svg" alt="" />
-                <p>No Property found!</p>
+                <p>No Product found!</p>
               </div>
             ) : (
-              agentProperties.map((property: Property) => {
+              agentProducts.map((product: Product) => {
                 return (
-                  <PropertyCard
-                    property={property}
+                  <ProductCard
+                    product={product}
                     memberPage={true}
                     deletePropertyHandler={deletePropertyHandler}
                     updatePropertyHandler={updatePropertyHandler}
-                    key={property?._id}
+                    key={product?._id}
                   />
                 );
               })
             )}
 
-            {agentProperties.length !== 0 && (
+            {agentProducts.length !== 0 && (
               <Stack className="pagination-config">
                 <Stack className="pagination-box">
                   <Pagination
@@ -184,15 +184,15 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
   }
 };
 
-MyProperties.defaultProps = {
+MyProducts.defaultProps = {
   initialInput: {
     page: 1,
     limit: 5,
     sort: "createdAt",
     search: {
-      propertyStatus: "ACTIVE",
+      productStatus: "ACTIVE",
     },
   },
 };
 
-export default MyProperties;
+export default MyProducts;

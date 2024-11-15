@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NextPage } from "next";
 import { Pagination, Stack, Typography } from "@mui/material";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
-import { PropertyCard } from "../mypage/PropertyCard";
+import { ProductCard } from "../mypage/ProductCard";
 import { Product } from "../../types/product/product";
 import { ProductsInquiry } from "../../types/product/product.input";
 import { T } from "../../types/common";
@@ -87,7 +87,7 @@ const MyProducts: NextPage = ({ initialInput, ...props }: any) => {
             )}
             {agentProducts?.map((product: Product) => {
               return (
-                <PropertyCard
+                <ProductCard
                   product={product}
                   memberPage={true}
                   key={product?._id}

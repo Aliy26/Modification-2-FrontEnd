@@ -220,12 +220,12 @@ const AddProperty = ({ initialValues, ...props }: any) => {
   console.log("+insertPropertyData", insertPropertyData);
 
   if (device === "mobile") {
-    return <div>ADD NEW PROPERTY MOBILE PAGE</div>;
+    return <div>ADD NEW PRODUCT MOBILE PAGE</div>;
   } else {
     return (
       <div id="add-property-page">
         <Stack className="main-title-box">
-          <Typography className="main-title">Add New Property</Typography>
+          <Typography className="main-title">Add New Product</Typography>
           <Typography className="sub-title">
             We are glad to see you again!
           </Typography>

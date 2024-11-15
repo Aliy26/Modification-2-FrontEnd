@@ -10,14 +10,14 @@ import Moment from "react-moment";
 import { useRouter } from "next/router";
 import { ProductStatus } from "../../enums/product.enum";
 
-interface PropertyCardProps {
+interface ProductCardProps {
   product: Product;
   deletePropertyHandler?: any;
   memberPage?: boolean;
   updatePropertyHandler?: any;
 }
 
-export const PropertyCard = (props: PropertyCardProps) => {
+export const ProductCard = (props: ProductCardProps) => {
   const { product, deletePropertyHandler, memberPage, updatePropertyHandler } =
     props;
   const device = useDeviceDetect();
@@ -30,7 +30,7 @@ export const PropertyCard = (props: PropertyCardProps) => {
     console.log("+pushEditProperty: ", id);
     await router.push({
       pathname: "/mypage",
-      query: { category: "addProperty", productId: id },
+      query: { category: "addProduct", productId: id },
     });
   };
 

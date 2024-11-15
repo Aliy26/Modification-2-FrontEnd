@@ -129,6 +129,8 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
     },
   });
 
+  console.log(boardArticle);
+
   /** LIFECYCLES **/
   useEffect(() => {
     if (articleId)
@@ -371,7 +373,8 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                     </Typography>
                     <Stack className="info">
                       <Stack className="icon-info">
-                        {boardArticle?.meLiked[0]?.myFavorite ? (
+                        {boardArticle?.meLiked &&
+                        boardArticle.meLiked[0]?.myFavorite ? (
                           <ThumbUpAltIcon
                             onClick={() => {
                               likeBoardArticleHandler(user, boardArticle._id);
@@ -418,7 +421,8 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                   <Stack className="like-and-dislike">
                     <Stack className="top">
                       <Button>
-                        {boardArticle?.meLiked ? (
+                        {boardArticle?.meLiked &&
+                        boardArticle.meLiked[0]?.myFavorite ? (
                           <ThumbUpAltIcon
                             onClick={() => {
                               likeBoardArticleHandler(user, boardArticle?._id);
