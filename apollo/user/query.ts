@@ -807,6 +807,7 @@ export const GET_NOTICES = gql`
       noticeTitle
       noticeContent
       noticeImage
+      eventCity
       memberId
     }
   }
