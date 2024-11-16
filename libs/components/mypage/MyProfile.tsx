@@ -254,7 +254,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
               <Typography className="title">Email</Typography>
               <input
                 type="text"
-                placeholder="Your Phone"
+                placeholder="Your Email"
                 value={updateData.memberEmail}
                 onChange={({ target: { value } }) =>
                   setUpdateData({ ...updateData, memberEmail: value })
@@ -262,17 +262,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
               />
             </Stack>
           </Stack>
-          {/* <Stack className="address-box">
-            <Typography className="title">Address</Typography>
-            <input
-              type="text"
-              placeholder="Your address"
-              value={updateData.memberAddress}
-              onChange={({ target: { value } }) =>
-                setUpdateData({ ...updateData, memberAddress: value })
-              }
-            />
-          </Stack> */}
+
           <Stack className="about-me-box">
             <Button
               className="update-button"

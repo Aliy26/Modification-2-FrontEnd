@@ -446,6 +446,61 @@ const Filter = (props: FilterType) => {
     [searchFilter]
   );
 
+  const productYearHandler = useCallback(
+    async (value: number, type: string) => {
+      if (type == "start") {
+        await router.push(
+          `/product?input=${JSON.stringify({
+            ...searchFilter,
+            search: {
+              ...searchFilter.search,
+              periodsRange: {
+                ...searchFilter.search.periodsRange,
+                start: value * 1,
+              },
+            },
+          })}`,
+          `/product?input=${JSON.stringify({
+            ...searchFilter,
+            search: {
+              ...searchFilter.search,
+              periodsRange: {
+                ...searchFilter.search.periodsRange,
+                start: value * 1,
+              },
+            },
+          })}`,
+          { scroll: false }
+        );
+      } else {
+        await router.push(
+          `/product?input=${JSON.stringify({
+            ...searchFilter,
+            search: {
+              ...searchFilter.search,
+              periodsRange: {
+                ...searchFilter.search.periodsRange,
+                end: value * 1,
+              },
+            },
+          })}`,
+          `/product?input=${JSON.stringify({
+            ...searchFilter,
+            search: {
+              ...searchFilter.search,
+              periodsRange: {
+                ...searchFilter.search.periodsRange,
+                end: value * 1,
+              },
+            },
+          })}`,
+          { scroll: false }
+        );
+      }
+    },
+    [searchFilter]
+  );
+
   const refreshHandler = async () => {
     try {
       setSearchText("");
@@ -653,7 +708,7 @@ const Filter = (props: FilterType) => {
                   value={searchFilter?.search?.periodsRange?.start ?? 0}
                   onChange={(e: any) => {
                     if (e.target.value >= 0) {
-                      propertyPriceHandler(e.target.value, "start");
+                      productYearHandler(e.target.value, "start");
                     }
                   }}
                 />
@@ -664,7 +719,7 @@ const Filter = (props: FilterType) => {
                   value={searchFilter?.search?.periodsRange?.end ?? 0}
                   onChange={(e: any) => {
                     if (e.target.value >= 0) {
-                      propertyPriceHandler(e.target.value, "end");
+                      productYearHandler(e.target.value, "end");
                     }
                   }}
                 />

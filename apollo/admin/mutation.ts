@@ -103,8 +103,8 @@ export const REMOVE_PROPERTY_BY_ADMIN = gql`
  *************************/
 
 export const UPDATE_BOARD_ARTICLE_BY_ADMIN = gql`
-  mutation UpdateBoardArticle($input: BoardArticleUpdate!) {
-    updateBoardArticle(input: $input) {
+  mutation UpdateBoardArticleByAdmin($input: BoardArticleUpdate!) {
+    updateBoardArticleByAdmin(input: $input) {
       _id
       articleCategory
       articleStatus
@@ -117,6 +117,33 @@ export const UPDATE_BOARD_ARTICLE_BY_ADMIN = gql`
       memberId
       createdAt
       updatedAt
+      memberData {
+        _id
+        memberType
+        memberStatus
+        memberAuthType
+        memberPhone
+        memberNick
+        memberFullName
+        memberImage
+        memberAddress
+        memberDesc
+        memberProducts
+        memberArticles
+        memberFollowers
+        memberFollowings
+        memberPoints
+        memberLikes
+        memberViews
+        memberComments
+        memberRank
+        memberWarnings
+        memberBlocks
+        deletedAt
+        createdAt
+        updatedAt
+        accessToken
+      }
     }
   }
 `;

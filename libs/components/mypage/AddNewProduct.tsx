@@ -64,8 +64,6 @@ const AddProperty = ({ initialValues, ...props }: any) => {
     },
   });
 
-  console.log(product, "<<<<<<<<<<<<<<");
-
   /** LIFECYCLES **/
   useEffect(() => {
     setInsertProductData({
@@ -472,7 +470,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="121"
-                  height="120"
+                  height="70"
                   viewBox="0 0 121 120"
                   fill="none"
                 >

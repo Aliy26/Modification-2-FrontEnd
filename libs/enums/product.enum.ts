@@ -23,5 +23,4 @@ export enum ProductCategory {
   Appliances = "Appliances",
   Pet = "Pet",
   Outdoors = "Outdoors",
-  Lightning = "Lightning",
 }

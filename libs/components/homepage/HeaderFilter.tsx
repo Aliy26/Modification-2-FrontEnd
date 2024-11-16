@@ -6,8 +6,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { propertySquare, propertyYears } from "../../config";
-import { ProductCategory, ProductType } from "../../enums/product.enum";
+import { propertyYears } from "../../config";
+import {
+  ProductBrand,
+  ProductCategory,
+  ProductType,
+} from "../../enums/product.enum";
 import { ProductsInquiry } from "../../types/product/product.input";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
@@ -52,6 +56,9 @@ const HeaderFilter = (props: HeaderFilterProps) => {
   const [openLocation, setOpenLocation] = useState(false);
   const [openType, setOpenType] = useState(false);
   const [openRooms, setOpenRooms] = useState(false);
+  const [brand, setBrand] = useState<ProductBrand[]>(
+    Object.values(ProductBrand)
+  );
   const [propertyLocation, setPropertyLocation] = useState<ProductCategory[]>(
     Object.values(ProductCategory)
   );
@@ -153,13 +160,13 @@ const HeaderFilter = (props: HeaderFilterProps) => {
   );
 
   const propertyRoomSelectHandler = useCallback(
-    async (value: any) => {
+    async (value: ProductBrand) => {
       try {
         setSearchFilter({
           ...searchFilter,
           search: {
             ...searchFilter.search,
-            options: [value],
+            productBrand: value,
           },
         });
         disableAllStateHandler();
@@ -169,42 +176,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
     },
     [searchFilter]
   );
-
-  // const propertyBedSelectHandler = useCallback(
-  //   async (number: Number) => {
-  //     try {
-  //       if (number != 0) {
-  //         if (searchFilter?.search?.bedsList?.includes(number)) {
-  //           setSearchFilter({
-  //             ...searchFilter,
-  //             search: {
-  //               ...searchFilter.search,
-  //               bedsList: searchFilter?.search?.bedsList?.filter(
-  //                 (item: Number) => item !== number
-  //               ),
-  //             },
-  //           });
-  //         } else {
-  //           setSearchFilter({
-  //             ...searchFilter,
-  //             search: {
-  //               ...searchFilter.search,
-  //               bedsList: [...(searchFilter?.search?.bedsList || []), number],
-  //             },
-  //           });
-  //         }
-  //       } else {
-  //         delete searchFilter?.search.bedsList;
-  //         setSearchFilter({ ...searchFilter });
-  //       }
-
-  //       console.log("propertyBedSelectHandler:", number);
-  //     } catch (err: any) {
-  //       console.log("ERROR, propertyBedSelectHandler:", err);
-  //     }
-  //   },
-  //   [searchFilter]
-  // );
 
   const propertyOptionSelectHandler = useCallback(
     async (e: any) => {
@@ -236,39 +207,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
     [searchFilter]
   );
 
-  // const propertySquareHandler = useCallback(
-  //   async (e: any, type: string) => {
-  //     const value = e.target.value;
-
-  //     if (type == "start") {
-  //       setSearchFilter({
-  //         ...searchFilter,
-  //         search: {
-  //           ...searchFilter.search,
-  //           // @ts-ignore
-  //           squaresRange: {
-  //             ...searchFilter.search.squaresRange,
-  //             start: parseInt(value),
-  //           },
-  //         },
-  //       });
-  //     } else {
-  //       setSearchFilter({
-  //         ...searchFilter,
-  //         search: {
-  //           ...searchFilter.search,
-  //           // @ts-ignore
-  //           squaresRange: {
-  //             ...searchFilter.search.squaresRange,
-  //             end: parseInt(value),
-  //           },
-  //         },
-  //       });
-  //     }
-  //   },
-  //   [searchFilter]
-  // );
-
   const yearStartChangeHandler = async (event: any) => {
     setYearCheck({ ...yearCheck, start: Number(event.target.value) });
 
@@ -295,6 +233,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
       },
     });
   };
+
+  console.log(brand, "dswerw");
 
   const resetFilterHandler = () => {
     setSearchFilter(initialInput);
@@ -369,9 +309,9 @@ const HeaderFilter = (props: HeaderFilterProps) => {
               onClick={roomStateChangeHandler}
             >
               <span>
-                {searchFilter?.search?.options
-                  ? `${searchFilter?.search?.options[0]} rooms}`
-                  : t("Options")}
+                {searchFilter?.search?.productBrand
+                  ? `${searchFilter?.search?.productBrand}`
+                  : t("Brands")}
               </span>
               <ExpandMoreIcon />
             </Box>
@@ -400,7 +340,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
                   onClick={() => propertyLocationSelectHandler(location)}
                   key={location}
                 >
-                  <img src={`img/banner/cities/${location}.webp`} alt="" />
+                  <img src={`img/banner/categories/${location}.webp`} alt="" />
                   <span>{location}</span>
                 </div>
               );
@@ -427,13 +367,10 @@ const HeaderFilter = (props: HeaderFilterProps) => {
             className={`filter-rooms ${openRooms ? "on" : ""}`}
             ref={roomsRef}
           >
-            {[1, 2, 3, 4, 5].map((room: number) => {
+            {brand.map((ele: ProductBrand) => {
               return (
-                <span
-                  onClick={() => propertyRoomSelectHandler(room)}
-                  key={room}
-                >
-                  {room} room{room > 1 ? "s" : ""}
+                <span onClick={() => propertyRoomSelectHandler(ele)} key={ele}>
+                  {ele}
                 </span>
               );
             })}
@@ -480,32 +417,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
               <div className={"middle"}>
                 <div className={"row-box"}>
                   <div className={"box"}>
-                    <span>bedrooms</span>
-                    <div className={"inside"}>
-                      <div
-                        className={`room ${
-                          !searchFilter?.search?.bedsList ? "active" : ""
-                        }`}
-                        onClick={() => propertyBedSelectHandler(0)}
-                      >
-                        Any
-                      </div>
-                      {[1, 2, 3, 4, 5].map((bed: number) => (
-                        <div
-                          className={`room ${
-                            searchFilter?.search?.bedsList?.includes(bed)
-                              ? "active"
-                              : ""
-                          }`}
-                          onClick={() => propertyBedSelectHandler(bed)}
-                          key={bed}
-                        >
-                          {bed == 0 ? "Any" : bed}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className={"box"}>
                     <span>options</span>
                     <div className={"inside"}>
                       <FormControl>
@@ -516,7 +427,9 @@ const HeaderFilter = (props: HeaderFilterProps) => {
                           inputProps={{ "aria-label": "Without label" }}
                         >
                           <MenuItem value={"all"}>All Options</MenuItem>
-                          <MenuItem value={"propertyBarter"}>Barter</MenuItem>
+                          <MenuItem value={"propertyBarter"}>
+                            Installment
+                          </MenuItem>
                           <MenuItem value={"propertyRent"}>Rent</MenuItem>
                         </Select>
                       </FormControl>
@@ -571,58 +484,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
                       </FormControl>
                     </div>
                   </div>
-                  <div className={"box"}>
-                    <span>square meter</span>
-                    <div className={"inside space-between align-center"}>
-                      <FormControl sx={{ width: "122px" }}>
-                        <Select
-                          value={searchFilter?.search?.squaresRange?.start}
-                          onChange={(e: any) =>
-                            propertySquareHandler(e, "start")
-                          }
-                          displayEmpty
-                          inputProps={{ "aria-label": "Without label" }}
-                          MenuProps={MenuProps}
-                        >
-                          {propertySquare.map((square: number) => (
-                            <MenuItem
-                              value={square}
-                              disabled={
-                                (searchFilter?.search?.squaresRange?.end || 0) <
-                                square
-                              }
-                              key={square}
-                            >
-                              {square}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                      <div className={"minus-line"}></div>
-                      <FormControl sx={{ width: "122px" }}>
-                        <Select
-                          value={searchFilter?.search?.squaresRange?.end}
-                          onChange={(e: any) => propertySquareHandler(e, "end")}
-                          displayEmpty
-                          inputProps={{ "aria-label": "Without label" }}
-                          MenuProps={MenuProps}
-                        >
-                          {propertySquare.map((square: number) => (
-                            <MenuItem
-                              value={square}
-                              disabled={
-                                (searchFilter?.search?.squaresRange?.start ||
-                                  0) > square
-                              }
-                              key={square}
-                            >
-                              {square}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    </div>
-                  </div>
                 </div>
               </div>
               <Divider sx={{ mt: "60px", mb: "18px" }} />
@@ -651,16 +512,7 @@ HeaderFilter.defaultProps = {
   initialInput: {
     page: 1,
     limit: 9,
-    search: {
-      squaresRange: {
-        start: 0,
-        end: 500,
-      },
-      pricesRange: {
-        start: 0,
-        end: 2000000,
-      },
-    },
+    search: {},
   },
 };
 

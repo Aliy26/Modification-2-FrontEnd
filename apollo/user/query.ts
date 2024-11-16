@@ -806,6 +806,7 @@ export const GET_NOTICES = gql`
       noticeStatus
       noticeTitle
       noticeContent
+      field
       noticeImage
       eventCity
       memberId

@@ -62,7 +62,7 @@ const Events = () => {
     return <div className="mobile-events">EVENT CARD</div>;
   } else {
     return (
-      <>
+      <div>
         {!eventNotices.length ? (
           ""
         ) : (
@@ -81,7 +81,7 @@ const Events = () => {
                 pagination={{ clickable: true }}
               >
                 {eventNotices.map((event) => (
-                  <SwiperSlide key={event.noticeTitle}>
+                  <SwiperSlide key={event._id}>
                     <EventCard event={event} />
                   </SwiperSlide>
                 ))}
@@ -95,7 +95,7 @@ const Events = () => {
             )}
           </Stack>
         )}
-      </>
+      </div>
     );
   }
 };

@@ -444,15 +444,15 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
                                 className={"data"}
                                 sx={{ cursor: "pointer" }}
                               >
-                                Mr. {product?.memberData?.memberNick}
+                                {product?.memberData?.memberNick}
                               </Typography>
                             </Box>
                             <Box component={"div"} className={"info"}>
                               <Typography className={"title"}>
-                                Added In
+                                Made Year
                               </Typography>
                               <Typography className={"data"}>
-                                {moment(product?.createdAt).format("YY/MM/DD")}
+                                {product?.manufacturedIn}
                               </Typography>
                             </Box>
                             <Box component={"div"} className={"info"}>
