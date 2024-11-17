@@ -3,7 +3,8 @@
     position: relative;
     padding: 60px 0px 60px;
     width: 100%;
-    height: auto;
+    min-height: 850px;
+    background-color: rgb(234, 228, 229);
     .container {
       display: flex;
       flex-direction: column;
@@ -16,6 +17,8 @@
           align-items: center;
           span {
             color: #000;
+            margin-top: 5px;
+            margin-bottom: 15px;
             font-family: $font;
             font-size: 35px;
             font-style: normal;
@@ -60,7 +63,7 @@
             letter-spacing: 0.42px;
             &.active {
               border: 1px solid #725ce8;
-              background: #eb6753;
+              background: #70c82d;
               color: #fff;
             }
           }
@@ -97,7 +100,7 @@
               span {
                 color: #000;
                 font-family: $font;
-                font-size: 14px;
+                font-size: 17px;
                 font-style: normal;
                 font-weight: 400;
                 line-height: normal;
@@ -114,7 +117,7 @@
                 justify-content: space-between;
                 border: 1px solid #eee;
                 &.event {
-                  background: #f6d79a;
+                  background: #fff;
                 }
                 div {
                   padding: 6px 9px;
@@ -180,7 +183,7 @@
               display: flex;
               justify-content: center;
               align-items: center;
-              color: #bdbdbd;
+              color: #181610;
               text-align: center;
               font-family: $font;
               font-size: 15px;
@@ -204,14 +207,13 @@
             .badge {
               margin: 0 24px;
               display: inline-block;
-              padding: 4px 10px;
-              border: 1px solid #725ce8;
+              padding: 5px 12px;
               border-radius: 7px;
               color: #725ce8;
             }
             .question {
               .badge {
-                background: #e92c28;
+                background: #5fe928;
                 color: #fff;
               }
             }

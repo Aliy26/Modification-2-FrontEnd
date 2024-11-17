@@ -78,6 +78,7 @@ const Join: NextPage = () => {
       }
       await logIn(input.nick, input.password);
       await router.push(`${router.query.referrer ?? "/"}`);
+      window.location.reload();
     } catch (err: any) {
       await sweetMixinErrorAlert(err.message);
     }
@@ -98,6 +99,7 @@ const Join: NextPage = () => {
         input.type
       );
       await router.push(`${router.query.referrer ?? "/"}`);
+      window.location.reload();
     } catch (err: any) {
       await sweetMixinErrorAlert(err.message);
     }
