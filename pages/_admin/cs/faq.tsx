@@ -22,8 +22,14 @@ import {
 import { NoticeCategory, NoticeStatus } from "../../../libs/enums/notice.enum";
 import { T } from "../../../libs/types/common";
 import { useRouter } from "next/router";
-import { UPDATE_NOTICE_BY_ADMIN } from "../../../apollo/admin/mutation";
-import { sweetErrorHandling } from "../../../libs/sweetAlert";
+import {
+  DELETE_NOTICE,
+  UPDATE_NOTICE_BY_ADMIN,
+} from "../../../apollo/admin/mutation";
+import {
+  sweetConfirmAlert,
+  sweetErrorHandling,
+} from "../../../libs/sweetAlert";
 
 const FaqArticles: NextPage = (props: any) => {
   const [anchorEl, setAnchorEl] = useState<[] | HTMLElement[]>([]);
@@ -32,6 +38,7 @@ const FaqArticles: NextPage = (props: any) => {
     noticeCategory: NoticeCategory.FAQ,
   };
   const router = useRouter();
+  const [deleteNotce] = useMutation(DELETE_NOTICE);
   const [updateNotice] = useMutation(UPDATE_NOTICE_BY_ADMIN);
 
   /** APOLLO REQUESTS **/
@@ -54,12 +61,6 @@ const FaqArticles: NextPage = (props: any) => {
 
   /** LIFECYCLES **/
 
-  useEffect(() => {
-    getNoticesRefetch();
-  }, [input]);
-
-  /** HANDLERS **/
-
   const menuIconClickHandler = (e: any, index: number) => {
     const tempAnchor = anchorEl.slice();
     tempAnchor[index] = e.currentTarget;
@@ -78,8 +79,29 @@ const FaqArticles: NextPage = (props: any) => {
           input: updateData,
         },
       });
+      setAnchorEl([]);
+      await getNoticesRefetch();
     } catch (err: any) {
       console.log("ERROR updateNoticeHandler");
+      sweetErrorHandling(err).then();
+    }
+  };
+
+  const deleteNoticeHandler = async (id: string) => {
+    try {
+      console.log("deleteNotice");
+
+      if (await sweetConfirmAlert("Are you sure to remove?")) {
+        await deleteNotce({
+          variables: {
+            input: id,
+          },
+        });
+
+        getNoticesRefetch();
+      }
+    } catch (err: any) {
+      console.log("Error deleteNotice");
       sweetErrorHandling(err).then();
     }
   };
@@ -193,6 +215,7 @@ const FaqArticles: NextPage = (props: any) => {
               // dense={dense}
               // membersData={membersData}
               // searchMembers={searchMembers}
+              deleteNoticeHandler={deleteNoticeHandler}
               anchorEl={anchorEl}
               menuIconClickHandler={menuIconClickHandler}
               menuIconCloseHandler={menuIconCloseHandler}

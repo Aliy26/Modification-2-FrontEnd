@@ -199,3 +199,21 @@ export const UPDATE_NOTICE_BY_ADMIN = gql`
     }
   }
 `;
+
+export const DELETE_NOTICE = gql`
+  mutation DeleteNotice($input: String!) {
+    deleteNotice(noticeId: $input) {
+      _id
+      noticeCategory
+      field
+      noticeStatus
+      noticeTitle
+      noticeContent
+      noticeImage
+      eventCity
+      memberId
+      createdAt
+      updatedAt
+    }
+  }
+`;

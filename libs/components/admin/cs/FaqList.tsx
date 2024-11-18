@@ -14,6 +14,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/material";
 import { Notice } from "../../../types/notices/notices";
@@ -21,7 +22,7 @@ import moment from "moment";
 import { NoticeStatus } from "../../../enums/notice.enum";
 
 interface Data {
-  category: string;
+  field: string;
   title: string;
   writer: string;
   date: string;
@@ -50,10 +51,10 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "category",
+    id: "field",
     numeric: true,
     disablePadding: false,
-    label: "CATEGORY",
+    label: "Field",
   },
   {
     id: "title",
@@ -72,7 +73,7 @@ const headCells: readonly HeadCell[] = [
     id: "date",
     numeric: true,
     disablePadding: false,
-    label: "DATE",
+    label: "CREATED DATE",
   },
   {
     id: "status",
@@ -123,6 +124,7 @@ interface FaqArticlesPanelListType {
   updateNoticeHandler: any;
   // handleMenuIconClick?: any;
   // handleMenuIconClose?: any;
+  deleteNoticeHandler: any;
   menuIconClickHandler: any;
   menuIconCloseHandler: any;
   generateMentorTypeHandle?: any;
@@ -134,6 +136,7 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
     dense,
     membersData,
     searchMembers,
+    deleteNoticeHandler,
     updateNoticeHandler,
     anchorEl,
     menuIconClickHandler,
@@ -168,7 +171,7 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
                   key={"member._id"}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell align="left">{notice.noticeCategory}</TableCell>
+                  <TableCell align="left">{notice.field}</TableCell>
                   <TableCell align="left">{notice.noticeTitle}</TableCell>
                   <TableCell align="left" className={"name"}>
                     <Stack direction={"row"}>
@@ -191,12 +194,29 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
                   </TableCell>
 
                   <TableCell align="center">
-                    <Button
-                      onClick={(e: any) => menuIconClickHandler(e, index)}
-                      className={"badge success"}
-                    >
-                      {notice.noticeStatus}
-                    </Button>
+                    <div style={{ display: "flex" }}>
+                      <Button
+                        onClick={(e: any) => menuIconClickHandler(e, index)}
+                        className={
+                          notice.noticeStatus == "ACTIVE"
+                            ? "badge success"
+                            : "badge warning"
+                        }
+                      >
+                        {notice.noticeStatus}
+                      </Button>
+                      {notice.noticeStatus == "DELETE" ? (
+                        <DeleteIcon
+                          onClick={() => {
+                            deleteNoticeHandler(notice._id as string);
+                          }}
+                          fontSize="small"
+                          sx={{ cursor: "pointer" }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </div>
 
                     <Menu
                       className={"menu-modal"}

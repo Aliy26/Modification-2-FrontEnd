@@ -219,17 +219,21 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
                         </Button>
                       )}
 
-                      {product.productStatus === ProductStatus.SOLD && (
+                      {/* {product.productStatus === ProductStatus.SOLD && (
                         <Button className={"badge warning"}>
                           {product.productStatus}
                         </Button>
-                      )}
+                      )} */}
 
-                      {product.productStatus === ProductStatus.ACTIVE && (
+                      {
                         <>
                           <Button
                             onClick={(e: any) => menuIconClickHandler(e, index)}
-                            className={"badge success"}
+                            className={
+                              product.productStatus == "ACTIVE"
+                                ? "badge success"
+                                : "warning badge"
+                            }
                           >
                             {product.productStatus}
                           </Button>
@@ -267,7 +271,7 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
                               ))}
                           </Menu>
                         </>
-                      )}
+                      }
                     </TableCell>
                   </TableRow>
                 );
