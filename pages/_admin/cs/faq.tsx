@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import withAdminLayout from "../../../libs/components/layout/LayoutAdmin";
 import { Box, Button, InputAdornment, Stack } from "@mui/material";
@@ -51,9 +51,24 @@ const FaqArticles: NextPage = (props: any) => {
   });
 
   console.log(faqs, "<<<<<<<");
+
   /** LIFECYCLES **/
 
+  useEffect(() => {
+    getNoticesRefetch();
+  }, [input]);
+
   /** HANDLERS **/
+
+  const menuIconClickHandler = (e: any, index: number) => {
+    const tempAnchor = anchorEl.slice();
+    tempAnchor[index] = e.currentTarget;
+    setAnchorEl(tempAnchor);
+  };
+
+  const menuIconCloseHandler = () => {
+    setAnchorEl([]);
+  };
 
   const updateNoticeHandler = async (updateData: EventNoticeInquiry) => {
     try {
@@ -174,13 +189,13 @@ const FaqArticles: NextPage = (props: any) => {
             </Box>
             <FaqArticlesPanelList
               faqs={faqs}
-              updateNotice={updateNotice}
+              updateNoticeHandler={updateNoticeHandler}
               // dense={dense}
               // membersData={membersData}
               // searchMembers={searchMembers}
               anchorEl={anchorEl}
-              // handleMenuIconClick={handleMenuIconClick}
-              // handleMenuIconClose={handleMenuIconClose}
+              menuIconClickHandler={menuIconClickHandler}
+              menuIconCloseHandler={menuIconCloseHandler}
               // generateMentorTypeHandle={generateMentorTypeHandle}
             />
 

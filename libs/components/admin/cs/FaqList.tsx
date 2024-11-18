@@ -18,6 +18,7 @@ import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/material";
 import { Notice } from "../../../types/notices/notices";
 import moment from "moment";
+import { NoticeStatus } from "../../../enums/notice.enum";
 
 interface Data {
   category: string;
@@ -114,14 +115,16 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 }
 
 interface FaqArticlesPanelListType {
-  updateNotice: any;
   faqs: Notice[];
   dense?: boolean;
   membersData?: any;
   searchMembers?: any;
   anchorEl?: any;
-  handleMenuIconClick?: any;
-  handleMenuIconClose?: any;
+  updateNoticeHandler: any;
+  // handleMenuIconClick?: any;
+  // handleMenuIconClose?: any;
+  menuIconClickHandler: any;
+  menuIconCloseHandler: any;
   generateMentorTypeHandle?: any;
 }
 
@@ -131,10 +134,10 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
     dense,
     membersData,
     searchMembers,
-    updateNotice,
+    updateNoticeHandler,
     anchorEl,
-    handleMenuIconClick,
-    handleMenuIconClose,
+    menuIconClickHandler,
+    menuIconCloseHandler,
     generateMentorTypeHandle,
   } = props;
   const router = useRouter();
@@ -186,9 +189,10 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
                   <TableCell align="left">
                     {moment(notice.createdAt).format("MMMM DD YYYY")}
                   </TableCell>
+
                   <TableCell align="center">
                     <Button
-                      onClick={(e: any) => handleMenuIconClick(e, index)}
+                      onClick={(e: any) => menuIconClickHandler(e, index)}
                       className={"badge success"}
                     >
                       {notice.noticeStatus}
@@ -201,24 +205,32 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
                       }}
                       anchorEl={anchorEl[index]}
                       open={Boolean(anchorEl[index])}
-                      onClose={handleMenuIconClose}
+                      onClose={menuIconCloseHandler}
                       TransitionComponent={Fade}
                       sx={{ p: 1 }}
                     >
-                      <MenuItem
-                        onClick={(e: any) =>
-                          generateMentorTypeHandle(
-                            "member._id",
-                            "mentor",
-                            "originate"
-                          )
-                        }
-                      >
-                        <Typography variant={"subtitle1"} component={"span"}>
-                          MENTOR
-                        </Typography>
-                      </MenuItem>
-                      <MenuItem
+                      {Object.values(NoticeStatus)
+                        .filter((ele) => ele !== notice.noticeStatus)
+                        .map((status: string) => (
+                          <MenuItem
+                            onClick={() =>
+                              updateNoticeHandler({
+                                _id: notice._id,
+                                noticeStatus: status,
+                              })
+                            }
+                            // className={"badge success"}
+                            key={status}
+                          >
+                            <Typography
+                              variant={"subtitle1"}
+                              component={"span"}
+                            >
+                              {status}
+                            </Typography>
+                          </MenuItem>
+                        ))}
+                      {/* <MenuItem
                         onClick={(e: any) =>
                           generateMentorTypeHandle(
                             "member._id",
@@ -226,11 +238,7 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
                             "remove"
                           )
                         }
-                      >
-                        <Typography variant={"subtitle1"} component={"span"}>
-                          USER
-                        </Typography>
-                      </MenuItem>
+                      ></MenuItem> */}
                     </Menu>
                   </TableCell>
                 </TableRow>
