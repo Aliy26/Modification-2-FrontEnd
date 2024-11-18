@@ -529,6 +529,7 @@ body::-webkit-scrollbar {
               height: 52px;
               cursor: pointer;
             }
+
             span {
               color: #099778;
               font-family: $font;
@@ -980,4 +981,9 @@ body::-webkit-scrollbar {
     color: red;
     cursor: pointer;
   }
+}
+
+.logo-name {
+  color: rgb(204, 99, 13) !important;
+  font-weight: 600;
 }

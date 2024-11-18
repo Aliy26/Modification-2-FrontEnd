@@ -13,9 +13,11 @@ export interface Notice {
   eventCity?: string;
   noticeTitle: string;
   noticeContent: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface EventNoticeInquiry {
   noticeCategory?: NoticeCategory;
-  noticeStatus: NoticeStatus;
+  noticeStatus?: NoticeStatus;
 }

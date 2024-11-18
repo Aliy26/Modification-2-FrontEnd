@@ -10,8 +10,12 @@ import useDeviceDetect from "../../hooks/useDeviceDetect";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import { EventNoticeInquiry, Notice } from "../../types/notices/notices";
 import { useQuery } from "@apollo/client";
-import { GET_NOTICES } from "../../../apollo/user/query";
-import { NoticeCategory, NoticeStatus } from "../../enums/notice.enum";
+import { GET_NOTICE_FIELDS, GET_NOTICES } from "../../../apollo/user/query";
+import {
+  FAQFeild,
+  NoticeCategory,
+  NoticeStatus,
+} from "../../enums/notice.enum";
 import { T } from "../../types/common";
 
 const Accordion = styled((props: AccordionProps) => (
@@ -44,9 +48,10 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 const Faq = () => {
   const device = useDeviceDetect();
   const router = useRouter();
-  const [category, setCategory] = useState<string>("PRODUCT");
+  const [category, setCategory] = useState<string>("AGENT");
   const [expanded, setExpanded] = useState<string | false>("panel1");
   const [faqs, setFaqs] = useState<Notice[]>([]);
+  const [field, setField] = useState<FAQFeild[]>([]);
 
   const input: EventNoticeInquiry = {
     noticeCategory: NoticeCategory.FAQ,
@@ -68,9 +73,21 @@ const Faq = () => {
     },
   });
 
-  /** LIFECYCLES **/
+  const {
+    loading: getNoticeFieldsLoading,
+    data: getNoticeFieldsData,
+    error: getNoticeFieldsError,
+    refetch: getNoticeFieldsRefetch,
+  } = useQuery(GET_NOTICE_FIELDS, {
+    fetchPolicy: "cache-and-network",
+    variables: { input: true },
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data: T) => {
+      setField(data?.getNoticeFields);
+    },
+  });
 
-  console.log("data2:", faqs);
+  /** LIFECYCLES **/
 
   /** HANDLERS **/
   const changeCategoryHandler = (category: string) => {
@@ -533,15 +550,7 @@ const Faq = () => {
         ) : (
           <Stack className={"faq-content"}>
             <Box className={"categories"} component={"div"}>
-              {[
-                "PRODUCT",
-                "PAYMENT",
-                "BUYERS",
-                "AGENT",
-                "MEMBERSHIP",
-                "COMMUNITY",
-                "OTHER",
-              ].map((cat) => (
+              {field.map((cat) => (
                 <div
                   key={cat}
                   className={category === cat ? "active" : ""}

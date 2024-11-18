@@ -117,7 +117,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 }
 
 interface PropertyPanelListType {
-  properties: Product[];
+  products: Product[];
   anchorEl: any;
   menuIconClickHandler: any;
   menuIconCloseHandler: any;
@@ -127,7 +127,7 @@ interface PropertyPanelListType {
 
 export const PropertyPanelList = (props: PropertyPanelListType) => {
   const {
-    properties,
+    products,
     anchorEl,
     menuIconClickHandler,
     menuIconCloseHandler,
@@ -146,7 +146,7 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
           {/*@ts-ignore*/}
           <EnhancedTableHead />
           <TableBody>
-            {properties.length === 0 && (
+            {products.length === 0 && (
               <TableRow>
                 <TableCell align="center" colSpan={8}>
                   <span className={"no-data"}>data not found!</span>
@@ -154,31 +154,31 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
               </TableRow>
             )}
 
-            {properties.length !== 0 &&
-              properties.map((property: Property, index: number) => {
-                const propertyImage = `${REACT_APP_API_URL}/${property?.propertyImages[0]}`;
+            {products.length !== 0 &&
+              products.map((product: Product, index: number) => {
+                const productImage = `${REACT_APP_API_URL}/${product?.productImages[0]}`;
 
                 return (
                   <TableRow
                     hover
-                    key={property?._id}
+                    key={product?._id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell align="left">{property._id}</TableCell>
+                    <TableCell align="left">{product._id}</TableCell>
                     <TableCell align="left" className={"name"}>
-                      {property.propertyStatus === ProductStatus.ACTIVE ? (
+                      {product.productStatus === ProductStatus.ACTIVE ? (
                         <Stack direction={"row"}>
-                          <Link href={`/product/detail?id=${property?._id}`}>
+                          <Link href={`/product/detail?id=${product?._id}`}>
                             <div>
                               <Avatar
                                 alt="Remy Sharp"
-                                src={propertyImage}
+                                src={productImage}
                                 sx={{ ml: "2px", mr: "10px" }}
                               />
                             </div>
                           </Link>
-                          <Link href={`/product/detail?id=${property?._id}`}>
-                            <div>{property.propertyTitle}</div>
+                          <Link href={`/product/detail?id=${product?._id}`}>
+                            <div>{product.productName}</div>
                           </Link>
                         </Stack>
                       ) : (
@@ -186,30 +186,26 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
                           <div>
                             <Avatar
                               alt="Remy Sharp"
-                              src={propertyImage}
+                              src={productImage}
                               sx={{ ml: "2px", mr: "10px" }}
                             />
                           </div>
                           <div style={{ marginTop: "10px" }}>
-                            {property.propertyTitle}
+                            {product.productName}
                           </div>
                         </Stack>
                       )}
                     </TableCell>
+                    <TableCell align="center">{product.productPrice}</TableCell>
                     <TableCell align="center">
-                      {property.propertyPrice}
+                      {product.memberData?.memberNick}
                     </TableCell>
                     <TableCell align="center">
-                      {property.memberData?.memberNick}
+                      {product.productCategory}
                     </TableCell>
+                    <TableCell align="center">{product.productType}</TableCell>
                     <TableCell align="center">
-                      {property.productCategory}
-                    </TableCell>
-                    <TableCell align="center">
-                      {property.propertyType}
-                    </TableCell>
-                    <TableCell align="center">
-                      {property.propertyStatus === ProductStatus.DELETE && (
+                      {product.productStatus === ProductStatus.DELETE && (
                         <Button
                           variant="outlined"
                           sx={{
@@ -217,25 +213,25 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
                             border: "none",
                             ":hover": { border: "1px solid #000000" },
                           }}
-                          onClick={() => removePropertyHandler(property._id)}
+                          onClick={() => removePropertyHandler(product._id)}
                         >
                           <DeleteIcon fontSize="small" />
                         </Button>
                       )}
 
-                      {property.propertyStatus === ProductStatus.SOLD && (
+                      {product.productStatus === ProductStatus.SOLD && (
                         <Button className={"badge warning"}>
-                          {property.propertyStatus}
+                          {product.productStatus}
                         </Button>
                       )}
 
-                      {property.propertyStatus === ProductStatus.ACTIVE && (
+                      {product.productStatus === ProductStatus.ACTIVE && (
                         <>
                           <Button
                             onClick={(e: any) => menuIconClickHandler(e, index)}
                             className={"badge success"}
                           >
-                            {property.propertyStatus}
+                            {product.productStatus}
                           </Button>
 
                           <Menu
@@ -250,13 +246,13 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
                             sx={{ p: 1 }}
                           >
                             {Object.values(ProductStatus)
-                              .filter((ele) => ele !== property.propertyStatus)
+                              .filter((ele) => ele !== product.productStatus)
                               .map((status: string) => (
                                 <MenuItem
                                   onClick={() =>
                                     updatePropertyHandler({
-                                      _id: property._id,
-                                      propertyStatus: status,
+                                      _id: product._id,
+                                      productStatus: status,
                                     })
                                   }
                                   key={status}

@@ -108,7 +108,7 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
       });
 
       // execute getPropertiesRefetch
-      await getProductsRefetch({ input: initialInput });
+      await getProductsRefetch({ _id: id });
       await sweetTopSmallSuccessAlert("success", 800);
     } catch (err: any) {
       console.log("Error, likeProductHandler", err.message);

@@ -810,6 +810,14 @@ export const GET_NOTICES = gql`
       noticeImage
       eventCity
       memberId
+      createdAt
+      updatedAt
     }
+  }
+`;
+
+export const GET_NOTICE_FIELDS = gql`
+  query GetNoticeFields($input: Boolean!) {
+    getNoticeFields(input: $input)
   }
 `;

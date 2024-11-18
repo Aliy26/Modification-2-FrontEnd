@@ -185,3 +185,17 @@ export const REMOVE_COMMENT_BY_ADMIN = gql`
     }
   }
 `;
+
+export const UPDATE_NOTICE_BY_ADMIN = gql`
+  mutation UpdateNotice($input: NoticeUpdate!) {
+    updateNotice(input: $input) {
+      _id
+      noticeCategory
+      noticeStatus
+      noticeTitle
+      noticeContent
+      noticeImage
+      memberId
+    }
+  }
+`;
