@@ -14,12 +14,17 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import { FaqArticlesPanelList } from "../../../libs/components/admin/cs/FaqList";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_NOTICES } from "../../../apollo/user/query";
+import { GET_NOTICES, GET_NOTICES_BY_ADMIN } from "../../../apollo/user/query";
 import {
+  AllNoticesInquiry,
   EventNoticeInquiry,
   Notice,
 } from "../../../libs/types/notices/notices";
-import { NoticeCategory, NoticeStatus } from "../../../libs/enums/notice.enum";
+import {
+  FAQFeild,
+  NoticeCategory,
+  NoticeStatus,
+} from "../../../libs/enums/notice.enum";
 import { T } from "../../../libs/types/common";
 import { useRouter } from "next/router";
 import {
@@ -31,29 +36,34 @@ import {
   sweetErrorHandling,
 } from "../../../libs/sweetAlert";
 
-const FaqArticles: NextPage = (props: any) => {
+const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
   const [anchorEl, setAnchorEl] = useState<[] | HTMLElement[]>([]);
+  const [noticesInquiry, setNoticesInquiry] =
+    useState<AllNoticesInquiry>(initialInquiry);
   const [faqs, setFaqs] = useState<Notice[]>([]);
+  const [faqsTotal, setFaqsTotal] = useState<number>(0);
   const input: EventNoticeInquiry = {
     noticeCategory: NoticeCategory.FAQ,
   };
   const router = useRouter();
+  const [searchType, setSearchType] = useState("ALL");
   const [deleteNotce] = useMutation(DELETE_NOTICE);
   const [updateNotice] = useMutation(UPDATE_NOTICE_BY_ADMIN);
 
   /** APOLLO REQUESTS **/
 
   const {
-    loading: getNoticesLoading,
-    data: getNoticesData,
-    error: getNoticesError,
-    refetch: getNoticesRefetch,
-  } = useQuery(GET_NOTICES, {
+    loading: getNoticesByAdminLoading,
+    data: getNoticesByAdminData,
+    error: getNoticesByAdminError,
+    refetch: getNoticesByAdminRefetch,
+  } = useQuery(GET_NOTICES_BY_ADMIN, {
     fetchPolicy: "cache-and-network",
-    variables: { input: input },
+    variables: { input: noticesInquiry },
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
-      setFaqs(data?.getNotices);
+      setFaqs(data?.getAllNoticesByAdmin?.list);
+      setFaqsTotal(data?.getAllNoticesByAdmin?.metaCounter[0]?.total ?? 0);
     },
   });
 
@@ -73,6 +83,35 @@ const FaqArticles: NextPage = (props: any) => {
     setAnchorEl([]);
   };
 
+  const searchTypeHandler = async (newValue: string) => {
+    try {
+      setSearchType(newValue);
+      if (newValue !== "ALL") {
+        setNoticesInquiry({
+          ...noticesInquiry,
+          page: 1,
+          search: {
+            ...noticesInquiry.search,
+            field: newValue as FAQFeild,
+          },
+        });
+      } else {
+        console.log("passed here");
+        console.log(noticesInquiry);
+        setNoticesInquiry({
+          ...noticesInquiry,
+          search: {
+            ...noticesInquiry.search,
+            field: undefined,
+          },
+        });
+        console.log(noticesInquiry);
+      }
+    } catch (err: any) {
+      console.log("searchTypeHandler:", err.message);
+    }
+  };
+
   const updateNoticeHandler = async (updateData: EventNoticeInquiry) => {
     try {
       console.log("updateNotice");
@@ -82,7 +121,7 @@ const FaqArticles: NextPage = (props: any) => {
         },
       });
       setAnchorEl([]);
-      await getNoticesRefetch();
+      await getNoticesByAdminRefetch();
     } catch (err: any) {
       console.log("ERROR updateNoticeHandler");
       sweetErrorHandling(err).then();
@@ -100,7 +139,7 @@ const FaqArticles: NextPage = (props: any) => {
           },
         });
 
-        getNoticesRefetch();
+        await getNoticesByAdminRefetch;
       }
     } catch (err: any) {
       console.log("Error deleteNotice");
@@ -180,10 +219,23 @@ const FaqArticles: NextPage = (props: any) => {
                 <Stack className={"search-area"} sx={{ m: "24px" }}>
                   <Select
                     sx={{ width: "160px", mr: "20px" }}
-                    value={"searchCategory"}
+                    value={searchType}
                   >
-                    <MenuItem value={"mb_nick"}>mb_nick</MenuItem>
-                    <MenuItem value={"mb_id"}>mb_id</MenuItem>
+                    <MenuItem
+                      value={"ALL"}
+                      onClick={() => searchTypeHandler("ALL")}
+                    >
+                      ALL
+                    </MenuItem>
+                    {Object.values(FAQFeild).map((field: string) => (
+                      <MenuItem
+                        value={field}
+                        onClick={() => searchTypeHandler(field)}
+                        key={field}
+                      >
+                        {field}
+                      </MenuItem>
+                    ))}
                   </Select>
 
                   <OutlinedInput
@@ -227,9 +279,9 @@ const FaqArticles: NextPage = (props: any) => {
             <TablePagination
               rowsPerPageOptions={[20, 40, 60]}
               component="div"
-              count={4}
-              rowsPerPage={10}
-              page={1}
+              count={faqsTotal}
+              rowsPerPage={noticesInquiry?.limit}
+              page={noticesInquiry?.page - 1}
               onPageChange={() => {}}
               onRowsPerPageChange={() => {}}
             />
@@ -238,6 +290,16 @@ const FaqArticles: NextPage = (props: any) => {
       </Box>
     </Box>
   );
+};
+
+FaqArticles.defaultProps = {
+  initialInquiry: {
+    page: 1,
+    limit: 8,
+    search: {
+      noticeCategory: "FAQ",
+    },
+  },
 };
 
 export default withAdminLayout(FaqArticles);

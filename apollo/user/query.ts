@@ -821,3 +821,26 @@ export const GET_NOTICE_FIELDS = gql`
     getNoticeFields(input: $input)
   }
 `;
+
+export const GET_NOTICES_BY_ADMIN = gql`
+  query GetAllNoticesByAdmin($input: AllNoticesInquiry!) {
+    getAllNoticesByAdmin(input: $input) {
+      list {
+        _id
+        noticeCategory
+        field
+        noticeStatus
+        noticeTitle
+        noticeContent
+        noticeImage
+        eventCity
+        memberId
+        createdAt
+        updatedAt
+      }
+      metaCounter {
+        total
+      }
+    }
+  }
+`;

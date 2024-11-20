@@ -168,7 +168,7 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
               return (
                 <TableRow
                   hover
-                  key={"member._id"}
+                  key={notice._id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell align="left">{notice.field}</TableCell>

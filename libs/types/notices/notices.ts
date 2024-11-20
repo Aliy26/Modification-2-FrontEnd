@@ -21,3 +21,15 @@ export interface EventNoticeInquiry {
   noticeCategory?: NoticeCategory;
   noticeStatus?: NoticeStatus;
 }
+
+export interface ANISearch {
+  noticeStatus?: NoticeStatus;
+  noticeCategory?: NoticeCategory;
+  field?: FAQFeild;
+}
+
+export interface AllNoticesInquiry {
+  page: number;
+  limit: number;
+  search: ANISearch;
+}
