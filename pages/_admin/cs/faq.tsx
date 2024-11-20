@@ -61,6 +61,8 @@ const FaqArticles: NextPage = (props: any) => {
 
   /** LIFECYCLES **/
 
+  /** HANDLERS **/
+
   const menuIconClickHandler = (e: any, index: number) => {
     const tempAnchor = anchorEl.slice();
     tempAnchor[index] = e.currentTarget;
