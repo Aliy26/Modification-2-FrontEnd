@@ -45,8 +45,14 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
   const input: EventNoticeInquiry = {
     noticeCategory: NoticeCategory.FAQ,
   };
+  const [allNotices, setAllNotices] = useState<Notice[]>([]);
   const router = useRouter();
   const [searchType, setSearchType] = useState("ALL");
+  const [value, setValue] = useState(
+    noticesInquiry?.search?.noticeStatus
+      ? noticesInquiry?.search?.noticeStatus
+      : "ALL"
+  );
   const [deleteNotce] = useMutation(DELETE_NOTICE);
   const [updateNotice] = useMutation(UPDATE_NOTICE_BY_ADMIN);
 
@@ -67,9 +73,29 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
     },
   });
 
-  console.log(faqs, "<<<<<<<");
+  const noticeInput: EventNoticeInquiry = {
+    noticeCategory: NoticeCategory.FAQ,
+  };
+
+  const {
+    loading: getAllNoticeLoading,
+    data: getAllNoticeData,
+    error: getAllNoticeError,
+    refetch: getAllNoticeRefetch,
+  } = useQuery(GET_NOTICES, {
+    fetchPolicy: "cache-and-network",
+    variables: { input: noticeInput },
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data: T) => {
+      setAllNotices(data?.getNotices);
+    },
+  });
 
   /** LIFECYCLES **/
+
+  useEffect(() => {
+    getNoticesByAdminRefetch();
+  }, [noticesInquiry]);
 
   /** HANDLERS **/
 
@@ -96,8 +122,6 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
           },
         });
       } else {
-        console.log("passed here");
-        console.log(noticesInquiry);
         setNoticesInquiry({
           ...noticesInquiry,
           search: {
@@ -105,10 +129,54 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
             field: undefined,
           },
         });
-        console.log(noticesInquiry);
       }
     } catch (err: any) {
       console.log("searchTypeHandler:", err.message);
+    }
+  };
+
+  const tabChangeHandler = async (event: any, newValue: string) => {
+    setValue(newValue);
+
+    setNoticesInquiry({ ...noticesInquiry, page: 1 });
+
+    switch (newValue) {
+      case "ACTIVE":
+        setNoticesInquiry({
+          ...noticesInquiry,
+          search: {
+            noticeStatus: NoticeStatus.ACTIVE,
+            noticeCategory: NoticeCategory.FAQ,
+          },
+        });
+        break;
+      case "HOLD":
+        setNoticesInquiry({
+          ...noticesInquiry,
+          search: {
+            noticeStatus: NoticeStatus.HOLD,
+            noticeCategory: NoticeCategory.FAQ,
+          },
+        });
+        break;
+      case "DELETE":
+        setNoticesInquiry({
+          ...noticesInquiry,
+          search: {
+            noticeStatus: NoticeStatus.DELETE,
+            noticeCategory: NoticeCategory.FAQ,
+          },
+        });
+        break;
+      default:
+        setNoticesInquiry({
+          ...noticesInquiry,
+          search: {
+            ...noticesInquiry.search,
+            noticeStatus: undefined,
+            noticeCategory: NoticeCategory.FAQ,
+          },
+        });
     }
   };
 
@@ -126,6 +194,19 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
       console.log("ERROR updateNoticeHandler");
       sweetErrorHandling(err).then();
     }
+  };
+
+  const changePageHandler = async (event: unknown, newPage: number) => {
+    noticesInquiry.page = newPage + 1;
+    setNoticesInquiry({ ...noticesInquiry });
+  };
+
+  const changeRowsPerPageHandler = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    noticesInquiry.limit = parseInt(event.target.value, 10);
+    noticesInquiry.page = 1;
+    setNoticesInquiry({ ...noticesInquiry });
   };
 
   const deleteNoticeHandler = async (id: string) => {
@@ -168,46 +249,46 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
             <Box component={"div"}>
               <List className={"tab-menu"}>
                 <ListItem
-                  // onClick={(e) => handleTabChange(e, 'all')}
-                  value="all"
+                  onClick={(e: any) => tabChangeHandler(e, "ALL")}
+                  value="ALL"
                   className={"all" === "all" ? "li on" : "li"}
                 >
-                  All ({faqs.length})
+                  All ({allNotices.length})
                 </ListItem>
                 <ListItem
-                  // onClick={(e) => handleTabChange(e, 'active')}
-                  value="active"
+                  onClick={(e: any) => tabChangeHandler(e, "ACTIVE")}
+                  value="ACTIVE"
                   className={"all" === "all" ? "li on" : "li"}
                 >
                   Active (
                   {
-                    faqs.filter(
+                    allNotices.filter(
                       (ele: Notice) => ele.noticeStatus === NoticeStatus.ACTIVE
                     ).length
                   }
                   )
                 </ListItem>
                 <ListItem
-                  // onClick={(e) => handleTabChange(e, 'blocked')}
-                  value="hold"
+                  onClick={(e: any) => tabChangeHandler(e, "HOLD")}
+                  value="HOLD"
                   className={"all" === "all" ? "li on" : "li"}
                 >
                   Hold (
                   {
-                    faqs.filter(
+                    allNotices.filter(
                       (ele: Notice) => ele.noticeStatus === NoticeStatus.HOLD
                     ).length
                   }
                   )
                 </ListItem>
                 <ListItem
-                  // onClick={(e) => handleTabChange(e, 'deleted')}
-                  value="deleted"
+                  onClick={(e: any) => tabChangeHandler(e, "DELETE")}
+                  value="DELETE"
                   className={"all" === "all" ? "li on" : "li"}
                 >
                   Deleted (
                   {
-                    faqs.filter(
+                    allNotices.filter(
                       (ele: Notice) => ele.noticeStatus === NoticeStatus.DELETE
                     ).length
                   }
@@ -282,8 +363,8 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
               count={faqsTotal}
               rowsPerPage={noticesInquiry?.limit}
               page={noticesInquiry?.page - 1}
-              onPageChange={() => {}}
-              onRowsPerPageChange={() => {}}
+              onPageChange={changePageHandler}
+              onRowsPerPageChange={changeRowsPerPageHandler}
             />
           </TabContext>
         </Box>
