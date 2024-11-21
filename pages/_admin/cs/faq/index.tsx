@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
-import withAdminLayout from "../../../libs/components/layout/LayoutAdmin";
+import withAdminLayout from "../../../../libs/components/layout/LayoutAdmin";
 import { Box, Button, InputAdornment, Stack } from "@mui/material";
 import { List, ListItem } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -12,29 +12,32 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import TablePagination from "@mui/material/TablePagination";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
-import { FaqArticlesPanelList } from "../../../libs/components/admin/cs/FaqList";
+import { FaqArticlesPanelList } from "../../../../libs/components/admin/cs/FaqList";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_NOTICES, GET_NOTICES_BY_ADMIN } from "../../../apollo/user/query";
+import {
+  GET_NOTICES,
+  GET_NOTICES_BY_ADMIN,
+} from "../../../../apollo/user/query";
 import {
   AllNoticesInquiry,
   EventNoticeInquiry,
   Notice,
-} from "../../../libs/types/notices/notices";
+} from "../../../../libs/types/notices/notices";
 import {
   FAQFeild,
   NoticeCategory,
   NoticeStatus,
-} from "../../../libs/enums/notice.enum";
-import { T } from "../../../libs/types/common";
+} from "../../../../libs/enums/notice.enum";
+import { T } from "../../../../libs/types/common";
 import { useRouter } from "next/router";
 import {
   DELETE_NOTICE,
   UPDATE_NOTICE_BY_ADMIN,
-} from "../../../apollo/admin/mutation";
+} from "../../../../apollo/admin/mutation";
 import {
   sweetConfirmAlert,
   sweetErrorHandling,
-} from "../../../libs/sweetAlert";
+} from "../../../../libs/sweetAlert";
 
 const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
   const [anchorEl, setAnchorEl] = useState<[] | HTMLElement[]>([]);
@@ -237,7 +240,7 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
           className="btn_add"
           variant={"contained"}
           size={"medium"}
-          onClick={() => router.push(`/_admin/cs/faq_create`)}
+          onClick={() => router.push(`/_admin/cs/faq/create`)}
         >
           <AddRoundedIcon sx={{ mr: "8px" }} />
           ADD
