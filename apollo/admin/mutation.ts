@@ -186,6 +186,22 @@ export const REMOVE_COMMENT_BY_ADMIN = gql`
   }
 `;
 
+export const CREATE_NOTICE = gql`
+  mutation CreateNotice($input: NoticeInput!) {
+    createNotice(input: $input) {
+      _id
+      noticeCategory
+      noticeStatus
+      noticeTitle
+      noticeContent
+      memberId
+      field
+      noticeImage
+      eventCity
+    }
+  }
+`;
+
 export const UPDATE_NOTICE_BY_ADMIN = gql`
   mutation UpdateNotice($input: NoticeUpdate!) {
     updateNotice(input: $input) {

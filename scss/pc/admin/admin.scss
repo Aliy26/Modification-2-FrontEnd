@@ -1112,3 +1112,27 @@
     }
   }
 }
+
+.main-title {
+  font-weight: 700;
+  font-size: 28px;
+  margin-top: 35px;
+}
+.main-container {
+  display: flex;
+  justify-content: center;
+  .editor-container {
+    width: 65%;
+  }
+}
+
+.notice-button {
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  background-color: #36932d;
+  margin: 30px;
+  width: 200px;
+  height: 40px;
+}
