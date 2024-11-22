@@ -24,7 +24,7 @@ import {
   sweetErrorHandling,
   sweetTopSmallSuccessAlert,
 } from "../../../../libs/sweetAlert";
-import { NoticeCategory } from "../../../../libs/enums/notice.enum";
+import { FAQFeild, NoticeCategory } from "../../../../libs/enums/notice.enum";
 
 const NoticeEditor = () => {
   const editorRef = useRef<Editor>(null),
@@ -36,6 +36,7 @@ const NoticeEditor = () => {
   const [noticeCategory, setNoticeCategory] = useState<NoticeCategory>(
     NoticeCategory.FAQ
   );
+  const [field, setField] = useState<FAQFeild>(FAQFeild.AGENT);
 
   /** APOLLO REQUESTS **/
   const [createNotice] = useMutation(CREATE_NOTICE);
@@ -43,12 +44,19 @@ const NoticeEditor = () => {
   const memoizedValues = useMemo(() => {
     const noticeTitle = "",
       noticeContent = "",
+      eventCity = "",
+      field = "",
       noticeImage = "";
 
-    return { noticeTitle, noticeContent, noticeImage };
+    return { noticeTitle, noticeContent, noticeImage, field, eventCity };
   }, []);
 
   /** HANDLERS **/
+
+  const backToAdminPage = async () => {
+    await router.push("/_admin/cs/faq");
+  };
+
   const uploadImage = async (image: any) => {
     try {
       const formData = new FormData();
@@ -100,10 +108,21 @@ const NoticeEditor = () => {
     setNoticeCategory(e.target.value);
   };
 
+  const changeFieldHandler = (e: any) => {
+    setField(e.target.value);
+  };
+
   const noticeTitleHandler = (e: T) => {
     console.log(e.target.value);
     memoizedValues.noticeTitle = e.target.value;
   };
+
+  const noticeCityHandler = (e: T) => {
+    console.log(e.target.value, "New York");
+    memoizedValues.eventCity = e.target.value;
+  };
+
+  console.log(memoizedValues.eventCity, "KKKK");
 
   const handleRegisterButton = async () => {
     try {
@@ -124,7 +143,7 @@ const NoticeEditor = () => {
 
       await createNotice({
         variables: {
-          input: { ...memoizedValues, noticeCategory, field: "MEMBERSHIP" },
+          input: { ...memoizedValues, noticeCategory, field },
         },
       });
 
@@ -147,6 +166,11 @@ const NoticeEditor = () => {
 
   return (
     <Stack>
+      <button className="back-to-admin" onClick={backToAdminPage}>
+        <span>
+          <img src="/img/icons/arrow-left.svg" /> Go Back{" "}
+        </span>
+      </button>
       <Stack
         direction="row"
         style={{ margin: "40px" }}
@@ -174,6 +198,54 @@ const NoticeEditor = () => {
             </Select>
           </FormControl>
         </Box>
+        {noticeCategory === NoticeCategory.FAQ ? (
+          <Box
+            component={"div"}
+            className={"form_row"}
+            style={{ width: "300px" }}
+          >
+            <Typography
+              style={{ color: "#7f838d", margin: "10px" }}
+              variant="h3"
+            >
+              Field
+            </Typography>
+            <FormControl sx={{ width: "100%", background: "white" }}>
+              <Select
+                value={field}
+                onChange={changeFieldHandler}
+                displayEmpty
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                <MenuItem value={FAQFeild.AGENT}>Agents</MenuItem>
+                <MenuItem value={FAQFeild.BUYERS}>Buyers</MenuItem>
+                <MenuItem value={FAQFeild.COMMUNITY}>Community</MenuItem>
+                <MenuItem value={FAQFeild.MEMBERSHIP}>Membership</MenuItem>
+                <MenuItem value={FAQFeild.OTHER}>Other</MenuItem>
+                <MenuItem value={FAQFeild.PAYMENT}>Payment</MenuItem>
+                <MenuItem value={FAQFeild.PRODUCT}>Product</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+        ) : (
+          <Box
+            component={"div"}
+            style={{ width: "300px", flexDirection: "column" }}
+          >
+            <Typography
+              style={{ color: "#7f838d", margin: "10px" }}
+              variant="h3"
+            >
+              City
+            </Typography>
+            <TextField
+              onChange={noticeCityHandler}
+              id="filled-basic"
+              label="Type Title"
+              style={{ width: "300px", background: "white" }}
+            />
+          </Box>
+        )}
         <Box
           component={"div"}
           style={{ width: "300px", flexDirection: "column" }}

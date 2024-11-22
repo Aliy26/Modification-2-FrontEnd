@@ -62,3 +62,23 @@
     }
   }
 }
+
+.back-to-admin {
+  display: flex;
+  background-color: rgb(194, 68, 68);
+  width: 8%;
+  padding: 5px;
+  border-radius: 6px;
+  margin-left: 15px;
+  border: none;
+  cursor: pointer;
+  span {
+    color: #fff;
+    width: 100%;
+    text-align: center;
+  }
+  img {
+    width: 16px;
+    margin-right: 2px;
+  }
+}

@@ -25,7 +25,12 @@ const WriteFAQ: NextPage = () => {
             alignItems={"center"}
             className="right-box"
           >
-            <Typography className="main-title">Create NOTICE</Typography>
+            <Typography
+              className="main-title"
+              sx={{ fontWeight: 700, fontSize: "28px", marginTop: "35px" }}
+            >
+              Create NOTICE
+            </Typography>
           </Stack>
         </Stack>
         <NoticeEditor />
