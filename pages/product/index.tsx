@@ -157,7 +157,78 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
   };
 
   if (device === "mobile") {
-    return <h1>PROPERTIES MOBILE</h1>;
+    return (
+      <div id="property-list-page-mobile" style={{ padding: "16px" }}>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          mb={2}
+        >
+          <Typography variant="h5">Products</Typography>
+          <Button
+            onClick={sortingClickHandler}
+            endIcon={<KeyboardArrowDownRoundedIcon />}
+            variant="outlined"
+            size="small"
+            sx={{ borderRadius: "20px", fontSize: "14px" }}
+          >
+            {/* {searchFilter.sortBy || "Sort by"} */}
+          </Button>
+        </Stack>
+
+        {/* Filter Component */}
+        <Stack className="filter-config" mb={2}>
+          <Filter
+            searchFilter={searchFilter}
+            setSearchFilter={setSearchFilter}
+            initialInput={initialInput}
+          />
+        </Stack>
+
+        {/* Property Cards */}
+        <Stack className="property-cards" spacing={2}>
+          {products?.length === 0 ? (
+            <div className={"no-data"} style={{ textAlign: "center" }}>
+              <img src="/img/icons/icoAlert.svg" alt="No Data" />
+              <Typography variant="body2">No Products found!</Typography>
+            </div>
+          ) : (
+            products.map((product) => (
+              <ProductCard
+                product={product}
+                likeProductHandler={likeProductHandler}
+                key={product?._id}
+                // isMobile={true} // Pass a prop to customize for mobile
+              />
+            ))
+          )}
+        </Stack>
+
+        {/* Pagination */}
+        {products.length !== 0 && (
+          <Stack
+            className="pagination-config"
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            mt={2}
+          >
+            <Pagination
+              page={currentPage}
+              count={Math.ceil(total / searchFilter.limit)}
+              // onChange={(e, page) => handlePaginationChange(page)}
+              shape="circular"
+              color="primary"
+              size="small"
+            />
+            <Typography variant="body2" sx={{ fontSize: "14px" }}>
+              Total {total} {total > 1 ? "properties" : "property"} available
+            </Typography>
+          </Stack>
+        )}
+      </div>
+    );
   } else {
     return (
       <div id="property-list-page" style={{ position: "relative" }}>

@@ -28,7 +28,93 @@ const ProductCard = (props: PropertyCardType) => {
     : "/img/banner/header1.svg";
 
   if (device === "mobile") {
-    return <div>PROPERTY CARD</div>;
+    return (
+      <div className="mobile-card">
+        <Link
+          href={{
+            pathname: "/product/detail",
+            query: { id: product?._id },
+          }}
+        >
+          <img src={imagePath} alt="product-img" className="mobile-card-img" />
+        </Link>
+
+        {product && product?.productRank > topPropertyRank && (
+          <Box component={"div"} className={"top-badge-mobile"}>
+            <img src="/img/icons/electricity.svg" alt="Top badge" />
+            <Typography variant="caption">TOP</Typography>
+          </Box>
+        )}
+
+        <Box component={"div"} className={"price-box-mobile"}>
+          <Typography variant="h6" className="price-text">
+            $
+            {formatterStr(
+              product?.discountedPrice
+                ? product.discountedPrice
+                : product.productPrice
+            )}
+          </Typography>
+        </Box>
+
+        <Box component={"div"} className="product-info-mobile">
+          <Link
+            href={{
+              pathname: "/product/detail",
+              query: { id: product?._id },
+            }}
+          >
+            <Typography variant="body1" className="product-name-mobile">
+              {product.productName}
+            </Typography>
+          </Link>
+
+          <Typography variant="body2" className="product-brand-mobile">
+            {product.productBrand}
+          </Typography>
+
+          <Box component={"div"} className="type-mobile">
+            <Typography
+              sx={{ fontWeight: 500, fontSize: "12px" }}
+              className={product.productRent ? "" : "disabled-type-mobile"}
+            >
+              Rent
+            </Typography>
+            <Typography
+              sx={{ fontWeight: 500, fontSize: "12px" }}
+              className={
+                product.productInstallment ? "" : "disabled-type-mobile"
+              }
+            >
+              Installment
+            </Typography>
+          </Box>
+        </Box>
+
+        {!recentlyVisited && (
+          <Stack className="action-buttons-mobile">
+            <IconButton color={"default"}>
+              <RemoveRedEyeIcon />
+            </IconButton>
+            <Typography variant="caption">{product?.productViews}</Typography>
+
+            <IconButton
+              color={"default"}
+              onClick={() => likeProductHandler(user, product?._id)}
+            >
+              {myFavorites ? (
+                <FavoriteIcon color="primary" />
+              ) : product?.meLiked && product?.meLiked[0]?.myFavorite ? (
+                <FavoriteIcon color="primary" />
+              ) : (
+                <FavoriteBorderIcon />
+              )}
+            </IconButton>
+            <Typography variant="caption">{product?.productLikes}</Typography>
+          </Stack>
+        )}
+      </div>
+    );
   } else {
     return (
       <Stack className="card-config">

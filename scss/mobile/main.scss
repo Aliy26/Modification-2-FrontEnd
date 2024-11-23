@@ -1,4 +1,4 @@
-@import '/scss/variables.scss';
+@import "/scss/variables.scss";
 
 #mobile-wrap {
   .top {
@@ -7,6 +7,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    background-color: rgba(211, 225, 61, 0.7);
   }
 
   .info-box {
@@ -27,7 +28,6 @@
         color: #ffffff;
       }
     }
-
   }
 
   .trend-properties {
@@ -671,7 +671,6 @@
             }
           }
         }
-
       }
     }
   }
@@ -752,7 +751,7 @@
     height: auto;
     display: flex;
     flex-direction: row;
-    background: #181a20;
+    background: linear-gradient(135deg, #b99527, #caa74e);
     .footer-container {
       padding: 0 10px;
       margin: 0 auto;
@@ -855,4 +854,67 @@
       }
     }
   }
+}
+
+.mobile-card {
+  padding: 12px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.mobile-card-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.top-badge-mobile {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.price-box-mobile {
+  margin-top: 8px;
+}
+
+.price-text {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.product-info-mobile {
+  margin-top: 8px;
+}
+
+.product-name-mobile {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.product-brand-mobile {
+  font-size: 12px;
+  color: gray;
+}
+
+.type-mobile {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.disabled-type-mobile {
+  color: #ccc;
+}
+
+.action-buttons-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
 }

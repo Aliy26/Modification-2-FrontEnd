@@ -75,7 +75,7 @@ const MostViewedCard = (props: MostViewedCardProps) => {
             <p>
               {product.productRent ? "Rent" : ""}{" "}
               {product.productRent && product.productInstallment && "/"}{" "}
-              {product.productInstallment ? "Barter" : ""}
+              {product.productInstallment ? "Installment" : ""}
             </p>
             <div className="view-like-box">
               <IconButton color={"default"}>

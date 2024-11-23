@@ -243,73 +243,77 @@ const Events: NextPage = ({ initialInquiry, ...props }: any) => {
 
   return (
     // @ts-ignore
-    <Box component={"div"} className={"content"}>
-      <Box component={"div"} className={"title flex_space"}>
-        <Typography variant={"h2"}>FAQ Management</Typography>
-        <Button
-          className="btn_add"
-          variant={"contained"}
-          size={"medium"}
-          onClick={() => router.push(`/_admin/cs/add`)}
-        >
-          <AddRoundedIcon sx={{ mr: "8px" }} />
-          ADD
-        </Button>
-      </Box>
-      <Box component={"div"} className={"table-wrap"}>
-        <Box component={"div"} sx={{ width: "100%", typography: "body1" }}>
-          <TabContext value={"value"}>
-            <Box component={"div"}>
-              <List className={"tab-menu"}>
-                <ListItem
-                  onClick={(e: any) => tabChangeHandler(e, "ALL")}
-                  value="ALL"
-                  className={"all" === "all" ? "li on" : "li"}
-                >
-                  All ({allNotices.length})
-                </ListItem>
-                <ListItem
-                  onClick={(e: any) => tabChangeHandler(e, "ACTIVE")}
-                  value="ACTIVE"
-                  className={"all" === "all" ? "li on" : "li"}
-                >
-                  Active (
-                  {
-                    allNotices.filter(
-                      (ele: Notice) => ele.noticeStatus === NoticeStatus.ACTIVE
-                    ).length
-                  }
-                  )
-                </ListItem>
-                <ListItem
-                  onClick={(e: any) => tabChangeHandler(e, "HOLD")}
-                  value="HOLD"
-                  className={"all" === "all" ? "li on" : "li"}
-                >
-                  Hold (
-                  {
-                    allNotices.filter(
-                      (ele: Notice) => ele.noticeStatus === NoticeStatus.HOLD
-                    ).length
-                  }
-                  )
-                </ListItem>
-                <ListItem
-                  onClick={(e: any) => tabChangeHandler(e, "DELETE")}
-                  value="DELETE"
-                  className={"all" === "all" ? "li on" : "li"}
-                >
-                  Deleted (
-                  {
-                    allNotices.filter(
-                      (ele: Notice) => ele.noticeStatus === NoticeStatus.DELETE
-                    ).length
-                  }
-                  )
-                </ListItem>
-              </List>
-              <Divider />
-              {/* {
+    <div>
+      <Button
+        className="btn_add"
+        variant={"contained"}
+        size={"medium"}
+        sx={{ color: "white" }}
+        onClick={() => router.push(`/_admin/cs/add`)}
+      >
+        <AddRoundedIcon sx={{ mr: "8px" }} />
+        ADD
+      </Button>
+      <Box component={"div"} className={"content"}>
+        <Box component={"div"} className={"title flex_space"}>
+          <Typography variant={"h2"}>FAQ Management</Typography>
+        </Box>
+        <Box component={"div"} className={"table-wrap"}>
+          <Box component={"div"} sx={{ width: "100%", typography: "body1" }}>
+            <TabContext value={"value"}>
+              <Box component={"div"}>
+                <List className={"tab-menu"}>
+                  <ListItem
+                    onClick={(e: any) => tabChangeHandler(e, "ALL")}
+                    value="ALL"
+                    className={"all" === "all" ? "li on" : "li"}
+                  >
+                    All ({allNotices.length})
+                  </ListItem>
+                  <ListItem
+                    onClick={(e: any) => tabChangeHandler(e, "ACTIVE")}
+                    value="ACTIVE"
+                    className={"all" === "all" ? "li on" : "li"}
+                  >
+                    Active (
+                    {
+                      allNotices.filter(
+                        (ele: Notice) =>
+                          ele.noticeStatus === NoticeStatus.ACTIVE
+                      ).length
+                    }
+                    )
+                  </ListItem>
+                  <ListItem
+                    onClick={(e: any) => tabChangeHandler(e, "HOLD")}
+                    value="HOLD"
+                    className={"all" === "all" ? "li on" : "li"}
+                  >
+                    Hold (
+                    {
+                      allNotices.filter(
+                        (ele: Notice) => ele.noticeStatus === NoticeStatus.HOLD
+                      ).length
+                    }
+                    )
+                  </ListItem>
+                  <ListItem
+                    onClick={(e: any) => tabChangeHandler(e, "DELETE")}
+                    value="DELETE"
+                    className={"all" === "all" ? "li on" : "li"}
+                  >
+                    Deleted (
+                    {
+                      allNotices.filter(
+                        (ele: Notice) =>
+                          ele.noticeStatus === NoticeStatus.DELETE
+                      ).length
+                    }
+                    )
+                  </ListItem>
+                </List>
+                <Divider />
+                {/* {
                 <Stack className={"search-area"} sx={{ m: "24px" }}>
                   <Select
                     sx={{ width: "160px", mr: "20px" }}
@@ -355,43 +359,44 @@ const Events: NextPage = ({ initialInquiry, ...props }: any) => {
                   />
                 </Stack>
               } */}
-              <Divider />
-            </Box>
-            <EventsPanelList
-              faqs={faqs}
-              updateNoticeHandler={updateNoticeHandler}
-              // dense={dense}
-              // membersData={membersData}
-              // searchMembers={searchMembers}
-              deleteNoticeHandler={deleteNoticeHandler}
-              anchorEl={anchorEl}
-              menuIconClickHandler={menuIconClickHandler}
-              menuIconCloseHandler={menuIconCloseHandler}
-              // generateMentorTypeHandle={generateMentorTypeHandle}
-            />
+                <Divider />
+              </Box>
+              <EventsPanelList
+                faqs={faqs}
+                updateNoticeHandler={updateNoticeHandler}
+                // dense={dense}
+                // membersData={membersData}
+                // searchMembers={searchMembers}
+                deleteNoticeHandler={deleteNoticeHandler}
+                anchorEl={anchorEl}
+                menuIconClickHandler={menuIconClickHandler}
+                menuIconCloseHandler={menuIconCloseHandler}
+                // generateMentorTypeHandle={generateMentorTypeHandle}
+              />
 
-            <TablePagination
-              rowsPerPageOptions={[20, 40, 60]}
-              component="div"
-              count={faqsTotal}
-              rowsPerPage={noticesInquiry?.limit}
-              page={noticesInquiry?.page - 1}
-              onPageChange={changePageHandler}
-              onRowsPerPageChange={changeRowsPerPageHandler}
-            />
-          </TabContext>
+              <TablePagination
+                rowsPerPageOptions={[20, 40, 60]}
+                component="div"
+                count={faqsTotal}
+                rowsPerPage={noticesInquiry?.limit}
+                page={noticesInquiry?.page - 1}
+                onPageChange={changePageHandler}
+                onRowsPerPageChange={changeRowsPerPageHandler}
+              />
+            </TabContext>
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </div>
   );
 };
 
 Events.defaultProps = {
   initialInquiry: {
     page: 1,
-    limit: 3,
+    limit: 5,
     search: {
-      noticeCategory: "FAQ",
+      noticeCategory: "EVENT",
     },
   },
 };
