@@ -18,6 +18,8 @@ import { Stack } from "@mui/material";
 import { Member } from "../../../types/member/member";
 import { REACT_APP_API_URL } from "../../../config";
 import { MemberStatus, MemberType } from "../../../enums/member.enum";
+import { useReactiveVar } from "@apollo/client";
+import { userVar } from "../../../../apollo/store";
 
 interface Data {
   id: string;
@@ -141,6 +143,7 @@ interface MemberPanelListType {
 }
 
 export const MemberPanelList = (props: MemberPanelListType) => {
+  const user = useReactiveVar(userVar);
   const {
     members,
     anchorEl,
@@ -210,7 +213,13 @@ export const MemberPanelList = (props: MemberPanelListType) => {
                         ) : null}
                       </div>
                       <Button
-                        onClick={(e: any) => menuIconClickHandler(e, index)}
+                        onClick={(e: any) => {
+                          member.mainMember
+                            ? ""
+                            : !user.mainMember && member.memberType == "ADMIN"
+                            ? ""
+                            : menuIconClickHandler(e, index);
+                        }}
                         className={"badge success"}
                       >
                         {member.memberType}

@@ -1,246 +1,272 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import React from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 import {
-	TableCell,
-	TableHead,
-	TableBody,
-	TableRow,
-	Table,
-	TableContainer,
-	Button,
-	Menu,
-	Fade,
-	MenuItem,
-	Box,
-	Checkbox,
-	Toolbar,
-} from '@mui/material';
-import Avatar from '@mui/material/Avatar';
-import { IconButton, Tooltip } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import { Stack } from '@mui/material';
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import { NotePencil } from 'phosphor-react';
-
-type Order = 'asc' | 'desc';
+  TableCell,
+  TableHead,
+  TableBody,
+  TableRow,
+  Table,
+  TableContainer,
+  Button,
+  Menu,
+  Fade,
+  MenuItem,
+} from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Typography from "@mui/material/Typography";
+import { Stack } from "@mui/material";
+import { Notice } from "../../../types/notices/notices";
+import moment from "moment";
+import { NoticeStatus } from "../../../enums/notice.enum";
 
 interface Data {
-	category: string;
-	title: string;
-	id: string;
-	writer: string;
-	date: string;
-	view: number;
-	action: string;
+  city: string;
+  title: string;
+  content: string;
+  date: string;
+  status: string;
+  id?: string;
 }
+
+function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
+type Order = "asc" | "desc";
+
 interface HeadCell {
-	disablePadding: boolean;
-	id: keyof Data;
-	label: string;
-	numeric: boolean;
+  disablePadding: boolean;
+  id: keyof Data;
+  label: string;
+  numeric: boolean;
 }
 
 const headCells: readonly HeadCell[] = [
-	{
-		id: 'category',
-		numeric: true,
-		disablePadding: false,
-		label: 'Category',
-	},
-	{
-		id: 'title',
-		numeric: true,
-		disablePadding: false,
-		label: 'TITLE',
-	},
-	{
-		id: 'id',
-		numeric: true,
-		disablePadding: false,
-		label: 'ID',
-	},
-	{
-		id: 'writer',
-		numeric: true,
-		disablePadding: false,
-		label: 'WRITER',
-	},
-	{
-		id: 'date',
-		numeric: true,
-		disablePadding: false,
-		label: 'DATE',
-	},
-	{
-		id: 'view',
-		numeric: true,
-		disablePadding: false,
-		label: 'VIEW',
-	},
-	{
-		id: 'action',
-		numeric: false,
-		disablePadding: false,
-		label: 'ACTION',
-	},
+  {
+    id: "city",
+    numeric: true,
+    disablePadding: false,
+    label: "City",
+  },
+  {
+    id: "title",
+    numeric: true,
+    disablePadding: false,
+    label: "Title",
+  },
+
+  {
+    id: "content",
+    numeric: true,
+    disablePadding: false,
+    label: "Content",
+  },
+  {
+    id: "date",
+    numeric: true,
+    disablePadding: false,
+    label: "CREATED DATE",
+  },
+  {
+    id: "status",
+    numeric: false,
+    disablePadding: false,
+    label: "STATUS",
+  },
 ];
 
 interface EnhancedTableProps {
-	numSelected: number;
-	onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
-	onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-	order: Order;
-	orderBy: string;
-	rowCount: number;
+  numSelected: number;
+  onRequestSort: (
+    event: React.MouseEvent<unknown>,
+    property: keyof Data
+  ) => void;
+  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  order: Order;
+  orderBy: string;
+  rowCount: number;
 }
 
-interface EnhancedTableToolbarProps {
-	numSelected: number;
-	onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
-	onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-	order: Order;
-	orderBy: string;
-	rowCount: number;
+function EnhancedTableHead(props: EnhancedTableProps) {
+  const { onSelectAllClick } = props;
+
+  return (
+    <TableHead>
+      <TableRow>
+        {headCells.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            align={headCell.numeric ? "left" : "center"}
+            padding={headCell.disablePadding ? "none" : "normal"}
+          >
+            {headCell.label}
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
+  );
 }
 
-const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-	const [select, setSelect] = useState('');
-	const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
-
-	return (
-		<>
-			{numSelected > 0 ? (
-				<>
-					<Toolbar>
-						<Box component={'div'}>
-							<Box component={'div'} className="flex_box">
-								<Checkbox
-									color="primary"
-									indeterminate={numSelected > 0 && numSelected < rowCount}
-									checked={rowCount > 0 && numSelected === rowCount}
-									onChange={onSelectAllClick}
-									inputProps={{
-										'aria-label': 'select all',
-									}}
-								/>
-								<Typography sx={{ flex: '1 1 100%' }} color="inherit" variant="h6" component="div">
-									{numSelected} selected
-								</Typography>
-							</Box>
-							<Button variant={'text'} size={'large'}>
-								Delete
-							</Button>
-						</Box>
-					</Toolbar>
-				</>
-			) : (
-				<TableHead>
-					<TableRow>
-						<TableCell padding="checkbox">
-							<Checkbox
-								color="primary"
-								indeterminate={numSelected > 0 && numSelected < rowCount}
-								checked={rowCount > 0 && numSelected === rowCount}
-								onChange={onSelectAllClick}
-								inputProps={{
-									'aria-label': 'select all',
-								}}
-							/>
-						</TableCell>
-						{headCells.map((headCell) => (
-							<TableCell
-								key={headCell.id}
-								align={headCell.numeric ? 'left' : 'right'}
-								padding={headCell.disablePadding ? 'none' : 'normal'}
-							>
-								{headCell.label}
-							</TableCell>
-						))}
-					</TableRow>
-				</TableHead>
-			)}
-			{numSelected > 0 ? null : null}
-		</>
-	);
-};
-
-interface NoticeListType {
-	dense?: boolean;
-	membersData?: any;
-	searchMembers?: any;
-	anchorEl?: any;
-	handleMenuIconClick?: any;
-	handleMenuIconClose?: any;
-	generateMentorTypeHandle?: any;
+interface FaqArticlesPanelListType {
+  faqs: Notice[];
+  dense?: boolean;
+  membersData?: any;
+  searchMembers?: any;
+  anchorEl?: any;
+  updateNoticeHandler: any;
+  // handleMenuIconClick?: any;
+  // handleMenuIconClose?: any;
+  deleteNoticeHandler: any;
+  menuIconClickHandler: any;
+  menuIconCloseHandler: any;
+  generateMentorTypeHandle?: any;
 }
 
-export const NoticeList = (props: NoticeListType) => {
-	const {
-		dense,
-		membersData,
-		searchMembers,
-		anchorEl,
-		handleMenuIconClick,
-		handleMenuIconClose,
-		generateMentorTypeHandle,
-	} = props;
-	const router = useRouter();
+export const EventsPanelList = (props: FaqArticlesPanelListType) => {
+  const {
+    faqs,
+    dense,
+    membersData,
+    searchMembers,
+    deleteNoticeHandler,
+    updateNoticeHandler,
+    anchorEl,
+    menuIconClickHandler,
+    menuIconCloseHandler,
+    generateMentorTypeHandle,
+  } = props;
+  const router = useRouter();
 
-	/** APOLLO REQUESTS **/
-	/** LIFECYCLES **/
-	/** HANDLERS **/
+  /** APOLLO REQUESTS **/
+  /** LIFECYCLES **/
+  /** HANDLERS **/
 
-	return (
-		<Stack>
-			<TableContainer>
-				<Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={dense ? 'small' : 'medium'}>
-					{/*@ts-ignore*/}
-					<EnhancedTableToolbar />
-					<TableBody>
-						{[1, 2, 3, 4, 5].map((ele: any, index: number) => {
-							const member_image = '/img/profile/defaultUser.svg';
+  return (
+    <Stack>
+      <TableContainer>
+        <Table
+          sx={{ minWidth: 750 }}
+          aria-labelledby="tableTitle"
+          size={dense ? "small" : "medium"}
+        >
+          {/*@ts-ignore*/}
+          <EnhancedTableHead />
+          <TableBody>
+            {faqs.map((notice: Notice, index: number) => {
+              const member_image = "/img/profile/defaultUser.svg";
 
-							return (
-								<TableRow hover key={'member._id'} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-									<TableCell padding="checkbox">
-										<Checkbox color="primary" />
-									</TableCell>
-									<TableCell align="left">mb id</TableCell>
-									<TableCell align="left">member.mb_full_name</TableCell>
-									<TableCell align="left">member.mb_phone</TableCell>
-									<TableCell align="left" className={'name'}>
-										<Stack direction={'row'}>
-											<Link href={`/_admin/users/detail?mb_id=$'{member._id'}`}>
-												<div>
-													<Avatar alt="Remy Sharp" src={member_image} sx={{ ml: '2px', mr: '10px' }} />
-												</div>
-											</Link>
-											<Link href={`/_admin/users/detail?mb_id=${'member._id'}`}>
-												<div>member.mb_nick</div>
-											</Link>
-										</Stack>
-									</TableCell>
-									<TableCell align="left">member.mb_phone</TableCell>
-									<TableCell align="left">member.mb_phone</TableCell>
-									<TableCell align="right">
-										<Tooltip title={'delete'}>
-											<IconButton>
-												<DeleteRoundedIcon />
-											</IconButton>
-										</Tooltip>
-										<Tooltip title="edit">
-											<IconButton onClick={() => router.push(`/_admin/cs/notice_create?id=notice._id`)}>
-												<NotePencil size={24} weight="fill" />
-											</IconButton>
-										</Tooltip>
-									</TableCell>
-								</TableRow>
-							);
-						})}
-					</TableBody>
-				</Table>
-			</TableContainer>
-		</Stack>
-	);
+              let status_class_name = "";
+
+              return (
+                <TableRow
+                  hover
+                  key={notice._id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell align="left">{notice.eventCity}</TableCell>
+                  <TableCell align="left">{notice.noticeTitle}</TableCell>
+                  <TableCell align="left" className={"name"}>
+                    <Stack direction={"row"}>
+                      {/* <Link href={`/_admin/users/detail?mb_id=$'{member._id'}`}>
+                        <div>
+                          <Avatar
+                            alt="Remy Sharp"
+                            src={member_image}
+                            sx={{ ml: "2px", mr: "10px" }}
+                          />
+                        </div>
+                      </Link> */}
+                      <Link href={`/_admin/users/detail?mb_id=${"member._id"}`}>
+                        <div>{notice.noticeContent}</div>
+                      </Link>
+                    </Stack>
+                  </TableCell>
+                  <TableCell align="left">
+                    {moment(notice.createdAt).format("MMMM DD YYYY")}
+                  </TableCell>
+
+                  <TableCell align="center">
+                    <div style={{ display: "flex" }}>
+                      <Button
+                        onClick={(e: any) => menuIconClickHandler(e, index)}
+                        className={
+                          notice.noticeStatus == "ACTIVE"
+                            ? "badge success"
+                            : "badge warning"
+                        }
+                      >
+                        {notice.noticeStatus}
+                      </Button>
+                      {notice.noticeStatus == "DELETE" ? (
+                        <DeleteIcon
+                          onClick={() => {
+                            deleteNoticeHandler(notice._id as string);
+                          }}
+                          fontSize="small"
+                          sx={{ cursor: "pointer" }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+
+                    <Menu
+                      className={"menu-modal"}
+                      MenuListProps={{
+                        "aria-labelledby": "fade-button",
+                      }}
+                      anchorEl={anchorEl[index]}
+                      open={Boolean(anchorEl[index])}
+                      onClose={menuIconCloseHandler}
+                      TransitionComponent={Fade}
+                      sx={{ p: 1 }}
+                    >
+                      {Object.values(NoticeStatus)
+                        .filter((ele) => ele !== notice.noticeStatus)
+                        .map((status: string) => (
+                          <MenuItem
+                            onClick={() =>
+                              updateNoticeHandler({
+                                _id: notice._id,
+                                noticeStatus: status,
+                              })
+                            }
+                            // className={"badge success"}
+                            key={status}
+                          >
+                            <Typography
+                              variant={"subtitle1"}
+                              component={"span"}
+                            >
+                              {status}
+                            </Typography>
+                          </MenuItem>
+                        ))}
+                      {/* <MenuItem
+                        onClick={(e: any) =>
+                          generateMentorTypeHandle(
+                            "member._id",
+                            "user",
+                            "remove"
+                          )
+                        }
+                      ></MenuItem> */}
+                    </Menu>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Stack>
+  );
 };

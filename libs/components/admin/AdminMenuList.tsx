@@ -59,7 +59,7 @@ const AdminMenuList = (props: any) => {
         setClickSubMenu("1:1 Inquiry");
         break;
       case "notice":
-        setClickSubMenu("Notice");
+        setClickSubMenu("Event");
         break;
       case "faq":
         setClickSubMenu("FAQ");
@@ -113,7 +113,7 @@ const AdminMenuList = (props: any) => {
     Community: [{ title: "List", url: "/_admin/community" }],
     Cs: [
       { title: "FAQ", url: "/_admin/cs/faq" },
-      { title: "Notice", url: "/_admin/cs/notice" },
+      { title: "Event", url: "/_admin/cs/event" },
     ],
   };
 
