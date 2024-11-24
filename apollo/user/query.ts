@@ -844,3 +844,21 @@ export const GET_NOTICES_BY_ADMIN = gql`
     }
   }
 `;
+
+export const SEND_MESSAGE = gql`
+  mutation SendMessage($input: MessageInput!) {
+    sendMessage(input: $input) {
+      _id
+      notificationType
+      notificationStatus
+      notificationGroup
+      notificationTitle
+      notificationDesc
+      authorId
+      receiverId
+      productId
+      articleId
+      createdAt
+    }
+  }
+`;

@@ -972,11 +972,14 @@ body::-webkit-scrollbar {
     margin-left: 4px;
   }
   p {
-    cursor: pointer;
     margin: 10px;
     width: 330px;
     padding: 10px;
   }
+  strong {
+    cursor: pointer;
+  }
+
   i {
     color: red;
     cursor: pointer;

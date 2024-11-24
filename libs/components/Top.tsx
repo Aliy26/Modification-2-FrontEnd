@@ -498,6 +498,46 @@ const Top = () => {
                                 );
                               } else if (
                                 ele.notificationType ===
+                                NotificationType.MESSAGE
+                              ) {
+                                return (
+                                  <div className="notice-line">
+                                    {memberImage}{" "}
+                                    {ele.notificationStatus === "UNREAD" ? (
+                                      <span className="dot"></span>
+                                    ) : (
+                                      ""
+                                    )}
+                                    <p>
+                                      <strong
+                                        onClick={() => {
+                                          handleMemberPage(
+                                            ele.authorData?._id as string,
+                                            ele._id as string
+                                          );
+                                        }}
+                                      >
+                                        {ele.authorData?.memberNick}
+                                      </strong>{" "}
+                                      send a message to you regarding your{" "}
+                                      <i
+                                        onClick={() => {
+                                          handlePropertyPage(
+                                            ele.productId as string,
+                                            ele._id as string
+                                          );
+                                        }}
+                                      >
+                                        "{ele.productData?.productName}"{" "}
+                                      </i>
+                                      <br />
+                                      <br />
+                                      <span>"{ele.notificationDesc}"</span>
+                                    </p>
+                                  </div>
+                                );
+                              } else if (
+                                ele.notificationType ===
                                 NotificationType.NEW_PRODUCT
                               ) {
                                 return (

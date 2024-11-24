@@ -24,3 +24,8 @@ export interface Notification {
   articleData?: BoardArticle;
   createdAt: Date;
 }
+
+export interface MessageInput {
+  productId: string;
+  notificationDesc: string;
+}
