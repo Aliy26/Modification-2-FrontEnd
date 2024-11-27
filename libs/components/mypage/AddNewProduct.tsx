@@ -175,7 +175,6 @@ const AddProperty = ({ initialValues, ...props }: any) => {
       insertProductData.productInstallment === "" || // @ts-ignore
       insertProductData.productRent === "" ||
       insertProductData.productStock === 0 ||
-      insertProductData.productDesc === "" ||
       insertProductData.productImages.length === 0
     ) {
       return true;

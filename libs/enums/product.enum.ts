@@ -20,6 +20,7 @@ export enum ProductBrand {
 export enum ProductCategory {
   LivingRoom = "LivingRoom",
   Bedroom = "Bedroom",
+  Office = "Office",
   Kitchen = "Kitchen",
   Kids = "Kids",
   Appliances = "Appliances",

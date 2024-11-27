@@ -35,12 +35,10 @@ export const ProductCard = (props: ProductCardProps) => {
   };
 
   const pushPropertyDetail = async (id: string) => {
-    if (memberPage)
-      await router.push({
-        pathname: "/product/detail",
-        query: { id: id },
-      });
-    else return;
+    await router.push({
+      pathname: "/product/detail",
+      query: { id: id },
+    });
   };
 
   const handleClick = (event: any) => {
