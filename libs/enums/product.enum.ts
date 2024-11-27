@@ -10,9 +10,11 @@ export enum ProductStatus {
 }
 
 export enum ProductBrand {
+  BOSCH = "BOSCH",
   SAMSUNG = "SAMSUNG",
   LG = "LG",
-  CUCKOO = "CUCKOO",
+  IKEA = "IKEA",
+  TARGET = "TARGET",
 }
 
 export enum ProductCategory {
