@@ -48,7 +48,11 @@ const MyPage: NextPage = () => {
 
   /** LIFECYCLES **/
   useEffect(() => {
-    if (!user._id) router.push("/").then();
+    if (!user._id) {
+      setTimeout(() => {
+        router.push("/").then();
+      }, 100);
+    }
   }, [user._id]);
 
   /** HANDLERS **/

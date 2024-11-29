@@ -267,7 +267,7 @@ const Top = () => {
                 <div>{t("Products")}</div>
               </Link>
               <Link href={"/agent"}>
-                <div> {t("Agents")} </div>
+                <div> {t("Retailers")} </div>
               </Link>
               <Link href={"/community?articleCategory=FREE"}>
                 <div> {t("Community")} </div>

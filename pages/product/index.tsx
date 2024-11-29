@@ -289,7 +289,7 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
                 {products?.length === 0 ? (
                   <div className={"no-data"}>
                     <img src="/img/icons/icoAlert.svg" alt="" />
-                    <p>No Properties found!</p>
+                    <p>No Products found!</p>
                   </div>
                 ) : (
                   products.map((product: Product) => {
@@ -336,7 +336,7 @@ ProductList.defaultProps = {
   initialInput: {
     page: 1,
     limit: 12,
-    sort: "createdAt",
+    sort: "updatedAt",
     direction: "DESC",
     search: {},
   },
