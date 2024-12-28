@@ -48,12 +48,23 @@ const MyPage: NextPage = () => {
 
   /** LIFECYCLES **/
   useEffect(() => {
-    if (!user._id) {
+    clearTimeout(
       setTimeout(() => {
-        router.push("/").then();
-      }, 100);
-    }
+        if (!user._id) {
+          router.push("/").then();
+        }
+      }, 100)
+    );
   }, [user._id]);
+
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     if (!user?._id) {
+  //       router.push("/");
+  //     }
+  //   }, 100);
+  //   return () => clearTimeout(timeout);
+  // }, [user]);
 
   /** HANDLERS **/
   const subscribeHandler = async (id: string, refetch: any, query: any) => {
