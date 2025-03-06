@@ -73,9 +73,7 @@
                   font-weight: 600;
                   line-height: normal;
                 }
-                .main-member img {
-                  width: 20px;
-                }
+
                 .user-phone {
                   display: flex;
                   margin-bottom: 5px;
@@ -386,4 +384,10 @@
       }
     }
   }
+}
+
+// common class names
+
+.main-member img {
+  width: 20px;
 }

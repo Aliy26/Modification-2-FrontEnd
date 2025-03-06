@@ -148,7 +148,9 @@ const NoticeEditor = () => {
       });
 
       await sweetTopSmallSuccessAlert("Notice has been created!", 700);
-      await router.push("/_admin/cs/faq");
+      await router.push(
+        `/_admin/cs/${noticeCategory === "FAQ" ? "faq" : "event"}`
+      );
     } catch (err: any) {
       console.log("ERROR, handleRegisterButton", err.message);
       sweetErrorHandling(new Error(Message.INSERT_ALL_INPUTS)).then();
