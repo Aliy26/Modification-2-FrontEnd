@@ -168,11 +168,13 @@ const NoticeEditor = () => {
 
   return (
     <Stack>
-      <button className="back-to-admin" onClick={backToAdminPage}>
-        <span>
-          <img src="/img/icons/arrow-left.svg" /> Go Back{" "}
-        </span>
-      </button>
+      <div className="notice-editor">
+        <button className="back-to-admin" onClick={backToAdminPage}>
+          <span className="arrow-icon">
+            <img src="/img/icons/arrow-left.svg" /> Go Back{" "}
+          </span>
+        </button>
+      </div>
       <Stack
         direction="row"
         style={{ margin: "40px" }}

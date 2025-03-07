@@ -46,6 +46,7 @@ const Events: NextPage = ({ initialInquiry, ...props }: any) => {
     useState<AllNoticesInquiry>(initialInquiry);
   const [faqs, setFaqs] = useState<Notice[]>([]);
   const [faqsTotal, setFaqsTotal] = useState<number>(0);
+  const [faqsTrue, setFaqsTrue] = useState<boolean>(false);
   const input: EventNoticeInquiry = {
     noticeCategory: NoticeCategory.EVENT,
   };
