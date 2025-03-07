@@ -256,7 +256,7 @@ const Events: NextPage = ({ initialInquiry, ...props }: any) => {
       </Button>
       <Box component={"div"} className={"content"}>
         <Box component={"div"} className={"title flex_space"}>
-          <Typography variant={"h2"}>FAQ Management</Typography>
+          <Typography variant={"h2"}>Events Management</Typography>
         </Box>
         <Box component={"div"} className={"table-wrap"}>
           <Box component={"div"} sx={{ width: "100%", typography: "body1" }}>
