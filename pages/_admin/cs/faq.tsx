@@ -202,15 +202,22 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
 
   const changePageHandler = async (event: unknown, newPage: number) => {
     noticesInquiry.page = newPage + 1;
-    setNoticesInquiry({ ...noticesInquiry });
+    console.log("newPage:", newPage);
+    setNoticesInquiry({ ...noticesInquiry, page: newPage + 1 });
   };
 
   const changeRowsPerPageHandler = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    noticesInquiry.limit = parseInt(event.target.value, 10);
-    noticesInquiry.page = 1;
-    setNoticesInquiry({ ...noticesInquiry });
+    const newLimit = parseInt(event.target.value);
+
+    console.log("I am the limit value getting sent!", event.target.value);
+    setNoticesInquiry((noticesInquiry) => ({
+      ...noticesInquiry,
+      limit: newLimit,
+      page: 1,
+    }));
+    console.log("noticeInquiry:", noticesInquiry);
   };
 
   const deleteNoticeHandler = async (id: string) => {
@@ -366,7 +373,7 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
               />
 
               <TablePagination
-                rowsPerPageOptions={[20, 40, 60]}
+                rowsPerPageOptions={[1, 2, 3, 20, 40, 60]}
                 component="div"
                 count={faqsTotal}
                 rowsPerPage={noticesInquiry?.limit}
@@ -385,7 +392,7 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
 FaqArticles.defaultProps = {
   initialInquiry: {
     page: 1,
-    limit: 8,
+    limit: 2,
     search: {
       noticeCategory: "FAQ",
     },
