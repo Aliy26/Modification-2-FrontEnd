@@ -201,9 +201,10 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
   };
 
   const changePageHandler = async (event: unknown, newPage: number) => {
-    noticesInquiry.page = newPage + 1;
-    console.log("newPage:", newPage);
-    setNoticesInquiry({ ...noticesInquiry, page: newPage + 1 });
+    setNoticesInquiry((noticesInquiry) => ({
+      ...noticesInquiry,
+      page: newPage + 1,
+    }));
   };
 
   const changeRowsPerPageHandler = async (

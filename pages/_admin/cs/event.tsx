@@ -211,8 +211,10 @@ const Events: NextPage = ({ initialInquiry, ...props }: any) => {
   };
 
   const changePageHandler = async (event: unknown, newPage: number) => {
-    noticesInquiry.page = newPage + 1;
-    setNoticesInquiry({ ...noticesInquiry });
+    setNoticesInquiry((noticesInquiry) => ({
+      ...noticesInquiry,
+      page: newPage + 1,
+    }));
   };
 
   const changeRowsPerPageHandler = async (
