@@ -374,7 +374,7 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
               />
 
               <TablePagination
-                rowsPerPageOptions={[1, 2, 3, 20, 40, 60]}
+                rowsPerPageOptions={[1, 2, 3, 5, 20, 40, 60]}
                 component="div"
                 count={faqsTotal}
                 rowsPerPage={noticesInquiry?.limit}
@@ -393,7 +393,7 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
 FaqArticles.defaultProps = {
   initialInquiry: {
     page: 1,
-    limit: 2,
+    limit: 5,
     search: {
       noticeCategory: "FAQ",
     },
