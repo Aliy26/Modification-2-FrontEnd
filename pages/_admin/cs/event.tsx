@@ -218,9 +218,13 @@ const Events: NextPage = ({ initialInquiry, ...props }: any) => {
   const changeRowsPerPageHandler = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    noticesInquiry.limit = parseInt(event.target.value, 10);
-    noticesInquiry.page = 1;
-    setNoticesInquiry({ ...noticesInquiry });
+    const newLimit = parseInt(event.target.value);
+
+    setNoticesInquiry((noticesInquiry) => ({
+      ...noticesInquiry,
+      limit: newLimit,
+      page: 1,
+    }));
   };
 
   const deleteNoticeHandler = async (id: string) => {
@@ -376,7 +380,7 @@ const Events: NextPage = ({ initialInquiry, ...props }: any) => {
               />
 
               <TablePagination
-                rowsPerPageOptions={[20, 40, 60]}
+                rowsPerPageOptions={[1, 2, 3, 20, 40, 60]}
                 component="div"
                 count={faqsTotal}
                 rowsPerPage={noticesInquiry?.limit}
@@ -395,7 +399,7 @@ const Events: NextPage = ({ initialInquiry, ...props }: any) => {
 Events.defaultProps = {
   initialInquiry: {
     page: 1,
-    limit: 5,
+    limit: 2,
     search: {
       noticeCategory: "EVENT",
     },
