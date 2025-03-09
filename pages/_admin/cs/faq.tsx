@@ -98,7 +98,7 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
   /** LIFECYCLES **/
 
   useEffect(() => {
-    getNoticesByAdminRefetch();
+    getNoticesByAdminRefetch({ input: noticesInquiry }).then();
   }, [noticesInquiry]);
 
   /** HANDLERS **/
@@ -210,15 +210,16 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
   const changeRowsPerPageHandler = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const newLimit = parseInt(event.target.value);
+    // const newLimit = parseInt(event.target.value);
 
-    console.log("I am the limit value getting sent!", event.target.value);
-    setNoticesInquiry((noticesInquiry) => ({
-      ...noticesInquiry,
-      limit: newLimit,
-      page: 1,
-    }));
-    console.log("noticeInquiry:", noticesInquiry);
+    // setNoticesInquiry((noticesInquiry) => ({
+    //   ...noticesInquiry,
+    //   limit: newLimit,
+    //   page: 1,
+    // }));
+    noticesInquiry.limit = parseInt(event.target.value, 10);
+    noticesInquiry.page = 1;
+    setNoticesInquiry({ ...noticesInquiry });
   };
 
   const deleteNoticeHandler = async (id: string) => {
@@ -232,7 +233,7 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
           },
         });
 
-        await getNoticesByAdminRefetch;
+        await getNoticesByAdminRefetch();
       }
     } catch (err: any) {
       console.log("Error deleteNotice");
