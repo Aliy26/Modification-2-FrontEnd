@@ -98,7 +98,7 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
   /** LIFECYCLES **/
 
   useEffect(() => {
-    getNoticesByAdminRefetch({ input: noticesInquiry }).then();
+    getNoticesByAdminRefetch({ input: noticesInquiry });
   }, [noticesInquiry]);
 
   /** HANDLERS **/
