@@ -122,8 +122,6 @@ const NoticeEditor = () => {
     memoizedValues.eventCity = e.target.value;
   };
 
-  console.log(memoizedValues.eventCity, "KKKK");
-
   const handleRegisterButton = async () => {
     try {
       const editor = editorRef.current;
