@@ -9,23 +9,23 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { BoardArticleCategory } from "../../../../libs/enums/board-article.enum";
+import { BoardArticleCategory } from "../../../enums/board-article.enum";
 
-import { getJwtToken } from "../../../../libs/auth";
-import { REACT_APP_API_URL } from "../../../../libs/config";
+import { getJwtToken } from "../../../auth";
+import { REACT_APP_API_URL } from "../../../config";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { T } from "../../../../libs/types/common";
+import { T } from "../../../types/common";
 import { useMutation } from "@apollo/client";
 import { CREATE_NOTICE } from "../../../../apollo/admin/mutation";
-import { Message } from "../../../../libs/enums/common.enum";
+import { Message } from "../../../enums/common.enum";
 import {
   sweetErrorHandling,
   sweetMixinErrorAlert,
   sweetTopSmallSuccessAlert,
-} from "../../../../libs/sweetAlert";
-import { FAQFeild, NoticeCategory } from "../../../../libs/enums/notice.enum";
-import { Notice } from "../../../../libs/types/notices/notices";
+} from "../../../sweetAlert";
+import { FAQFeild, NoticeCategory } from "../../../enums/notice.enum";
+import { Notice } from "../../../types/notices/notices";
 
 const CreateNotice = ({ initialValues, ...props }: any) => {
   const editorRef = useRef<any>(null),

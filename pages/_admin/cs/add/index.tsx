@@ -8,7 +8,7 @@ import { userVar } from "../../../../apollo/store";
 import { useReactiveVar } from "@apollo/client";
 import { useRouter } from "next/router";
 
-import CreateNotice from "./CreateNotice";
+import CreateNotice from "../../../../libs/components/admin/cs/CreateNotice";
 
 const WriteFAQ: NextPage = () => {
   const device = useDeviceDetect();
