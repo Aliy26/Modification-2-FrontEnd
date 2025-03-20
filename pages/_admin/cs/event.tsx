@@ -36,9 +36,6 @@ import {
 } from "../../../libs/sweetAlert";
 import dynamic from "next/dynamic";
 import { EventsPanelList } from "../../../libs/components/admin/cs/NoticeList";
-const NoticeEditer = dynamic(() => import("./add/NoticeEditor"), {
-  ssr: false,
-});
 
 const Events: NextPage = ({ initialInquiry, ...props }: any) => {
   const [anchorEl, setAnchorEl] = useState<[] | HTMLElement[]>([]);

@@ -4,10 +4,11 @@ import { Avatar, Box, Button, Paper, Stack, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 import useDeviceDetect from "../../../../libs/hooks/useDeviceDetect";
 import { userVar } from "../../../../apollo/store";
-const NoticeEditor = dynamic(() => import("./NoticeEditor"), { ssr: false });
 
 import { useReactiveVar } from "@apollo/client";
 import { useRouter } from "next/router";
+
+import CreateNotice from "./CreateNotice";
 
 const WriteFAQ: NextPage = () => {
   const device = useDeviceDetect();
@@ -33,7 +34,7 @@ const WriteFAQ: NextPage = () => {
             </Typography>
           </Stack>
         </Stack>
-        <NoticeEditor />
+        <CreateNotice />
       </div>
     );
 };

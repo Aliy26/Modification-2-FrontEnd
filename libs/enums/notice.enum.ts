@@ -1,8 +1,6 @@
 export enum NoticeCategory {
   FAQ = "FAQ",
   EVENT = "EVENT",
-  TERMS = "TERMS",
-  INQUIRY = "INQUIRY",
 }
 
 export enum FAQFeild {

@@ -35,10 +35,6 @@ import {
   sweetConfirmAlert,
   sweetErrorHandling,
 } from "../../../libs/sweetAlert";
-import dynamic from "next/dynamic";
-const NoticeEditer = dynamic(() => import("./add/NoticeEditor"), {
-  ssr: false,
-});
 
 const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
   const [anchorEl, setAnchorEl] = useState<[] | HTMLElement[]>([]);

@@ -208,23 +208,27 @@ export const MemberPanelList = (props: MemberPanelListType) => {
 
                     <TableCell align="center">
                       <div className="main-member">
-                        {member.mainMember ? (
-                          <img src="/img/logo/logo.svg" />
-                        ) : null}
+                        <Button
+                          onClick={(e: any) => {
+                            member.mainMember
+                              ? ""
+                              : !user.mainMember && member.memberType == "ADMIN"
+                              ? ""
+                              : menuIconClickHandler(e, index);
+                          }}
+                          className={"badge success"}
+                          sx={{
+                            marginLeft: member.mainMember ? "18px" : "0px",
+                          }}
+                        >
+                          {member.memberType}
+                        </Button>
+                        <span className="verified">
+                          {member.mainMember ? (
+                            <img src="/img/icons/verified.svg" />
+                          ) : null}
+                        </span>
                       </div>
-                      <Button
-                        onClick={(e: any) => {
-                          member.mainMember
-                            ? ""
-                            : !user.mainMember && member.memberType == "ADMIN"
-                            ? ""
-                            : menuIconClickHandler(e, index);
-                        }}
-                        className={"badge success"}
-                      >
-                        {member.memberType}
-                      </Button>
-
                       <Menu
                         className={"menu-modal"}
                         MenuListProps={{
