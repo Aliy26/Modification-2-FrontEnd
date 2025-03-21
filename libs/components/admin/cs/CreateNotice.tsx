@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -9,7 +9,6 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { BoardArticleCategory } from "../../../enums/board-article.enum";
 
 import { getJwtToken } from "../../../auth";
 import { REACT_APP_API_URL } from "../../../config";
@@ -28,16 +27,12 @@ import { FAQFeild, NoticeCategory } from "../../../enums/notice.enum";
 import { Notice } from "../../../types/notices/notices";
 
 const CreateNotice = ({ initialValues, ...props }: any) => {
-  const editorRef = useRef<any>(null),
-    token = getJwtToken(),
+  const token = getJwtToken(),
     router = useRouter();
   const inputRef = useRef<any>(null);
-  const [insertEventImage, setInsertEventImage] =
+  const [insertNoticeData, setInsertNoticeData] =
     useState<Notice>(initialValues);
 
-  const [articleCategory, setArticleCategory] = useState<BoardArticleCategory>(
-    BoardArticleCategory.FREE
-  );
   const [noticeCategory, setNoticeCategory] = useState<NoticeCategory>(
     NoticeCategory.FAQ
   );
@@ -50,52 +45,46 @@ const CreateNotice = ({ initialValues, ...props }: any) => {
     const noticeTitle = "",
       noticeContent = "",
       eventCity = "",
-      field = "",
+      field = null,
       noticeImage = "";
 
     return { noticeTitle, noticeContent, noticeImage, field, eventCity };
   }, []);
 
-  /** HANDLERS **/
+  useEffect(() => {
+    setField(field);
+  }, [field]);
 
+  /** HANDLERS **/
   const backToAdminPage = async () => {
     await router.push("/_admin/cs/faq");
   };
 
-  async function uploadImages() {
+  const uploadImage = async (e: any) => {
     try {
+      const image = e.target.files[0];
+      console.log("+image:", image);
+
       const formData = new FormData();
-      const selectedFiles = inputRef.current.files;
-
-      if (selectedFiles.length == 0) return false;
-      if (selectedFiles.length > 5)
-        throw new Error("Cannot upload more than 5 images!");
-
       formData.append(
         "operations",
         JSON.stringify({
-          query: `mutation ImagesUploader($files: [Upload!]!, $target: String!) { 
-						imagesUploader(files: $files, target: $target)
+          query: `mutation ImageUploader($file: Upload!, $target: String!) {
+						imageUploader(file: $file, target: $target) 
 				  }`,
           variables: {
-            files: [null, null, null, null, null],
-            target: "product",
+            file: null,
+            target: "event",
           },
         })
       );
       formData.append(
         "map",
         JSON.stringify({
-          "0": ["variables.files.0"],
-          "1": ["variables.files.1"],
-          "2": ["variables.files.2"],
-          "3": ["variables.files.3"],
-          "4": ["variables.files.4"],
+          "0": ["variables.file"],
         })
       );
-      for (const key in selectedFiles) {
-        if (/^\d+$/.test(key)) formData.append(`${key}`, selectedFiles[key]);
-      }
+      formData.append("0", image);
 
       const response = await axios.post(
         `${process.env.REACT_APP_API_GRAPHQL_URL}`,
@@ -109,32 +98,38 @@ const CreateNotice = ({ initialValues, ...props }: any) => {
         }
       );
 
-      const responseImages = response.data.data.imagesUploader;
+      const responseImage = response.data.data.imageUploader;
 
-      console.log("+responseImages: ", responseImages);
-      setInsertEventImage({
-        ...insertEventImage,
-        noticeImage: responseImages,
+      setInsertNoticeData({
+        ...insertNoticeData,
+        noticeImage: responseImage,
       });
-    } catch (err: any) {
-      console.log("err: ", err.message);
-      await sweetMixinErrorAlert(err.message);
-    }
-  }
 
-  console.log("image:", memoizedValues.noticeImage);
+      console.log("+responseImage: ", responseImage);
+      memoizedValues.noticeImage = responseImage;
+
+      return `${REACT_APP_API_URL}/${responseImage}`;
+    } catch (err) {
+      console.log("Error, uploadImage:", err);
+    }
+  };
 
   const changeCategoryHandler = (e: any) => {
     setNoticeCategory(e.target.value);
   };
 
   const changeFieldHandler = (e: any) => {
-    setField(e.target.value);
+    setField(e.target.value || null);
   };
 
   const noticeTitleHandler = (e: T) => {
     console.log(e.target.value);
     memoizedValues.noticeTitle = e.target.value;
+  };
+
+  const noticeContentHandler = (e: T) => {
+    console.log(e.target.value, "NoticeContent");
+    memoizedValues.noticeContent = e.target.value;
   };
 
   const noticeCityHandler = (e: T) => {
@@ -144,24 +139,19 @@ const CreateNotice = ({ initialValues, ...props }: any) => {
 
   const handleRegisterButton = async () => {
     try {
-      const editor = editorRef.current;
-      const noticeContentHTML = editor?.getInstance().getHTML() as string;
-      // Create a temporary DOM element to parse and extract the text
-      const tempElement = document.createElement("div");
-      tempElement.innerHTML = noticeContentHTML;
-      const noticeContent = tempElement.textContent || ""; // Get plain text
-      memoizedValues.noticeContent = noticeContent;
-
       if (
         memoizedValues.noticeContent === "" &&
         memoizedValues.noticeTitle === ""
       ) {
         throw new Error(Message.INSERT_ALL_INPUTS);
       }
-
       await createNotice({
         variables: {
-          input: { ...memoizedValues, noticeCategory, field },
+          input: {
+            ...memoizedValues,
+            noticeCategory,
+            field,
+          },
         },
       });
 
@@ -295,7 +285,7 @@ const CreateNotice = ({ initialValues, ...props }: any) => {
           name=""
           id=""
           className="description-text"
-          onChange={noticeTitleHandler}
+          onChange={noticeContentHandler}
         ></textarea>
       </Stack>
       {noticeCategory === "EVENT" && (
@@ -378,7 +368,7 @@ const CreateNotice = ({ initialValues, ...props }: any) => {
                   ref={inputRef}
                   type="file"
                   hidden={true}
-                  onChange={uploadImages}
+                  onChange={uploadImage}
                   multiple={true}
                   accept="image/jpg, image/jpeg, image/png"
                 />
@@ -404,10 +394,10 @@ const CreateNotice = ({ initialValues, ...props }: any) => {
               </Button>
             </Stack>
             <Stack className="gallery-box">
-              {insertEventImage?.noticeImage && (
+              {insertNoticeData?.noticeImage && (
                 <Stack className="image-box">
                   <img
-                    src={`${REACT_APP_API_URL}/${insertEventImage.noticeImage}`}
+                    src={`${REACT_APP_API_URL}/${insertNoticeData.noticeImage}`}
                     alt="noticeImage"
                   />
                 </Stack>
@@ -427,13 +417,13 @@ const CreateNotice = ({ initialValues, ...props }: any) => {
 
 CreateNotice.defaultProps = {
   initialValues: {
-    noticeStatus: "",
     noticeCategory: "",
-    field: "",
-    noticeImage: "",
-    eventCity: "",
     noticeTitle: "",
     noticeContent: "",
+    field: "",
+    eventCity: "",
+    noticeImage: "",
+    noticeStatus: "",
   },
 };
 
