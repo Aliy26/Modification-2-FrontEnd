@@ -550,7 +550,7 @@ const Filter = (props: FilterType) => {
                 </>
               }
             />
-            <img src={"/img/icons/search_icon.png"} alt={"reset"} />
+            <img src={"/img/icons/search_icon.png"} alt={"search"} />
             <Tooltip title="Reset">
               <IconButton onClick={refreshHandler}>
                 <RefreshIcon />
@@ -628,7 +628,7 @@ const Filter = (props: FilterType) => {
                   )}
                 />
                 <label style={{ cursor: "pointer" }}>
-                  <Typography className="property_type">{type}</Typography>
+                  <Typography className="property-type">{type}</Typography>
                 </label>
               </Stack>
             ))}
@@ -665,7 +665,7 @@ const Filter = (props: FilterType) => {
                 onChange={propertyOptionSelectHandler}
               />
               <label htmlFor={"Rent"} style={{ cursor: "pointer" }}>
-                <Typography className="propert-type">Rent</Typography>
+                <Typography className="property-type">Rent</Typography>
               </label>
             </Stack>
           </Stack>
