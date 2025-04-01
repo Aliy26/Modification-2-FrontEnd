@@ -42,6 +42,8 @@ const CommunityBoards = () => {
     },
   });
 
+  console.log("newsArticles>>>>", newsArticles);
+
   const {
     loading: getFreeArticlesLoading,
     data: getFreeArticlesData,
@@ -61,6 +63,10 @@ const CommunityBoards = () => {
       setFreeArticles(data?.getBoardArticles?.list);
     },
   });
+
+  console.log("freeArticles>>>>", freeArticles);
+  console.log("humorArticles>>>>", humorArticles);
+  console.log("recommendArticles>>>>", recommendArticle);
 
   const {
     loading: getHumorArticlesLoading,
@@ -112,7 +118,7 @@ const CommunityBoards = () => {
             <Typography variant={"h1"}>COMMUNITY BOARD HIGHLIGHTS</Typography>
           </Stack>
           <Stack className="community-main">
-            {recommendArticle.length ? (
+            {newsArticles.length ? (
               <Stack className={"community-news"}>
                 <Stack className={"content-top"}>
                   <Link href={"/community?articleCategory=NEWS"}>
@@ -136,7 +142,7 @@ const CommunityBoards = () => {
             ) : (
               ""
             )}
-            {recommendArticle.length ? (
+            {humorArticles.length ? (
               <Stack className={"community-humor"}>
                 <Stack className={"content-top"}>
                   <Link href={"/community?articleCategory=HUMOR"}>
@@ -184,26 +190,31 @@ const CommunityBoards = () => {
             ) : (
               ""
             )}
-            <Stack className={"community-free"}>
-              <Stack className={"content-top"}>
-                <Link href={"/community?articleCategory=FREE"}>
-                  <span>Free</span>
-                </Link>
-                <img src="/img/icons/article.svg" alt="" />
+
+            {freeArticles.length ? (
+              <Stack className={"community-free"}>
+                <Stack className={"content-top"}>
+                  <Link href={"/community?articleCategory=FREE"}>
+                    <span>Free</span>
+                  </Link>
+                  <img src="/img/icons/article.svg" alt="" />
+                </Stack>
+                <Stack className={"card-wrap vertical"}>
+                  {freeArticles.map((article, index) => {
+                    return (
+                      <CommunityCard
+                        vertical={false}
+                        article={article}
+                        index={index}
+                        key={article?._id}
+                      />
+                    );
+                  })}
+                </Stack>
               </Stack>
-              <Stack className={"card-wrap vertical"}>
-                {freeArticles.map((article, index) => {
-                  return (
-                    <CommunityCard
-                      vertical={false}
-                      article={article}
-                      index={index}
-                      key={article?._id}
-                    />
-                  );
-                })}
-              </Stack>
-            </Stack>
+            ) : (
+              ""
+            )}
           </Stack>
         </Stack>
       </Stack>
