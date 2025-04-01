@@ -42,8 +42,6 @@ const CommunityBoards = () => {
     },
   });
 
-  console.log("newsArticles>>>>", newsArticles);
-
   const {
     loading: getFreeArticlesLoading,
     data: getFreeArticlesData,
@@ -63,10 +61,6 @@ const CommunityBoards = () => {
       setFreeArticles(data?.getBoardArticles?.list);
     },
   });
-
-  console.log("freeArticles>>>>", freeArticles);
-  console.log("humorArticles>>>>", humorArticles);
-  console.log("recommendArticles>>>>", recommendArticle);
 
   const {
     loading: getHumorArticlesLoading,
@@ -118,7 +112,7 @@ const CommunityBoards = () => {
             <Typography variant={"h1"}>COMMUNITY BOARD HIGHLIGHTS</Typography>
           </Stack>
           <Stack className="community-main">
-            {newsArticles.length ? (
+            {newsArticles.length > 0 && (
               <Stack className={"community-news"}>
                 <Stack className={"content-top"}>
                   <Link href={"/community?articleCategory=NEWS"}>
@@ -139,10 +133,9 @@ const CommunityBoards = () => {
                   })}
                 </Stack>
               </Stack>
-            ) : (
-              ""
             )}
-            {humorArticles.length ? (
+
+            {humorArticles.length > 0 && (
               <Stack className={"community-humor"}>
                 <Stack className={"content-top"}>
                   <Link href={"/community?articleCategory=HUMOR"}>
@@ -163,10 +156,8 @@ const CommunityBoards = () => {
                   })}
                 </Stack>
               </Stack>
-            ) : (
-              ""
             )}
-            {recommendArticle.length ? (
+            {recommendArticle.length > 0 ? (
               <Stack className={"community-recommendation"}>
                 <Stack className={"content-top"}>
                   <Link href={"/community?articleCategory=RECOMMEND"}>
