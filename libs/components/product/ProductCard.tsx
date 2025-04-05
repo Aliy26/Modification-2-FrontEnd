@@ -6,7 +6,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Product } from "../../types/product/product";
 import Link from "next/link";
 import { formatterStr } from "../../utils";
-import { REACT_APP_API_URL, topPropertyRank } from "../../config";
+import { REACT_APP_API_URL, topProductRank } from "../../config";
 import { useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
 import IconButton from "@mui/material/IconButton";
@@ -39,7 +39,7 @@ const ProductCard = (props: PropertyCardType) => {
           <img src={imagePath} alt="product-img" className="mobile-card-img" />
         </Link>
 
-        {product && product?.productRank > topPropertyRank && (
+        {product && product?.productRank > topProductRank && (
           <Box component={"div"} className={"top-badge-mobile"}>
             <img src="/img/icons/electricity.svg" alt="Top badge" />
             <Typography variant="caption">TOP</Typography>
@@ -127,7 +127,7 @@ const ProductCard = (props: PropertyCardType) => {
           >
             <img src={imagePath} alt="card-img" className="card-img" />
           </Link>
-          {product && product?.productRank > topPropertyRank && (
+          {product && product?.productRank > topProductRank && (
             <Box component={"div"} className={"top-badge"}>
               <img src="/img/icons/electricity.svg" alt="" />
               <Typography>TOP</Typography>

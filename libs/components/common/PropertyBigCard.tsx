@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Product } from "../../types/product/product";
-import { REACT_APP_API_URL, topPropertyRank } from "../../config";
+import { REACT_APP_API_URL, topProductRank } from "../../config";
 import { formatterStr } from "../../utils";
 import { useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
@@ -42,7 +42,7 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
       //       backgroundImage: `url(${REACT_APP_API_URL}/${property?.productImages?.[0]})`,
       //     }}
       //   >
-      //     {property && property?.productRank >= topPropertyRank && (
+      //     {property && property?.productRank >= topProductRank && (
       //       <div className={"status"}>
       //         <img src="/img/icons/electricity.svg" alt="" />
       //         <span>top</span>
@@ -101,7 +101,7 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
             backgroundImage: `url(${REACT_APP_API_URL}/${property?.productImages?.[0]})`,
           }}
         >
-          {property && property?.productRank >= topPropertyRank && (
+          {property && property?.productRank >= topProductRank && (
             <div className="status">
               <img src="/img/icons/electricity.svg" alt="" />
               <span>Top Property</span>
