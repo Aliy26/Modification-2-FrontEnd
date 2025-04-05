@@ -336,7 +336,7 @@ ProductList.defaultProps = {
   initialInput: {
     page: 1,
     limit: 12,
-    sort: "updatedAt",
+    sort: "productViews",
     direction: "DESC",
     search: {},
   },
