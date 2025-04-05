@@ -29,7 +29,7 @@ const CS: NextPage = () => {
       { scroll: false }
     );
   };
-  const tab = router.query.tab ?? "notice";
+  const tab = router.query.tab ?? "faq";
 
   if (device === "mobile") {
     return <h1>CS PAGE MOBILE</h1>;
@@ -44,20 +44,20 @@ const CS: NextPage = () => {
             </Box>
             <Box component={"div"} className={"btns"}>
               <div
-                className={tab == "notice" ? "active" : ""}
-                onClick={() => {
-                  changeTabHandler("notice");
-                }}
-              >
-                Notice
-              </div>
-              <div
                 className={tab == "faq" ? "active" : ""}
                 onClick={() => {
                   changeTabHandler("faq");
                 }}
               >
                 FAQ
+              </div>
+              <div
+                className={tab == "notice" ? "active" : ""}
+                onClick={() => {
+                  changeTabHandler("notice");
+                }}
+              >
+                Notice
               </div>
             </Box>
           </Box>
