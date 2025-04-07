@@ -338,7 +338,16 @@ ProductList.defaultProps = {
     limit: 12,
     sort: "productViews",
     direction: "DESC",
-    search: {},
+    search: {
+      periodsRange: {
+        start: 0,
+        end: 2025,
+      },
+      pricesRange: {
+        start: 0,
+        end: 1000,
+      },
+    },
   },
 };
 

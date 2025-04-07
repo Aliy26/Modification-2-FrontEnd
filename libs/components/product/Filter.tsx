@@ -12,7 +12,6 @@ import { ProductCategory, ProductType } from "../../enums/product.enum";
 import { ProductsInquiry } from "../../types/product/product.input";
 import { useRouter } from "next/router";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
-import { propertySquare } from "../../config";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 const MenuProps = {
@@ -703,11 +702,11 @@ const Filter = (props: FilterType) => {
               <Stack className="square-year-input">
                 <input
                   type="number"
-                  placeholder="$ min"
+                  placeholder="min year"
                   min={0}
                   value={searchFilter?.search?.periodsRange?.start ?? 0}
                   onChange={(e: any) => {
-                    if (e.target.value >= 0) {
+                    if (e.target.value > 0) {
                       productYearHandler(e.target.value, "start");
                     }
                   }}
@@ -715,7 +714,7 @@ const Filter = (props: FilterType) => {
                 <div className="central-divider"></div>
                 <input
                   type="number"
-                  placeholder="$ max"
+                  placeholder="max year"
                   value={searchFilter?.search?.periodsRange?.end ?? 0}
                   onChange={(e: any) => {
                     if (e.target.value >= 0) {

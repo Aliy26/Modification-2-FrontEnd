@@ -23,7 +23,7 @@ export enum ProductCategory {
   Office = "Office",
   Kitchen = "Kitchen",
   Kids = "Kids",
-  Appliances = "Appliances",
+  Appliances = "appliances",
   Pet = "Pet",
   Outdoors = "Outdoors",
 }
