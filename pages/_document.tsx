@@ -20,6 +20,21 @@ export default function Document() {
             "뉴욕에서 언제 어디서나 가구와 가전제품을 사고 팔 수 있습니다. 최고의 가격으로 최고의 제품을 aptdecor.com에서 만나보세요."
           }
         />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="http://aptdecor.uz" />
+        <meta
+          property="og:title"
+          content="AptDecor | Buy & Sell Furniture in NYC"
+        />
+        <meta
+          property="og:description"
+          content="Buy and sell furniture and appliances anywhere in New York. AptDecor offers top products at the best prices."
+        />
+        <meta
+          property="og:image"
+          content="http://aptdecor.uz/img/banner/furnitures.jpg"
+        />
       </Head>
       <body>
         <Main />
