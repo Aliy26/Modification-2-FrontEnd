@@ -250,7 +250,7 @@ body::-webkit-scrollbar {
     .container {
       margin-top: 125px;
       strong {
-        margin-left: 50px;
+        background-color: rgba(246, 246, 246, 0.7);
         color: rgb(45, 79, 30, 2);
         font-family: $font;
         font-size: 48px;
@@ -259,6 +259,7 @@ body::-webkit-scrollbar {
         line-height: normal;
         letter-spacing: 0.96px;
         text-transform: capitalize;
+        margin-left: 50px;
       }
       span {
         margin-left: 170px;
