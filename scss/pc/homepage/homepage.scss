@@ -140,7 +140,7 @@
           }
           .trend-property-swiper {
             width: 100%;
-            height: 400px;
+            height: 450px;
             display: flex;
             flex-direction: row;
             .trend-property-slide {
@@ -327,14 +327,13 @@
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            background-color: greenyellow;
             border-radius: 12px;
             overflow: hidden;
             transform: translateY(10px);
             transition: transform 0.5s ease, opacity 0.4s ease,
               box-shadow 0.4s ease;
             box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-            border: 3px solid yellow;
+            border: 2px solid yellow;
 
             &:hover {
               transform: translateY(-5px);
@@ -595,7 +594,7 @@
 
           .top-property-swiper {
             width: 100%;
-            height: 500px;
+            height: 550px;
             display: flex;
             flex-direction: row;
 
@@ -609,7 +608,7 @@
 
           .top-card-box {
             position: relative;
-            width: 300px;
+            width: 295px;
             height: 455px;
             display: flex;
             flex-direction: column;
@@ -623,7 +622,7 @@
 
             &:hover {
               opacity: 1;
-              transform: translateY(10px) translateX(15px) scale(1.05);
+              transform: translateY(7px) translateX(10px) scale(1.02);
               box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.15);
             }
 

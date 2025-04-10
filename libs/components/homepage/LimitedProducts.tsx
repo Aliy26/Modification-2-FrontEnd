@@ -44,8 +44,6 @@ const LimitedProducts = (props: LimitedProductsProps) => {
     },
   });
 
-  console.log(",<<<<<<", limitedProducts);
-
   /** HANDLERS **/
   const likeProductHandler = async (user: T, id: string) => {
     try {
