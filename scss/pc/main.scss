@@ -198,13 +198,13 @@ body::-webkit-scrollbar {
     background-image: url("/img/banner/furnitures.jpg");
     background-size: cover;
     background-position: center, -220px;
+
     .checkout {
       position: absolute;
+      left: 1110px;
       top: 120px;
-      right: 105px;
       font-size: 1.5rem;
       font-weight: 700;
-      text-align: center;
       margin-bottom: 1rem;
       color: #333;
       display: inline-block;
@@ -1090,7 +1090,7 @@ body::-webkit-scrollbar {
   }
 
   .info {
-    height: 200px;
+    min-height: 200px;
     padding: 20px;
     background-color: orange;
     border-radius: 0 0 12px 12px;
@@ -1125,36 +1125,19 @@ body::-webkit-scrollbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 15px;
-
-      button {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background-color: #f1f1f1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.3s ease;
-
-        &:hover {
-          background-color: #e0e0e0;
-        }
+      p {
+        width: 270px;
       }
     }
-    .view-like-box {
-      margin-top: 5px;
-      text-align: right;
-      gap: 3px;
 
-      .view-cnt {
-        text-decoration: underline;
-        cursor: pointer;
-        color: darkgreen;
-        font-size: 13px;
-        font-weight: 400;
-        transition: color 0.3s ease;
-      }
+    .view-cnt {
+      text-decoration: underline;
+
+      cursor: pointer;
+      color: darkgreen;
+      font-size: 13px;
+      font-weight: 400;
+      transition: color 0.3s ease;
     }
   }
 }

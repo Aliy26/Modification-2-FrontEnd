@@ -99,7 +99,7 @@ const HeaderSwiperCard = (props: HeaderSwiperCard) => {
     );
   } else {
     return (
-      <Stack className="popular-card-box">
+      <Stack>
         <Box
           component={"div"}
           className={"card-img"}
@@ -118,7 +118,6 @@ const HeaderSwiperCard = (props: HeaderSwiperCard) => {
           ) : (
             ""
           )}
-
           <div className={"price"}>${product.productPrice}</div>
         </Box>
         <Box component={"div"} className={"info"}>
@@ -141,20 +140,19 @@ const HeaderSwiperCard = (props: HeaderSwiperCard) => {
             </span>
           </div>
 
-          <Divider sx={{ mt: "10px", mb: "17px" }} />
+          <Divider sx={{ mt: "10px", mb: "12px" }} />
           <div className={"bott"}>
             <p>
               <span>{product?.productDesc}</span>
             </p>
-          </div>
-          <div className="view-like-box">
-            <Typography
+            <span
               className="view-cnt"
               onClick={() => pushAgentPage(product?.memberData?._id as string)}
             >
               by {product?.memberData?.memberNick}
-            </Typography>
+            </span>
           </div>
+          <div className="view-like-box"></div>
         </Box>
       </Stack>
     );
