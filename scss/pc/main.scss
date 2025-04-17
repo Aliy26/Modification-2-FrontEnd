@@ -198,6 +198,36 @@ body::-webkit-scrollbar {
     background-image: url("/img/banner/furnitures.jpg");
     background-size: cover;
     background-position: center, -220px;
+    .checkout {
+      position: absolute;
+      top: 120px;
+      right: 105px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #333;
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typing 4s steps(38, end), blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 28%;
+      }
+    }
+
+    .checkout {
+      animation: typing 4s steps(38, end) 0s 1 normal both,
+        blink 0.75s step-end infinite;
+      animation-delay: 0s, 4s;
+    }
+
     .promo {
       width: 360px;
       padding: 25px;
@@ -994,7 +1024,7 @@ body::-webkit-scrollbar {
 .header-left {
   position: absolute;
   top: 170px;
-  right: 140px;
+  right: 150px;
   width: 390px;
   height: 445px;
   box-sizing: border-box;

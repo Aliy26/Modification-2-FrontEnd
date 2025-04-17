@@ -10,16 +10,15 @@ import { useQuery, useReactiveVar } from "@apollo/client";
 import { getJwtToken, updateUserInfo } from "../../auth";
 import Chat from "../Chat";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-
 import { useRouter } from "next/router";
 import { Autoplay } from "swiper";
 import { Product } from "../../types/product/product";
 import { GET_PRODUCTS } from "../../../apollo/user/query";
 import { T } from "../../types/common";
 import HeaderSwiperCard from "../homepage/HeaderSwiperCard";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 const withLayoutMain = (Component: any) => {
   return (props: any) => {
@@ -29,12 +28,10 @@ const withLayoutMain = (Component: any) => {
     const router = useRouter();
     const initialInput = {
       page: 1,
-      limit: 15,
+      limit: 7,
       sort: "createdAt",
       direction: "DESC",
-      search: {
-        productDesc: true,
-      },
+      search: {},
     };
     /** LIFECYCLES **/
     useEffect(() => {
@@ -122,6 +119,9 @@ const withLayoutMain = (Component: any) => {
                     );
                   })}
                 </Swiper>
+              </div>
+              <div className="checkout">
+                <h3>Checkout our newly added products!</h3>
               </div>
               <div className="promo" onClick={handleProductPage}>
                 <p>
