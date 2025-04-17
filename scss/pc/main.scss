@@ -193,40 +193,43 @@ body::-webkit-scrollbar {
 
   .header-main {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 860px;
     background-image: url("/img/banner/furnitures.jpg");
     background-size: cover;
     background-position: center, -220px;
 
-    .checkout {
-      position: absolute;
-      left: 1110px;
-      top: 120px;
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: #333;
-      display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
-      animation: typing 4s steps(38, end), blink 0.75s step-end infinite;
-    }
+    // .checkout {
+    //   position: absolute;
+    //   left: 1110px;
+    //   top: 120px;
+    //   font-size: 1.5rem;
+    //   font-weight: 700;
+    //   margin-bottom: 1rem;
+    //   color: #333;
+    //   display: inline-block;
+    //   overflow: hidden;
+    //   white-space: nowrap;
+    //   animation: typing 4s steps(38, end), blink 0.75s step-end infinite;
+    // }
 
-    @keyframes typing {
-      from {
-        width: 0;
-      }
-      to {
-        width: 28%;
-      }
-    }
+    // @keyframes typing {
+    //   from {
+    //     width: 0;
+    //   }
+    //   to {
+    //     width: 28%;
+    //   }
+    // }
 
-    .checkout {
-      animation: typing 4s steps(38, end) 0s 1 normal both,
-        blink 0.75s step-end infinite;
-      animation-delay: 0s, 4s;
-    }
+    // .checkout {
+    //   animation: typing 4s steps(38, end) 0s 1 normal both,
+    //     blink 0.75s step-end infinite;
+    //   animation-delay: 0s, 4s;
+    // }
 
     .promo {
       width: 360px;
@@ -1020,124 +1023,132 @@ body::-webkit-scrollbar {
   color: rgb(204, 99, 13) !important;
   font-weight: 600;
 }
+.checkout {
+  display: flex;
+  width: 78%;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
 
-.header-left {
-  position: absolute;
-  top: 170px;
-  right: 150px;
-  width: 390px;
-  height: 445px;
-  box-sizing: border-box;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid orangered;
+.swiper-container {
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+  .header-left {
+    width: 350px;
+    height: 445px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid orangered;
 
-  .card-img {
-    position: relative;
-    width: 100%;
-    height: 303px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 12px 12px 0 0;
-    cursor: pointer;
-    transition: filter 0.4s ease;
-
-    &:hover {
-      filter: brightness(0.9) saturate(1.2);
-    }
-
-    div.status {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      padding: 6px 18px;
-      display: flex;
-      align-items: center;
-      border-radius: 6px;
-      background: #e8e7e7;
-      color: #fff;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-
-      img {
-        width: 14px;
-        height: 14px;
-      }
-
-      span {
-        margin-left: 8px;
-      }
-    }
-
-    div.price {
-      position: absolute;
-      right: 15px;
-      top: 12px;
-      padding: 6px 10px;
-      background: #000;
-      border-radius: 6px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #fefff3;
-      opacity: 0.85;
-      transition: color 0.3s ease;
-      &:hover {
-        color: #ff0000;
-      }
-    }
-  }
-
-  .info {
-    min-height: 200px;
-    padding: 20px;
-    background-color: orange;
-    border-radius: 0 0 12px 12px;
-    border: 1px solid rgba(196, 196, 196, 0.5);
-    box-shadow: 0px 2px 8px rgba(24, 26, 32, 0.1);
-    transition: background 0.3s ease;
-    .name-date {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      span {
-        font-size: 11px;
-      }
-    }
-
-    .title {
-      color: #333;
-      font-size: 16px;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .card-img {
+      position: relative;
+      width: 100%;
+      height: 303px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px 12px 0 0;
       cursor: pointer;
-      transition: color 0.3s ease;
+      transition: filter 0.4s ease;
 
       &:hover {
-        color: #007aff;
+        filter: brightness(0.9) saturate(1.2);
+      }
+
+      div.status {
+        position: absolute;
+        top: 12px;
+        left: 20px;
+        padding: 6px 18px;
+        display: flex;
+        align-items: center;
+        border-radius: 6px;
+        background: #0a0909;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        img {
+          width: 14px;
+          height: 14px;
+        }
+
+        span {
+          margin-left: 8px;
+        }
+      }
+
+      div.price {
+        position: absolute;
+        right: 15px;
+        top: 12px;
+        padding: 6px 10px;
+        background: #000;
+        border-radius: 6px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #fefff3;
+        opacity: 0.85;
+        transition: color 0.3s ease;
+        &:hover {
+          color: #ff0000;
+        }
       }
     }
 
-    .bott {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      p {
-        width: 270px;
+    .info {
+      min-height: 200px;
+      padding: 20px;
+      background-color: orange;
+      border-radius: 0 0 12px 12px;
+      border: 1px solid rgba(196, 196, 196, 0.5);
+      box-shadow: 0px 2px 8px rgba(24, 26, 32, 0.1);
+      transition: background 0.3s ease;
+      .name-date {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        span {
+          font-size: 11px;
+        }
       }
-    }
 
-    .view-cnt {
-      text-decoration: underline;
+      .title {
+        color: #333;
+        font-size: 16px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        transition: color 0.3s ease;
 
-      cursor: pointer;
-      color: darkgreen;
-      font-size: 13px;
-      font-weight: 400;
-      transition: color 0.3s ease;
+        &:hover {
+          color: #007aff;
+        }
+      }
+
+      .bott {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        p {
+          width: 240px;
+        }
+      }
+
+      .view-cnt {
+        text-decoration: underline;
+
+        cursor: pointer;
+        color: darkgreen;
+        font-size: 13px;
+        font-weight: 400;
+        transition: color 0.3s ease;
+      }
     }
   }
 }

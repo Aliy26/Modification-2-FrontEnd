@@ -94,35 +94,36 @@ const withLayoutMain = (Component: any) => {
             </Stack>
 
             <Stack className={"header-main"}>
-              {/* <FiberContainer />  */}
-
-              <div className="header-left">
-                <Swiper
-                  className={"left-swiper"}
-                  slidesPerView={"auto"}
-                  centeredSlides={true}
-                  spaceBetween={25}
-                  modules={[Autoplay]}
-                  autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: false,
-                  }}
-                >
-                  {popularProducts.map((product: Product) => {
-                    return (
-                      <SwiperSlide
-                        key={product._id}
-                        className={"popular-property-slide"}
-                      >
-                        <HeaderSwiperCard product={product} />
-                      </SwiperSlide>
-                    );
-                  })}
-                </Swiper>
-              </div>
               <div className="checkout">
                 <h3>Checkout our newly added products!</h3>
               </div>
+              <div className="swiper-container">
+                <div className="header-left">
+                  <Swiper
+                    className={"left-swiper"}
+                    slidesPerView={"auto"}
+                    centeredSlides={true}
+                    spaceBetween={25}
+                    modules={[Autoplay]}
+                    autoplay={{
+                      delay: 2500,
+                      disableOnInteraction: false,
+                    }}
+                  >
+                    {popularProducts.map((product: Product) => {
+                      return (
+                        <SwiperSlide
+                          key={product._id}
+                          className={"popular-property-slide"}
+                        >
+                          <HeaderSwiperCard product={product} />
+                        </SwiperSlide>
+                      );
+                    })}
+                  </Swiper>
+                </div>
+              </div>
+
               <div className="promo" onClick={handleProductPage}>
                 <p>
                   Elevate Your Space! Shop Stylish Furniture & Essential
