@@ -9,6 +9,7 @@ import { REACT_APP_API_URL } from "../../config";
 import { useRouter } from "next/router";
 import { useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
+import { useTranslation } from "react-i18next";
 
 interface LimitedProductsCardProps {
   product: Product;
@@ -20,6 +21,7 @@ const LimitedProductsCard = (props: LimitedProductsCardProps) => {
   const device = useDeviceDetect();
   const router = useRouter();
   const user = useReactiveVar(userVar);
+  const { t } = useTranslation("common");
 
   /** HANDLERS **/
 
@@ -123,12 +125,14 @@ const LimitedProductsCard = (props: LimitedProductsCardProps) => {
           </strong>
           <p className={"desc"}>{product?.productBrand}</p>
           <p className={"desc"}>
-            Only {product.productStock} left in the stock
+            <span>{t("stockLeft", { count: product.productStock })}</span>
           </p>
 
           <Divider sx={{ mt: "15px", mb: "17px" }} />
           <div className={"bott"}>
-            <p>Made in {"Korea"}</p>
+            <p>
+              {t("Posted by")} {product?.memberData?.memberNick}
+            </p>
             <div className="view-like-box">
               <IconButton color={"default"}>
                 <RemoveRedEyeIcon />

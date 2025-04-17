@@ -18,6 +18,7 @@ import {
   sweetTopSmallSuccessAlert,
 } from "../../sweetAlert";
 import LimitedProductsCard from "./LimitedProductsCard";
+import { useTranslation } from "react-i18next";
 
 interface LimitedProductsProps {
   initialInput: ProductsInquiry;
@@ -28,6 +29,7 @@ const LimitedProducts = (props: LimitedProductsProps) => {
   const device = useDeviceDetect();
   const [limitedProducts, setLimitedProducts] = useState<Product[]>([]);
   const [likeTargetProduct] = useMutation(LIKE_TARGET_PRODUCT);
+  const { t } = useTranslation("common");
 
   /** APOLLO REQUESTS **/
   const {
@@ -102,10 +104,11 @@ const LimitedProducts = (props: LimitedProductsProps) => {
         <Stack className={"container"}>
           <Stack className={"info-box"}>
             <Box component={"div"} className={"left"}>
-              <span>Limited Quantity Products</span>
+              <span>{t("Limited Quantity Products")}</span>
               <p>
-                Check out our Products that are high in demend before they run
-                out of stock!
+                {t(
+                  "Check out our Products that are high in demend before they run out of stock!"
+                )}
               </p>
             </Box>
             <Box component={"div"} className={"right"}>

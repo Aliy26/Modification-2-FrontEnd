@@ -59,7 +59,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
   const [brand, setBrand] = useState<ProductBrand[]>(
     Object.values(ProductBrand)
   );
-  const [propertyLocation, setPropertyLocation] = useState<ProductCategory[]>(
+  const [productCategory, setProductCategory] = useState<ProductCategory[]>(
     Object.values(ProductCategory)
   );
   const [propertyType, setPropertyType] = useState<ProductType[]>(
@@ -334,14 +334,14 @@ const HeaderFilter = (props: HeaderFilterProps) => {
             className={`filter-location ${openLocation ? "on" : ""}`}
             ref={locationRef}
           >
-            {propertyLocation.map((location: string) => {
+            {productCategory.map((category: string) => {
               return (
                 <div
-                  onClick={() => propertyLocationSelectHandler(location)}
-                  key={location}
+                  onClick={() => propertyLocationSelectHandler(category)}
+                  key={category}
                 >
-                  <img src={`img/banner/categories/${location}.webp`} alt="" />
-                  <span>{location}</span>
+                  <img src={`img/banner/categories/${category}.webp`} alt="" />
+                  <span>{t(`categories.${category}`, category)}</span>
                 </div>
               );
             })}

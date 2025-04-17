@@ -8,6 +8,7 @@ import { REACT_APP_API_URL, topProductRank } from "../../config";
 import { useRouter } from "next/router";
 import { useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
+import { useTranslation } from "react-i18next";
 
 interface PopularProductCardProps {
   product: Product;
@@ -18,6 +19,7 @@ const PopularProductCard = (props: PopularProductCardProps) => {
   const device = useDeviceDetect();
   const router = useRouter();
   const user = useReactiveVar(userVar);
+  const { t } = useTranslation("common");
 
   /** HANDLERS **/
 
@@ -126,7 +128,7 @@ const PopularProductCard = (props: PopularProductCardProps) => {
           <Divider sx={{ mt: "15px", mb: "17px" }} />
           <div className={"bott"}>
             <p>
-              Discounted price: <span>${product?.discountedPrice}</span>
+              {t("Discounted price:")} <span>${product?.discountedPrice}</span>
             </p>
             <div className="view-like-box">
               <Typography className="view-cnt">

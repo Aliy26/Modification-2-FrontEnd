@@ -22,5 +22,22 @@
   "Member Page": "멤버 페이지",
   "Checkout our newly added products!": "새롭게 추가된 제품들을 확인해주시기 바랍니다.",
   "Welcome to AptDecor — your one-stop shop for stylish home appliances and modern furniture that bring comfort and elegance to every space.": "AptDecor에 오신 것을 환영합니다 — 세련된 가전제품과 현대적인 가구를 한곳에서 만나보세요. 모든 공간에 편안함과 우아함을 더해드립니다.",
-  "Elevate Your Space! Shop Stylish Furniture & Essential Appliances Now!": "공간의 품격을 높이세요! 세련된 가구와 필수 가전제품을 지금 만나보세요!"
+  "Elevate Your Space! Shop Stylish Furniture & Essential Appliances Now!": "공간의 품격을 높이세요! 세련된 가구와 필수 가전제품을 지금 만나보세요!",
+  "Top Picks on Sale": "지금 할인 중! 인기 상품 모음",
+  "Discounted price:": "할인 가격:",
+  "Limited Quantity Products": "한정 수량 상품",
+  "Check out our Products that are high in demend before they run out of stock!": "수요가 높은 인기 상품들을 품절되기 전에 확인해보세요!",
+  "stockLeft": "재고 {{count}}개 남음",
+  "Posted by": "작성자",
+
+  "categories": {
+    "LivingRoom": "거실",
+    "Bedroom": "침실",
+    "Office": "사무실",
+    "Kitchen": "주방",
+    "Kids": "어린이",
+    "Appliances": "가전제품",
+    "Pet": "반려동물",
+    "Outdoors": "야외"
+  }
 }

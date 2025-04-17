@@ -12,6 +12,7 @@ import { ProductsInquiry } from "../../types/product/product.input";
 import { GET_PRODUCTS } from "../../../apollo/user/query";
 import { useQuery } from "@apollo/client";
 import { T } from "../../types/common";
+import { useTranslation } from "react-i18next";
 
 interface DiscountedProductsProp {
   initialInput: ProductsInquiry;
@@ -21,6 +22,7 @@ const DiscountedProducts = (props: DiscountedProductsProp) => {
   const { initialInput } = props;
   const device = useDeviceDetect();
   const [popularProducts, setPopularProducts] = useState<Product[]>([]);
+  const { t } = useTranslation("common");
 
   /** APOLLO REQUESTS **/
   const {
@@ -80,7 +82,7 @@ const DiscountedProducts = (props: DiscountedProductsProp) => {
         <Stack className={"container"}>
           <Stack className={"info-box"}>
             <Box component={"div"} className={"left"}>
-              <span>Top Picks on Sale</span>
+              <span>{t("Top Picks on Sale")}</span>
             </Box>
             <Box component={"div"} className={"right"}>
               <div className={"more-box"}>
