@@ -16,6 +16,7 @@ import { Product } from "../../types/product/product";
 import { GET_PRODUCTS } from "../../../apollo/user/query";
 import { T } from "../../types/common";
 import HeaderSwiperCard from "../homepage/HeaderSwiperCard";
+import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -94,10 +95,28 @@ const withLayoutMain = (Component: any) => {
             </Stack>
 
             <Stack className={"header-main"}>
-              <div className="checkout">
+              <motion.div
+                className="checkout"
+                initial={{ x: "-35%", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 2.5, ease: "easeOut" }}
+              >
                 <h3>Checkout our newly added products!</h3>
-              </div>
+              </motion.div>
               <div className="swiper-container">
+                <motion.div
+                  className="intro"
+                  initial={{ x: "-100%", opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 2, ease: "easeOut" }}
+                >
+                  <h2>
+                    Welcome to AptDecor — your one-stop shop for stylish home
+                    appliances and modern furniture that bring comfort and
+                    elegance to every space.
+                  </h2>
+                </motion.div>
+
                 <div className="header-left">
                   <Swiper
                     className={"left-swiper"}
@@ -124,12 +143,18 @@ const withLayoutMain = (Component: any) => {
                 </div>
               </div>
 
-              <div className="promo" onClick={handleProductPage}>
+              <motion.div
+                className="promo"
+                onClick={handleProductPage}
+                initial={{ x: "40%", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 2, ease: "easeOut" }}
+              >
                 <p>
                   Elevate Your Space! Shop Stylish Furniture & Essential
                   Appliances Now!
                 </p>
-              </div>
+              </motion.div>
               <Stack className={"container"}>{/* <HeaderFilter /> */}</Stack>
             </Stack>
             <div className="filter-container">

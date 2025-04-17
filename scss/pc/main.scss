@@ -202,35 +202,6 @@ body::-webkit-scrollbar {
     background-size: cover;
     background-position: center, -220px;
 
-    // .checkout {
-    //   position: absolute;
-    //   left: 1110px;
-    //   top: 120px;
-    //   font-size: 1.5rem;
-    //   font-weight: 700;
-    //   margin-bottom: 1rem;
-    //   color: #333;
-    //   display: inline-block;
-    //   overflow: hidden;
-    //   white-space: nowrap;
-    //   animation: typing 4s steps(38, end), blink 0.75s step-end infinite;
-    // }
-
-    // @keyframes typing {
-    //   from {
-    //     width: 0;
-    //   }
-    //   to {
-    //     width: 28%;
-    //   }
-    // }
-
-    // .checkout {
-    //   animation: typing 4s steps(38, end) 0s 1 normal both,
-    //     blink 0.75s step-end infinite;
-    //   animation-delay: 0s, 4s;
-    // }
-
     .promo {
       width: 360px;
       padding: 25px;
@@ -1028,12 +999,36 @@ body::-webkit-scrollbar {
   width: 78%;
   justify-content: flex-end;
   margin-bottom: 15px;
+  h3 {
+    color: rgb(41, 109, 124);
+  }
 }
 
 .swiper-container {
   width: 80%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  .intro {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 70px;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    align-self: flex-start;
+    width: 40%;
+    padding: 3rem 2rem;
+    text-align: center;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1.2;
+      margin: 0;
+    }
+  }
   .header-left {
     width: 350px;
     height: 445px;
@@ -1102,7 +1097,8 @@ body::-webkit-scrollbar {
     .info {
       min-height: 200px;
       padding: 20px;
-      background-color: orange;
+      // background-color: rgb(240, 197, 27);
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
       border-radius: 0 0 12px 12px;
       border: 1px solid rgba(196, 196, 196, 0.5);
       box-shadow: 0px 2px 8px rgba(24, 26, 32, 0.1);
