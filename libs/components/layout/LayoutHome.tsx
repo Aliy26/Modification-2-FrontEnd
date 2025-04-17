@@ -16,13 +16,14 @@ import { Product } from "../../types/product/product";
 import { GET_PRODUCTS } from "../../../apollo/user/query";
 import { T } from "../../types/common";
 import HeaderSwiperCard from "../homepage/HeaderSwiperCard";
+import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
 const withLayoutMain = (Component: any) => {
   return (props: any) => {
+    const { t, i18n } = useTranslation("common");
     const [popularProducts, setPopularProducts] = useState<Product[]>([]);
     const device = useDeviceDetect();
     const user = useReactiveVar(userVar);
@@ -101,7 +102,7 @@ const withLayoutMain = (Component: any) => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 2.5, ease: "easeOut" }}
               >
-                <h3>Checkout our newly added products!</h3>
+                <h3>{t("Checkout our newly added products!")}</h3>
               </motion.div>
               <div className="swiper-container">
                 <motion.div
@@ -111,9 +112,9 @@ const withLayoutMain = (Component: any) => {
                   transition={{ duration: 2, ease: "easeOut" }}
                 >
                   <h2>
-                    Welcome to AptDecor — your one-stop shop for stylish home
-                    appliances and modern furniture that bring comfort and
-                    elegance to every space.
+                    {t(
+                      "Welcome to AptDecor — your one-stop shop for stylish home appliances and modern furniture that bring comfort and elegance to every space."
+                    )}
                   </h2>
                 </motion.div>
 
@@ -151,8 +152,9 @@ const withLayoutMain = (Component: any) => {
                 transition={{ duration: 2, ease: "easeOut" }}
               >
                 <p>
-                  Elevate Your Space! Shop Stylish Furniture & Essential
-                  Appliances Now!
+                  {t(
+                    "Elevate Your Space! Shop Stylish Furniture & Essential Appliances Now!"
+                  )}
                 </p>
               </motion.div>
               <Stack className={"container"}>{/* <HeaderFilter /> */}</Stack>
