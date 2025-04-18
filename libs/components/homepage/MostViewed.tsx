@@ -17,6 +17,7 @@ import {
 } from "../../sweetAlert";
 import { Message } from "../../enums/common.enum";
 import MostViewedCard from "./MostViewedCard";
+import { useTranslation } from "react-i18next";
 
 interface MostViewed {
   initialInput: ProductsInquiry;
@@ -29,6 +30,7 @@ const MostViewed = (props: MostViewed) => {
 
   /** APOLLO REQUESTS **/
   const [likeTargetProduct] = useMutation(LIKE_TARGET_PRODUCT);
+  const { t } = useTranslation("common");
 
   const {
     loading: getProductsLoading,
@@ -71,7 +73,7 @@ const MostViewed = (props: MostViewed) => {
       <Stack className={"trend-properties"}>
         <Stack className={"container"}>
           <Stack className={"info-box"}>
-            <span>Most Viewed Products</span>
+            <span>{t("Most Viewed Products")}</span>
           </Stack>
           <Stack className={"card-box"}>
             {bestSellers.length === 0 ? (
@@ -111,8 +113,8 @@ const MostViewed = (props: MostViewed) => {
         <Stack className={"container"}>
           <Stack className={"info-box"}>
             <Box component={"div"} className={"left"}>
-              <span>Most Viewed Products</span>
-              <p>Trend is based on item views</p>
+              <span>{t("Most Viewed Products")}</span>
+              <p>{t("Trend is based on item views")}</p>
             </Box>
             <Box component={"div"} className={"right"}>
               <div className={"pagination-box"}>

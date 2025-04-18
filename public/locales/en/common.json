@@ -27,7 +27,19 @@
   "Discounted price:": "Discounted price:",
   "Limited Quantity Products": "Limited Quantity Products",
   "Check out our Products that are high in demend before they run out of stock!": "Check out our Products that are high in demend before they run out of stock!",
-  "Only": "Only",
   "stockLeft": "Only {{count}} left in the stock",
-  "Posted by": "Posted by"
+  "Posted by": "Posted by",
+  "Events": "Events",
+  "Discover amazing events around you!": "Discover amazing events around you!",
+  "Most Viewed Products": "Most Viewed Products",
+  "Trend is based on item views": "Trend is based on item views",
+  "COMMUNITY BOARD HIGHLIGHTS": "COMMUNITY BOARD HIGHLIGHTS",
+  "Humor": "Humor",
+  "Free": "Free",
+  "Recommendation": "Recommendation",
+  "NEWS": "NEWS",
+  "Our Top 100% Verified Retailers!": "Our Top 100% Verified Retailers!",
+  "Follow our Retailers & get notified each time they post a new product!": "Follow our Retailers & get notified each time they post a new product!",
+  "See All Agents": "See All Agents",
+  "actives": "{{count}} active products"
 }

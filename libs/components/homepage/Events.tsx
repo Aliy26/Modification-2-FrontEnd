@@ -11,9 +11,12 @@ import { GET_NOTICES } from "../../../apollo/user/query";
 import { T } from "../../types/common";
 import { NoticeCategory, NoticeStatus } from "../../enums/notice.enum";
 import { REACT_APP_API_URL } from "../../config";
+import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 const EventCard = ({ event }: { event: Notice }) => {
   const device = useDeviceDetect();
+  const { t } = useTranslation("common");
 
   if (device === "mobile") {
     return <div className="mobile-event-card">EVENT CARD</div>;
@@ -44,6 +47,7 @@ const Events = () => {
     noticeStatus: NoticeStatus.ACTIVE,
   };
   const [eventNotices, setEventNotices] = useState<Notice[]>([]);
+  const { t } = useTranslation("common");
   const {
     loading: getNoticesLoading,
     data: getNoticesData,
@@ -68,8 +72,8 @@ const Events = () => {
         ) : (
           <Stack className="events">
             <div className="header">
-              <h2>Events</h2>
-              <p>Discover amazing events around you!</p>
+              <h2>{t("Events")}</h2>
+              <p>{t("Discover amazing events around you!")}</p>
             </div>
 
             {eventNotices.length > 4 ? (

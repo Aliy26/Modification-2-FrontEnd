@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { Stack } from "@mui/material";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
 import { Member } from "../../types/member/member";
+import { useTranslation } from "react-i18next";
 
 interface TopAgentProps {
   agent: Member;
@@ -14,7 +15,7 @@ const TopAgentCard = (props: TopAgentProps) => {
   const agentImage = agent?.memberImage
     ? `${process.env.REACT_APP_API_URL}/${agent?.memberImage}`
     : "/img/profile/defaultUser.svg";
-
+  const { t } = useTranslation("common");
   /** HANDLERS **/
   const handleAgentPage = async (id: string) => {
     await router.push(`/agent/detail?agentId=${id}`);
@@ -65,7 +66,7 @@ const TopAgentCard = (props: TopAgentProps) => {
         >
           {agent?.memberNick}
         </strong>
-        <span>{agent.memberProducts} active products</span>
+        <span>{t("actives", { count: agent.memberProducts })}</span>
       </Stack>
     );
   }
