@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 interface HeaderSwiperCard {
   product: Product;
@@ -19,6 +20,7 @@ const HeaderSwiperCard = (props: HeaderSwiperCard) => {
   const device = useDeviceDetect();
   const router = useRouter();
   const user = useReactiveVar(userVar);
+  const { t } = useTranslation("common");
 
   /** HANDLERS **/
 
@@ -131,12 +133,14 @@ const HeaderSwiperCard = (props: HeaderSwiperCard) => {
               {product.productName}
             </strong>
             <span>
-              added{" "}
+              {t("added")}{" "}
               {moment().diff(product?.createdAt, "days") === 0
-                ? "today"
+                ? t("today")
                 : moment().diff(product?.createdAt, "days") === 1
-                ? "yesterday"
-                : `${moment().diff(product?.createdAt, "days")} days ago`}
+                ? t("yesterday")
+                : t("daysAgo", {
+                    count: moment().diff(product?.createdAt, "days"),
+                  })}{" "}
             </span>
           </div>
 

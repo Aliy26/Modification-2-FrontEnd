@@ -42,6 +42,10 @@
   "Follow our Retailers & get notified each time they post a new product!": "리테일러를 팔로우하고, 새 상품이 등록될 때마다 알림을 받아보세요!",
   "See All Agents": "모든 에이전트 보기",
   "actives": "현재 판매 중인 상품 {{count}}개",
+  "added": "추가됨",
+  "today": "오늘",
+  "yesterday": "어제",
+  "daysAgo": "{{count}}일 전",
 
   "categories": {
     "LivingRoom": "거실",

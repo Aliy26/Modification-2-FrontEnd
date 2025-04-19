@@ -41,5 +41,9 @@
   "Our Top 100% Verified Retailers!": "Our Top 100% Verified Retailers!",
   "Follow our Retailers & get notified each time they post a new product!": "Follow our Retailers & get notified each time they post a new product!",
   "See All Agents": "See All Agents",
-  "actives": "{{count}} active products"
+  "actives": "{{count}} active products",
+  "added": "added",
+  "today": "today",
+  "yesterday": "yesterday",
+  "daysAgo": "{{count}} days ago"
 }

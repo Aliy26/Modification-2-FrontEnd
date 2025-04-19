@@ -136,7 +136,7 @@ const withLayoutBasic = (Component: any) => {
               }}
             >
               <Stack className={"container"}>
-                <strong>{t(memoizedValues.title)}</strong>
+                <div className="check">{t(memoizedValues.title)}</div>
                 <span>{t(memoizedValues.desc)}</span>
               </Stack>
             </Stack>

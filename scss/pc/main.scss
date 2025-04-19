@@ -253,9 +253,13 @@ body::-webkit-scrollbar {
     }
     .container {
       margin-top: 125px;
-      strong {
+      .check {
         background-color: rgba(246, 246, 246, 0.7);
+        width: fit-content;
+        display: inline;
         color: rgb(45, 79, 30, 2);
+        border-radius: 16px;
+        padding: 0px 15px;
         font-family: $font;
         font-size: 48px;
         font-style: normal;
