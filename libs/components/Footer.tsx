@@ -5,9 +5,11 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import useDeviceDetect from "../hooks/useDeviceDetect";
 import { Stack, Box } from "@mui/material";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
   const device = useDeviceDetect();
+  const { t } = useTranslation("common");
 
   if (device == "mobile") {
     return (
@@ -18,16 +20,16 @@ const Footer = () => {
               <img src="/img/logo/logo3.svg" alt="" className={"logo"} />
             </Box>
             <Box component={"div"} className={"footer-box"}>
-              <span>customer service</span>
-              <p>+82 10 4867 2909</p>
+              <span>{t("customer service")}</span>
+              <p>+82 10 5454 5555</p>
             </Box>
             <Box component={"div"} className={"footer-box"}>
-              <span>nee live</span>
-              <p>+82 10 4867 2909</p>
-              <span>Support?</span>
+              <span>{t("now live")}</span>
+              <p>+82 10 5454 5555</p>
+              <span>{t("Support?")}</span>
             </Box>
             <Box component={"div"} className={"footer-box"}>
-              <p>follow us on social media</p>
+              <p>{t("follow us on social media")}</p>
               <div className={"media-box"}>
                 <FacebookOutlinedIcon />
                 <TelegramIcon />
@@ -39,32 +41,33 @@ const Footer = () => {
           <Stack className={"right"}>
             <Box component={"div"} className={"bottom"}>
               <div>
-                <strong>Popular Search</strong>
-                <span>Property for Rent</span>
-                <span>Property Low to hide</span>
+                <strong>{t("Popular Search")}</strong>
+                <span>{t("Product for Rent")}</span>
+                <span>{t("Product Low to hide")}</span>
               </div>
               <div>
-                <strong>Quick Links</strong>
-                <span>Terms of Use</span>
-                <span>Privacy Policy</span>
-                <span>Pricing Plans</span>
-                <span>Our Services</span>
-                <span>Contact Support</span>
-                <span>FAQs</span>
+                <strong>{t("Quick Links")}</strong>
+                <span>{t("Terms of Use")}</span>
+                <span>{t("Privacy Policy")}</span>
+                <span>{t("Pricing Plans")}</span>
+                <span>{t("Our Services")}</span>
+                <span>{t("Contact Support")}</span>
+                <span>{t("FAQs")}</span>
               </div>
               <div>
-                <strong>Discover</strong>
-                <span>New York</span>
-                <span>Florida</span>
-                <span>Washingtop</span>
-                <span>Nevada</span>
+                <strong>{t("Discover")}</strong>
+                <span>{t("New York")}</span>
+                <span>{t("Florida")}</span>
+                <span>{t("Washington")}</span>
+                <span>{t("Nevada")}</span>
               </div>
             </Box>
           </Stack>
         </Stack>
         <Stack className={"second"}>
           <span>
-            © Aliy of MIT 13 - All rights reserved. AptDecor` {moment().year()}
+            {t("© Aliy of MIT 13 - All rights reserved. AptDecor`")}{" "}
+            {moment().year()}
           </span>
         </Stack>
       </Stack>
@@ -79,16 +82,16 @@ const Footer = () => {
               <p className="logo-name">AptDecor`</p>
             </Box>
             <Box component={"div"} className={"footer-box"}>
-              <span>customer service</span>
-              <p>+82 10 4867 2909</p>
+              <span>{t("customer service")}</span>
+              <p>+82 10 5454 5555</p>
             </Box>
             <Box component={"div"} className={"footer-box"}>
-              <span>new live</span>
-              <p>+82 10 4867 2909</p>
-              <span>Support?</span>
+              <span>{t("new live")}</span>
+              <p>+82 10 5454 5555</p>
+              <span>{t("Support?")}</span>
             </Box>
             <Box component={"div"} className={"footer-box"}>
-              <p>follow us on social media</p>
+              <p>{t("follow us on social media")}</p>
               <div className={"media-box"}>
                 <FacebookOutlinedIcon />
                 <TelegramIcon />
@@ -99,33 +102,33 @@ const Footer = () => {
           </Stack>
           <Stack className={"right"}>
             <Box component={"div"} className={"top"}>
-              <strong>keep yourself up to date</strong>
+              <strong>{t("keep yourself up to date")}</strong>
               <div>
                 <input type="text" placeholder={"Your Email"} />
-                <span>Subscribe</span>
+                <span>{t("Subscribe")}</span>
               </div>
             </Box>
             <Box component={"div"} className={"bottom"}>
               <div>
-                <strong>Popular Search</strong>
-                <span>Property for Rent</span>
-                <span>Property Low to hide</span>
+                <strong>{t("Popular Search")}</strong>
+                <span>{t("Product for Rent")}</span>
+                <span>{t("Product Low to hide")}</span>
               </div>
               <div>
-                <strong>Quick Links</strong>
-                <span>Terms of Use</span>
-                <span>Privacy Policy</span>
-                <span>Pricing Plans</span>
-                <span>Our Services</span>
-                <span>Contact Support</span>
-                <span>FAQs</span>
+                <strong>{t("Quick Links")}</strong>
+                <span>{t("Terms of Use")}</span>
+                <span>{t("Privacy Policy")}</span>
+                <span>{t("Pricing Plans")}</span>
+                <span>{t("Our Services")}</span>
+                <span>{t("Contact Support")}</span>
+                <span>{t("FAQs")}</span>
               </div>
               <div>
-                <strong>Discover</strong>
-                <span>New York</span>
-                <span>Florida</span>
-                <span>Washingtop</span>
-                <span>Nevada</span>
+                <strong>{t("Discover")}</strong>
+                <span>{t("New York")}</span>
+                <span>{t("Florida")}</span>
+                <span>{t("Washington")}</span>
+                <span>{t("Nevada")}</span>
               </div>
             </Box>
           </Stack>
@@ -135,9 +138,10 @@ const Footer = () => {
         </div>
         <Stack className={"second"}>
           <span>
-            © Aliy of MIT 13 - All rights reserved. AptDecor` {moment().year()}
+            {t("© Aliy of MIT 13 - All rights reserved. AptDecor™")}{" "}
+            {moment().year()}
           </span>
-          <span>Privacy · Terms · Sitemap</span>
+          <span>{t("Privacy · Terms · Sitemap")}</span>
         </Stack>
       </Stack>
     );

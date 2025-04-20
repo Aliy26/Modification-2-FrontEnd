@@ -255,7 +255,7 @@ const Top = () => {
               <Link href={"/"}>
                 <div className="company-name">
                   <img src="/img/logo/logo3.svg" alt="" />
-                  <h2>Apt Decor`</h2>
+                  <h2>Apt Decor™</h2>
                 </div>
               </Link>
             </Box>
