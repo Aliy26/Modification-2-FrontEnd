@@ -1503,13 +1503,13 @@
       &.on {
         visibility: visible;
         transition: 0.2s ease-out;
-        background: #b9b915;
       }
       span {
         display: flex;
         align-items: center;
         padding: 10px 30px;
-        border: 1px solid #b9b915;
+        border: 1px solid #ebe9e9;
+        border-radius: 6px;
         color: #181a20;
         font-family: $font;
         font-size: 20px;
