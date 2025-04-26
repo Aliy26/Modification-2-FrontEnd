@@ -98,16 +98,16 @@ const withLayoutMain = (Component: any) => {
             <Stack className={"header-main"}>
               <motion.div
                 className="checkout"
-                initial={{ x: "-35%", opacity: 0 }}
+                initial={{ x: "0%", opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 2.5, ease: "easeOut" }}
+                transition={{ duration: 3.0, ease: "easeOut" }}
               >
                 <h3>{t("Checkout our newly added products!")}</h3>
               </motion.div>
               <div className="swiper-container">
                 <motion.div
                   className="intro"
-                  initial={{ x: "-100%", opacity: 0 }}
+                  initial={{ x: "0%", opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 2, ease: "easeOut" }}
                 >
