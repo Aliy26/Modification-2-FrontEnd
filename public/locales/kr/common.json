@@ -69,6 +69,34 @@
   "Nevada": "네바다",
   "© Aliy of MIT 13 - All rights reserved. AptDecor™": "© MIT 13의 Aliy - 모든 권리 보유. AptDecor™",
   "Privacy · Terms · Sitemap": "개인정보 · 약관 · 사이트맵",
+  "Discover something new today!": "오늘 새로운 것을 발견해보세요!",
+  "Check out our latest products and find the perfect addition to your collection!": "최신 제품을 확인하고 컬렉션에 완벽하게 어울리는 제품을 찾아보세요!",
+  "Follow our Retailers to get notified of their latest posts!": "소매업체를 팔로우하고 새로운 게시물을 빠르게 확인하세요!",
+  "Be sure to contact our retailer to get any information you need about the product you like!": "마음에 드는 제품에 대해 필요한 정보를 소매업체에 꼭 문의하세요!",
+  "Explore your personal dashboard and manage your activities": "개인 대시보드를 탐색하고 활동을 관리해보세요",
+  "Share your unique voice with a community eager to learn from your insights!": "당신의 독특한 목소리를 공유하고, 통찰을 기대하는 커뮤니티와 소통하세요!",
+  "Dive deeper into community discussions and shared experiences.": "커뮤니티 토론과 다양한 경험을 더욱 깊이 있게 탐구해보세요.",
+  "Welcome back! How can we assist you today?": "다시 오신 것을 환영합니다! 오늘 어떤 도움을 드릴까요?",
+  "Authentication Process": "인증 절차",
+  "Get the necessary information you need about our Retailers!": "소매업체에 대한 필요한 정보를 확인하세요!",
+  "Total {{count}} {{item}} available": "총 {{count}}개의 {{item}} 이용 가능",
+  "Sort by": "정렬 기준",
+  "New": "신상품",
+  "Lowest Price": "낮은 가격순",
+  "Highest Price": "높은 가격순",
+  "No Products found!": "제품을 찾을 수 없습니다!",
+  "products": "제품들",
+  "product": "제품",
+  "Find Your Product!": "원하는 제품을 찾아보세요!",
+  "Open Advanced Search": "고급 검색 열기",
+  "Hide Advanced Search": "고급 검색 닫기",
+  "What are you looking for?": "무엇을 찾고 계신가요?",
+  "Product Type": "제품 종류",
+  "Options": "옵션",
+  "Installment": "할부",
+  "Rent": "렌트",
+  "Price Range": "가격 범위",
+  "Manufactured Year": "제조 연도",
 
   "categories": {
     "LivingRoom": "거실",
@@ -79,5 +107,9 @@
     "Appliances": "가전제품",
     "Pet": "반려동물",
     "Outdoors": "야외"
+  },
+  "types": {
+    "FURNITURE": "가구",
+    "APPLIANCES": "가전제품"
   }
 }

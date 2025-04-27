@@ -27,6 +27,7 @@ import {
   sweetMixinErrorAlert,
   sweetTopSmallSuccessAlert,
 } from "../../libs/sweetAlert";
+import { useTranslation } from "react-i18next";
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
@@ -48,6 +49,7 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [sortingOpen, setSortingOpen] = useState(false);
   const [filterSortName, setFilterSortName] = useState("New");
+  const { t } = useTranslation("common");
 
   /** APOLLO REQUESTS **/
   const [likeTargetProduct] = useMutation(LIKE_TARGET_PRODUCT);
@@ -234,13 +236,13 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
       <div id="property-list-page" style={{ position: "relative" }}>
         <div className="container">
           <Box component={"div"} className={"right"}>
-            <span>Sort by</span>
+            <span>{t("Sort by")}</span>
             <div>
               <Button
                 onClick={sortingClickHandler}
                 endIcon={<KeyboardArrowDownRoundedIcon />}
               >
-                {filterSortName}
+                {t(filterSortName)}
               </Button>
               <Menu
                 anchorEl={anchorEl}
@@ -254,7 +256,7 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
                   disableRipple
                   sx={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px" }}
                 >
-                  New
+                  {t("New")}
                 </MenuItem>
                 <MenuItem
                   onClick={sortingHandler}
@@ -262,7 +264,7 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
                   disableRipple
                   sx={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px" }}
                 >
-                  Lowest Price
+                  {t("Lowest Price")}
                 </MenuItem>
                 <MenuItem
                   onClick={sortingHandler}
@@ -270,7 +272,7 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
                   disableRipple
                   sx={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px" }}
                 >
-                  Highest Price
+                  {t("Highest Price")}
                 </MenuItem>
               </Menu>
             </div>
@@ -289,7 +291,7 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
                 {products?.length === 0 ? (
                   <div className={"no-data"}>
                     <img src="/img/icons/icoAlert.svg" alt="" />
-                    <p>No Products found!</p>
+                    <p>{t("No Products found!")}</p>
                   </div>
                 ) : (
                   products.map((product: Product) => {
@@ -319,7 +321,10 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
                 {products.length !== 0 && (
                   <Stack className="total-result">
                     <Typography>
-                      Total {total} propert{total > 1 ? "ies" : "y"} available
+                      {t("Total {{count}} {{item}} available", {
+                        count: total,
+                        item: total > 1 ? t("products") : t("product"),
+                      })}
                     </Typography>
                   </Stack>
                 )}
@@ -345,7 +350,7 @@ ProductList.defaultProps = {
       },
       pricesRange: {
         start: 0,
-        end: 1000,
+        end: 1000000,
       },
     },
   },

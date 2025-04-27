@@ -11,6 +11,7 @@ import { useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
 import IconButton from "@mui/material/IconButton";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { useTranslation } from "react-i18next";
 
 interface PropertyCardType {
   product: Product;
@@ -23,6 +24,7 @@ const ProductCard = (props: PropertyCardType) => {
   const { product, likeProductHandler, myFavorites, recentlyVisited } = props;
   const device = useDeviceDetect();
   const user = useReactiveVar(userVar);
+  const { t } = useTranslation("common");
   const imagePath: string = product?.productImages[0]
     ? `${REACT_APP_API_URL}/${product?.productImages[0]}`
     : "/img/banner/header1.svg";
@@ -48,7 +50,7 @@ const ProductCard = (props: PropertyCardType) => {
 
         <Box component={"div"} className={"price-box-mobile"}>
           <Typography variant="h6" className="price-text">
-            $
+            ₩
             {formatterStr(
               product?.discountedPrice
                 ? product.discountedPrice
@@ -78,7 +80,7 @@ const ProductCard = (props: PropertyCardType) => {
               sx={{ fontWeight: 500, fontSize: "12px" }}
               className={product.productRent ? "" : "disabled-type-mobile"}
             >
-              Rent
+              {t("Rent")}
             </Typography>
             <Typography
               sx={{ fontWeight: 500, fontSize: "12px" }}
@@ -86,7 +88,7 @@ const ProductCard = (props: PropertyCardType) => {
                 product.productInstallment ? "" : "disabled-type-mobile"
               }
             >
-              Installment
+              {t("Installment")}
             </Typography>
           </Box>
         </Box>
@@ -144,7 +146,7 @@ const ProductCard = (props: PropertyCardType) => {
           </Box>
           <Box component={"div"} className={"price-box"}>
             <Typography>
-              $
+              ₩{" "}
               {formatterStr(
                 product?.discountedPrice
                   ? product.discountedPrice
@@ -176,13 +178,13 @@ const ProductCard = (props: PropertyCardType) => {
                 sx={{ fontWeight: 500, fontSize: "13px" }}
                 className={product.productRent ? "" : "disabled-type"}
               >
-                Rent
+                {t("Rent")}
               </Typography>
               <Typography
                 sx={{ fontWeight: 500, fontSize: "13px" }}
                 className={product.productInstallment ? "" : "disabled-type"}
               >
-                Installment
+                {t("Installment")}
               </Typography>
             </Stack>
             {!recentlyVisited && (

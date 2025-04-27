@@ -29,9 +29,10 @@ const withLayoutBasic = (Component: any) => {
 
       switch (router.pathname) {
         case "/product":
-          title = "Discover something new today!";
-          desc =
-            "Check out our latest products and find the perfect addition to your collection!";
+          title = t("Discover something new today!");
+          desc = t(
+            "Check out our latest products and find the perfect addition to your collection!"
+          );
           bgImage = "/img/banner/organic.webp";
           break;
         case "/agent":
@@ -47,7 +48,7 @@ const withLayoutBasic = (Component: any) => {
           break;
         case "/mypage":
           title = "my page";
-          desc = "Explore your personal dashboard and manage your activities.";
+          desc = "Explore your personal dashboard and manage your activities";
           bgImage = "/img/banner/appliances3.webp";
           break;
         case "/community":

@@ -13,6 +13,7 @@ import { ProductsInquiry } from "../../types/product/product.input";
 import { useRouter } from "next/router";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import { useTranslation } from "react-i18next";
 
 const MenuProps = {
   PaperProps: {
@@ -41,6 +42,7 @@ const Filter = (props: FilterType) => {
   const [searchText, setSearchText] = useState<string>("");
   const [showMore, setShowMore] = useState<boolean>(false);
   const [hideAdvanced, setHideAdvanced] = useState<boolean>(false);
+  const { t } = useTranslation("common");
 
   /** LIFECYCLES **/
   useEffect(() => {
@@ -257,84 +259,6 @@ const Filter = (props: FilterType) => {
     [searchFilter]
   );
 
-  //   async (number: Number) => {
-  //     try {
-  //       if (number != 0) {
-  //         if (searchFilter?.search?.roomsList?.includes(number)) {
-  //           await router.push(
-  //             `/product?input=${JSON.stringify({
-  //               ...searchFilter,
-  //               search: {
-  //                 ...searchFilter.search,
-  //                 roomsList: searchFilter?.search?.roomsList?.filter(
-  //                   (item: Number) => item !== number
-  //                 ),
-  //               },
-  //             })}`,
-  //             `/product?input=${JSON.stringify({
-  //               ...searchFilter,
-  //               search: {
-  //                 ...searchFilter.search,
-  //                 roomsList: searchFilter?.search?.roomsList?.filter(
-  //                   (item: Number) => item !== number
-  //                 ),
-  //               },
-  //             })}`,
-  //             { scroll: false }
-  //           );
-  //         } else {
-  //           await router.push(
-  //             `/product?input=${JSON.stringify({
-  //               ...searchFilter,
-  //               search: {
-  //                 ...searchFilter.search,
-  //                 roomsList: [
-  //                   ...(searchFilter?.search?.roomsList || []),
-  //                   number,
-  //                 ],
-  //               },
-  //             })}`,
-  //             `/product?input=${JSON.stringify({
-  //               ...searchFilter,
-  //               search: {
-  //                 ...searchFilter.search,
-  //                 roomsList: [
-  //                   ...(searchFilter?.search?.roomsList || []),
-  //                   number,
-  //                 ],
-  //               },
-  //             })}`,
-  //             { scroll: false }
-  //           );
-  //         }
-  //       } else {
-  //         delete searchFilter?.search.roomsList;
-  //         setSearchFilter({ ...searchFilter });
-  //         await router.push(
-  //           `/product?input=${JSON.stringify({
-  //             ...searchFilter,
-  //             search: {
-  //               ...searchFilter.search,
-  //             },
-  //           })}`,
-  //           `/product?input=${JSON.stringify({
-  //             ...searchFilter,
-  //             search: {
-  //               ...searchFilter.search,
-  //             },
-  //           })}`,
-  //           { scroll: false }
-  //         );
-  //       }
-
-  //       console.log("propertyRoomSelectHandler:", number);
-  //     } catch (err: any) {
-  //       console.log("ERROR, propertyRoomSelectHandler:", err);
-  //     }
-  //   },
-  //   [searchFilter]
-  // );
-
   const propertyOptionSelectHandler = useCallback(
     async (e: any) => {
       try {
@@ -519,13 +443,15 @@ const Filter = (props: FilterType) => {
     return (
       <div>
         <Stack className={"find-your-home"} mb={"40px"}>
-          <Typography className={"title-main"}>Find Your Product!</Typography>
+          <Typography className={"title-main"}>
+            {t("Find Your Product!")}
+          </Typography>
           <Stack className={"input-box"}>
             <OutlinedInput
               value={searchText}
               type={"text"}
               className={"search-input"}
-              placeholder={"What are you looking for?"}
+              placeholder={t("What are you looking for?")}
               onChange={(e: any) => setSearchText(e.target.value)}
               onKeyDown={(event: any) => {
                 if (event.key == "Enter") {
@@ -564,7 +490,7 @@ const Filter = (props: FilterType) => {
             setHideAdvanced((prev) => !prev);
           }}
         >
-          {hideAdvanced ? "Open" : "Hide"} {""}Advanced Search
+          {hideAdvanced ? t("Open Advanced Search") : t("Hide Advanced Search")}
         </button>
         <Stack
           className={`filter-main ${hideAdvanced ? "" : "show"}`}
@@ -575,7 +501,7 @@ const Filter = (props: FilterType) => {
               className={"title"}
               style={{ textShadow: "0px 3px 4px #b9b9b9" }}
             >
-              Category
+              {t("Category")}
             </p>
             <Stack
               className={`property-location`}
@@ -595,7 +521,7 @@ const Filter = (props: FilterType) => {
                       className="property-checkbox"
                       color="default"
                       size="small"
-                      value={location}
+                      value={t(location)}
                       checked={(
                         searchFilter?.search?.categoryList || []
                       ).includes(location as ProductCategory)}
@@ -603,7 +529,7 @@ const Filter = (props: FilterType) => {
                     />
                     <label htmlFor={location} style={{ cursor: "pointer" }}>
                       <Typography className="property-type">
-                        {location}
+                        {t(`categories.${location}`, location)}
                       </Typography>
                     </label>
                   </Stack>
@@ -612,7 +538,7 @@ const Filter = (props: FilterType) => {
             </Stack>
           </Stack>
           <Stack className={"find-your-home"} mb={"30px"}>
-            <Typography className={"title"}>Product Type</Typography>
+            <Typography className={"title"}>{t("Product Type")}</Typography>
             {productType.map((type: string) => (
               <Stack className={"input-box"} key={type}>
                 <Checkbox
@@ -627,14 +553,16 @@ const Filter = (props: FilterType) => {
                   )}
                 />
                 <label style={{ cursor: "pointer" }}>
-                  <Typography className="property-type">{type}</Typography>
+                  <Typography className="property-type">
+                    {t(`types.${type}`, type)}
+                  </Typography>
                 </label>
               </Stack>
             ))}
           </Stack>
 
           <Stack className={"find-your-home"} mb={"30px"}>
-            <Typography className={"title"}>Options</Typography>
+            <Typography className={"title"}>{t("Options")}</Typography>
             <Stack className={"input-box"}>
               <Checkbox
                 id={"Installment"}
@@ -648,7 +576,9 @@ const Filter = (props: FilterType) => {
                 onChange={propertyOptionSelectHandler}
               />
               <label htmlFor={"Installment"} style={{ cursor: "pointer" }}>
-                <Typography className="propert-type">Installment</Typography>
+                <Typography className="propert-type">
+                  {t("Installment")}
+                </Typography>
               </label>
             </Stack>
             <Stack className={"input-box"}>
@@ -664,13 +594,13 @@ const Filter = (props: FilterType) => {
                 onChange={propertyOptionSelectHandler}
               />
               <label htmlFor={"Rent"} style={{ cursor: "pointer" }}>
-                <Typography className="property-type">Rent</Typography>
+                <Typography className="property-type">{t("Rent")}</Typography>
               </label>
             </Stack>
           </Stack>
           <div className="range-container">
             <Stack className={"find-your-home"}>
-              <Typography className={"title"}>Price Range</Typography>
+              <Typography className={"title"}>{t("Price Range")}</Typography>
               <Stack className="square-year-input">
                 <input
                   type="number"
@@ -698,7 +628,9 @@ const Filter = (props: FilterType) => {
               </Stack>
             </Stack>
             <Stack className={"find-your-home"}>
-              <Typography className={"title"}>Manufactured Year</Typography>
+              <Typography className={"title"}>
+                {t("Manufactured Year")}
+              </Typography>
               <Stack className="square-year-input">
                 <input
                   type="number"

@@ -6,6 +6,7 @@ import useDeviceDetect from "../hooks/useDeviceDetect";
 import { Stack, Box } from "@mui/material";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
 
 const Footer = () => {
   const device = useDeviceDetect();
@@ -93,10 +94,23 @@ const Footer = () => {
             <Box component={"div"} className={"footer-box"}>
               <p>{t("follow us on social media")}</p>
               <div className={"media-box"}>
-                <FacebookOutlinedIcon />
-                <TelegramIcon />
-                <InstagramIcon />
-                <TwitterIcon />
+                <Link href={"#"} target="#">
+                  <FacebookOutlinedIcon />
+                </Link>
+                <Link href={"#"} target="_blank">
+                  <TelegramIcon />
+                </Link>
+                <Link
+                  href={
+                    "https://www.instagram.com/aptdecor?igsh=YTVjam9oeDJvcm5i"
+                  }
+                  target="_blank"
+                >
+                  <InstagramIcon />
+                </Link>
+                <Link href={"#"}>
+                  <TwitterIcon />
+                </Link>
               </div>
             </Box>
           </Stack>
@@ -134,7 +148,7 @@ const Footer = () => {
           </Stack>
         </Stack>
         <div className="brand-name">
-          <h1>AptDecor`</h1>
+          <h1>AptDecor™</h1>
         </div>
         <Stack className={"second"}>
           <span>
