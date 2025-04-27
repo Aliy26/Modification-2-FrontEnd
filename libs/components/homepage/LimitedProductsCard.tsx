@@ -46,7 +46,7 @@ const LimitedProductsCard = (props: LimitedProductsCardProps) => {
             pushDetailHandler(product._id);
           }}
         >
-          <div>${product?.productPrice}</div>
+          <div>₩{product?.productPrice}</div>
         </Box>
         <Box component={"div"} className={"info"}>
           <strong
@@ -108,7 +108,7 @@ const LimitedProductsCard = (props: LimitedProductsCardProps) => {
           }}
         >
           <div>
-            $
+            ₩ {""}
             {product.discountedPrice
               ? product?.discountedPrice
               : product.productPrice}

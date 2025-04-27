@@ -87,7 +87,7 @@ const DiscountedProducts = (props: DiscountedProductsProp) => {
             <Box component={"div"} className={"right"}>
               <div className={"more-box"}>
                 <Link href={"/product"}>
-                  <span>See All Categories</span>
+                  <span>{t("See All Categories")}</span>
                 </Link>
                 <img src="/img/icons/rightup.svg" alt="" />
               </div>

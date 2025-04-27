@@ -44,7 +44,7 @@ const MostViewedCard = (props: MostViewedCardProps) => {
             pushDetailHandler(product._id);
           }}
         >
-          <div>${product.productPrice}</div>
+          <div>₩ {product.productPrice}</div>
         </Box>
         <Box component={"div"} className={"info"}>
           <strong
@@ -118,7 +118,7 @@ const MostViewedCard = (props: MostViewedCardProps) => {
           }}
         >
           <div>
-            $
+            ₩{" "}
             {product.discountedPrice
               ? product.discountedPrice
               : product.productPrice}
