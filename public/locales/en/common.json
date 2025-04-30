@@ -40,7 +40,7 @@
   "NEWS": "NEWS",
   "Our Top 100% Verified Retailers!": "Our Top 100% Verified Retailers!",
   "Follow our Retailers & get notified each time they post a new product!": "Follow our Retailers & get notified each time they post a new product!",
-  "See All Agents": "See All Agents",
+  "See All Reatilers": "See All Retailers",
   "actives": "{{count}} active products",
   "added": "added",
   "today": "today",
@@ -85,6 +85,7 @@
   "Highest Price": "Highest Price",
   "No Products found!": "No Products found!",
   "Total {{count}} {{item}} available": "Total {{count}} {{item}} available",
+  "Total {{count}} {{retailer}} available": "Total {{count}} {{retailer}} available",
   "Find Your Product!": "Find Your Product!",
   "Hide Advanced Search": "Hide Advanced Search",
   "Open Advanced Search": "Open Advanced Search",
@@ -97,5 +98,14 @@
   "Manufactured Year": "Manufactured Year",
   "products": "products",
   "product": "product",
-  "See All Categories": "See All Categories"
+  "See All Categories": "See All Categories",
+  "Recent": "Recent",
+  "Oldest": "Oldest",
+  "Likes": "Likes",
+  "Views": "Views",
+  "Your Email": "Your Email",
+  "Search for a retailer": "Search for a retailer",
+  "Retailer": "Retailer",
+  "follow": "follow",
+  "unfollow": "unfollow"
 }

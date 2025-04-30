@@ -118,7 +118,7 @@ const Footer = () => {
             <Box component={"div"} className={"top"}>
               <strong>{t("keep yourself up to date")}</strong>
               <div>
-                <input type="text" placeholder={"Your Email"} />
+                <input type="text" placeholder={t("Your Email")} />
                 <span>{t("Subscribe")}</span>
               </div>
             </Box>

@@ -18,6 +18,7 @@ import {
   sweetMixinErrorAlert,
   sweetTopSmallSuccessAlert,
 } from "../../libs/sweetAlert";
+import { useTranslation } from "react-i18next";
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
@@ -41,6 +42,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
   const [total, setTotal] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchText, setSearchText] = useState<string>("");
+  const { t } = useTranslation("common");
 
   /** APOLLO REQUESTS **/
   const [likeTargetMember] = useMutation(LIKE_TARGET_MEMBER);
@@ -166,7 +168,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
             <Box component={"div"} className={"left"}>
               <input
                 type="text"
-                placeholder={"Search for an agent"}
+                placeholder={t("Search for a retailer")}
                 value={searchText}
                 onChange={(e: any) => setSearchText(e.target.value)}
                 onKeyDown={(event: any) => {
@@ -180,13 +182,13 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
               />
             </Box>
             <Box component={"div"} className={"right"}>
-              <span>Sort by</span>
+              <span>{t("Sort by")}</span>
               <div>
                 <Button
                   onClick={sortingClickHandler}
                   endIcon={<KeyboardArrowDownRoundedIcon />}
                 >
-                  {filterSortName}
+                  {t(filterSortName)}
                 </Button>
                 <Menu
                   anchorEl={anchorEl}
@@ -199,16 +201,16 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
                     id={"recent"}
                     disableRipple
                   >
-                    Recent
+                    {t("Recent")}
                   </MenuItem>
                   <MenuItem onClick={sortingHandler} id={"old"} disableRipple>
-                    Oldest
+                    {t("Oldest")}
                   </MenuItem>
                   <MenuItem onClick={sortingHandler} id={"likes"} disableRipple>
-                    Likes
+                    {t("Likes")}
                   </MenuItem>
                   <MenuItem onClick={sortingHandler} id={"views"} disableRipple>
-                    Views
+                    {t("Views")}
                   </MenuItem>
                 </Menu>
               </div>
@@ -218,7 +220,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
             {agents?.length === 0 ? (
               <div className={"no-data"}>
                 <img src="/img/icons/icoAlert.svg" alt="" />
-                <p>No Agents found!</p>
+                <p>{t("No Retailers found!")}</p>
               </div>
             ) : (
               agents.map((agent: Member) => {
@@ -251,7 +253,11 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 
             {agents.length !== 0 && (
               <span>
-                Total {total} agent{total > 1 ? "s" : ""} available
+                {/* Total {total} retailer{total > 1 ? "s" : ""} available */}
+                {t("Total {{count}} {{retailer}} available", {
+                  count: total,
+                  retailer: total > 1 ? t("Retailers") : t("Retailer"),
+                })}
               </span>
             )}
           </Stack>

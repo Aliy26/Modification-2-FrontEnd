@@ -89,7 +89,7 @@ const TopAgents = (props: TopAgentsProps) => {
             <Box component={"div"} className={"right"}>
               <div className={"more-box"}>
                 <Link href="/agent">
-                  <span>{t("See All Agents")}</span>
+                  <span>{t("See All Retailers")}</span>
                 </Link>
                 <img src="/img/icons/rightup.svg" alt="" />
               </div>

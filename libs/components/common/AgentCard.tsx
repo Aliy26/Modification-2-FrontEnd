@@ -13,6 +13,7 @@ import {
   sweetErrorHandling,
   sweetTopSmallSuccessAlert,
 } from "../../sweetAlert";
+import { useTranslation } from "react-i18next";
 
 interface AgentCardProps {
   agent: any;
@@ -26,6 +27,7 @@ const AgentCard = (props: AgentCardProps) => {
   const [unfollowAgent] = useMutation(UNSUBSCRIBE);
   const device = useDeviceDetect();
   const user = useReactiveVar(userVar);
+  const { t } = useTranslation("common");
 
   const unsubscribeHandler = async (id: string): Promise<void> => {
     try {
@@ -136,8 +138,8 @@ const AgentCard = (props: AgentCardProps) => {
               }}
             >
               {agent?.meFollowed && agent?.meFollowed[0]?.myFollowing
-                ? "unfollow"
-                : "follow"}
+                ? t("unfollow")
+                : t("follow")}
             </button>
           </div>
         ) : (
