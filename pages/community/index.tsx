@@ -19,6 +19,7 @@ import {
   sweetMixinErrorAlert,
   sweetTopSmallSuccessAlert,
 } from "../../libs/sweetAlert";
+import { useTranslation } from "react-i18next";
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
@@ -39,6 +40,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 
   /** APOLLO REQUESTS **/
   const [likeTargetBoardArticle] = useMutation(LIKE_TARGET_BOARD_ARTICLE);
+  const { t } = useTranslation("common");
 
   const {
     loading: boardArticleLoading,
@@ -126,11 +128,13 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                     <Stack className="title-box">
                       <Stack className="left">
                         <Typography className="title">
-                          {searchCommunity.search.articleCategory} BOARD
+                          {t`${searchCommunity.search.articleCategory}`}{" "}
+                          {t("BOARD")}
                         </Typography>
                         <Typography className="sub-title">
-                          Express your opinions freely here without content
-                          restrictions
+                          {t(
+                            "Express your opinions freely here without content restrictions"
+                          )}
                         </Typography>
                       </Stack>
                     </Stack>
@@ -150,7 +154,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                         ) : (
                           <Stack className={"no-data"}>
                             <img src="/img/icons/icoAlert.svg" alt="" />
-                            <p>No Article found!</p>
+                            <p>{t("No Article found!")}</p>
                           </Stack>
                         )}
                       </Stack>
@@ -170,7 +174,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                         ) : (
                           <Stack className={"no-data"}>
                             <img src="/img/icons/icoAlert.svg" alt="" />
-                            <p>No Article found!</p>
+                            <p>{t("No Article found!")}</p>
                           </Stack>
                         )}
                       </Stack>
@@ -190,7 +194,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                         ) : (
                           <Stack className={"no-data"}>
                             <img src="/img/icons/icoAlert.svg" alt="" />
-                            <p>No Article found!</p>
+                            <p>{t("No Article found!")}</p>
                           </Stack>
                         )}
                       </Stack>
@@ -210,7 +214,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                         ) : (
                           <Stack className={"no-data"}>
                             <img src="/img/icons/icoAlert.svg" alt="" />
-                            <p>No Article found!</p>
+                            <p>{t("No Article found!")}</p>
                           </Stack>
                         )}
                       </Stack>
@@ -248,7 +252,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                   <img src={"/img/logo/logo3.svg"} />
                   <Stack className={"community-name"}>
                     <Typography className={"name"}>
-                      AptDecor` Community
+                      AptDecor™ {t("Community")}
                     </Typography>
                   </Stack>
                 </Stack>
@@ -264,7 +268,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                 >
                   <Tab
                     value={"FREE"}
-                    label={"Free Board"}
+                    label={t("Free")}
                     className={`tab-button ${
                       searchCommunity.search.articleCategory == "FREE"
                         ? "active"
@@ -273,7 +277,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                   />
                   <Tab
                     value={"RECOMMEND"}
-                    label={"Recommendation"}
+                    label={t("Recommendation")}
                     className={`tab-button ${
                       searchCommunity.search.articleCategory == "RECOMMEND"
                         ? "active"
@@ -282,7 +286,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                   />
                   <Tab
                     value={"NEWS"}
-                    label={"News"}
+                    label={t("News")}
                     className={`tab-button ${
                       searchCommunity.search.articleCategory == "NEWS"
                         ? "active"
@@ -291,7 +295,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                   />
                   <Tab
                     value={"HUMOR"}
-                    label={"Humor"}
+                    label={t("Humor")}
                     className={`tab-button ${
                       searchCommunity.search.articleCategory == "HUMOR"
                         ? "active"
@@ -310,7 +314,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                       }
                       className="right"
                     >
-                      Publish
+                      {t("Publish")}
                     </Button>
                   </div>
                 </TabList>
