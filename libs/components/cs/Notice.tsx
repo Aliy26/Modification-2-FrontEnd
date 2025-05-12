@@ -1,9 +1,11 @@
 import React from "react";
 import { Stack, Box } from "@mui/material";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
+import { useTranslation } from "react-i18next";
 
 const Notice = () => {
   const device = useDeviceDetect();
+  const { t } = useTranslation("common");
 
   /** APOLLO REQUESTS **/
   /** LIFECYCLES **/
@@ -28,12 +30,12 @@ const Notice = () => {
   } else {
     return (
       <Stack className={"notice-content"}>
-        <span className={"title"}>Notice</span>
+        <span className={"title"}>{t("Notice")}</span>
         <Stack className={"main"}>
           <Box component={"div"} className={"top"}>
-            <span>number</span>
-            <span>title</span>
-            <span>date</span>
+            <span>{t("number")}</span>
+            <span>{t("title")}</span>
+            <span>{t("date")}</span>
           </Box>
           <Stack className={"bottom"}>
             {data.map((ele: any) => (

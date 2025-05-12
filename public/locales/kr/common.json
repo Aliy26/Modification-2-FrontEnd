@@ -120,6 +120,19 @@
   "We're here to help with any questions you have.": "궁금하신 점이 있다면 언제든지 도와드리겠습니다.",
   "FAQ": "자주 묻는 질문",
   "Notice": "공지사항",
+  "title": "제목",
+  "number": "번호",
+  "date": "날짜",
+
+  "fields": {
+    "PRODUCT": "제품",
+    "BUYERS": "구매자",
+    "AGENT": "중개인",
+    "PAYMENT": "결제",
+    "MEMBERSHIP": "회원",
+    "COMMUNITY": "커뮤니티",
+    "OTHER": "기타"
+  },
 
   "categories": {
     "LivingRoom": "거실",

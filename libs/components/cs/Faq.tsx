@@ -17,6 +17,7 @@ import {
   NoticeStatus,
 } from "../../enums/notice.enum";
 import { T } from "../../types/common";
+import { useTranslation } from "react-i18next";
 
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -52,6 +53,7 @@ const Faq = () => {
   const [expanded, setExpanded] = useState<string | false>("panel1");
   const [faqs, setFaqs] = useState<Notice[]>([]);
   const [field, setField] = useState<FAQFeild[]>([]);
+  const { t } = useTranslation("common");
 
   const input: EventNoticeInquiry = {
     noticeCategory: NoticeCategory.FAQ,
@@ -106,7 +108,7 @@ const Faq = () => {
       <div>
         {!faqs.length ? (
           <Stack className="no-data">
-            <h1>FAQ is not available at this point!</h1>
+            <h1>{t("FAQ is not available at this point!")}</h1>
           </Stack>
         ) : (
           <Stack className={"faq-content"}>
@@ -117,7 +119,7 @@ const Faq = () => {
                   className={category === cat ? "active" : ""}
                   onClick={() => changeCategoryHandler(cat)}
                 >
-                  {cat.charAt(0) + cat.slice(1).toLowerCase()}
+                  {t(`fields.${cat}`)}
                 </div>
               ))}
             </Box>
