@@ -234,8 +234,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
     });
   };
 
-  console.log(brand, "dswerw");
-
   const resetFilterHandler = () => {
     setSearchFilter(initialInput);
     setOptionCheck("all");
