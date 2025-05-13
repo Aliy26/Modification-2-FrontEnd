@@ -15,6 +15,7 @@ import { logIn, signUp } from "../../libs/auth";
 import { sweetMixinErrorAlert } from "../../libs/sweetAlert";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Messages } from "../../libs/config";
+import { useTranslation } from "react-i18next";
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
@@ -25,6 +26,7 @@ export const getStaticProps = async ({ locale }: any) => ({
 const Join: NextPage = () => {
   const router = useRouter();
   const device = useDeviceDetect();
+  const { t } = useTranslation("common");
   const [input, setInput] = useState({
     nick: "",
     password: "",
@@ -118,21 +120,26 @@ const Join: NextPage = () => {
               {/* @ts-ignore */}
               <Box className={"logo"}>
                 <img src="/img/logo/logo3.svg" alt="" />
-                <span>AptDecor`</span>
+                <span>AptDecor™</span>
               </Box>
               <Box className={"info"}>
-                <span>{loginView ? "login" : "signup"}</span>
+                <span>{loginView ? t("LOGIN") : t("SIGNUP")}</span>
                 <p>
-                  {loginView ? "Login" : "Sign"} in with this account across the
-                  following sites.
+                  <p>
+                    {loginView
+                      ? t("Login with this account across the following sites.")
+                      : t(
+                          "Sign up with this account to access all the following sites."
+                        )}
+                  </p>
                 </p>
               </Box>
               <Box className={"input-wrap"}>
                 <div className={"input-box"}>
-                  <span>Nickname</span>
+                  <span>{t("Nickname")}</span>
                   <input
                     type="text"
-                    placeholder={"Enter Nickname"}
+                    placeholder={t("Enter Nickname")}
                     onChange={(e) => handleInput("nick", e.target.value)}
                     required={true}
                     onKeyDown={(event) => {
@@ -144,10 +151,10 @@ const Join: NextPage = () => {
 
                 {!loginView && (
                   <div className={"input-box"}>
-                    <span>Phone</span>
+                    <span>{t("Phone")}</span>
                     <input
                       type="text"
-                      placeholder={"Enter Phone"}
+                      placeholder={t("Enter Phone")}
                       onChange={(e) => handleInput("phone", e.target.value)}
                       required={true}
                       onKeyDown={(event) => {
@@ -159,10 +166,10 @@ const Join: NextPage = () => {
 
                 {!loginView && (
                   <div className={"input-box"}>
-                    <span>Email</span>
+                    <span>{t("Email")}</span>
                     <input
                       type="text"
-                      placeholder={"Enter Email"}
+                      placeholder={t("Enter Email")}
                       onChange={(e) => handleInput("email", e.target.value)}
                       required={true}
                       onKeyDown={(event) => {
@@ -172,10 +179,10 @@ const Join: NextPage = () => {
                   </div>
                 )}
                 <div className={"input-box"}>
-                  <span>Password</span>
+                  <span>{t("Password")}</span>
                   <input
                     type={showPassword ? "text" : "password"}
-                    placeholder={"Enter Password"}
+                    placeholder={t("Enter Password")}
                     onChange={(e) => handleInput("password", e.target.value)}
                     required={true}
                     onKeyDown={(event) => {
@@ -207,7 +214,7 @@ const Join: NextPage = () => {
                     </div>
                     <div className={"type-option"}>
                       <span className={"text"}>
-                        I want to be registered as:
+                        {t("I want to be registered as:")}
                       </span>
                       <div>
                         <FormGroup>
@@ -258,7 +265,7 @@ const Join: NextPage = () => {
                         label="Show password"
                       />
                     </FormGroup>
-                    <a>Lost your password?</a>
+                    <a>{t("Lost your password?")}</a>
                   </div>
                 )}
 
@@ -269,7 +276,7 @@ const Join: NextPage = () => {
                     disabled={input.nick == "" || input.password == ""}
                     onClick={doLogin}
                   >
-                    LOGIN
+                    {t("LOGIN")}
                   </Button>
                 ) : (
                   <Button
@@ -284,26 +291,26 @@ const Join: NextPage = () => {
                     onClick={doSignUp}
                     endIcon={<img src="/img/icons/rightup.svg" alt="" />}
                   >
-                    SIGNUP
+                    {t("SIGNUP")}
                   </Button>
                 )}
               </Box>
               <Box className={"ask-info"}>
                 {loginView ? (
                   <p>
-                    Not registered yet?
+                    {t("Not registered yet?")}
                     <b
                       onClick={() => {
                         viewChangeHandler(false);
                       }}
                     >
-                      SIGNUP
+                      {t("SIGNUP")}
                     </b>
                   </p>
                 ) : (
                   <p>
-                    Have account?
-                    <b onClick={() => viewChangeHandler(true)}> LOGIN</b>
+                    {t("Have account?")}
+                    <b onClick={() => viewChangeHandler(true)}> {t("LOGIN")}</b>
                   </p>
                 )}
               </Box>

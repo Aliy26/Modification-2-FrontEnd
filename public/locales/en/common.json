@@ -118,5 +118,22 @@
   "Notice": "Notice",
   "title": "title",
   "number": "number",
-  "date": "date"
+  "date": "date",
+  "Sign": "Sign",
+  "Nickname": "Nickname",
+  "Enter Nickname": "Enter Nickname",
+  "Phone": "Phone",
+  "Enter Phone": "Enter Phone",
+  "Email": "Email",
+  "Enter Email": "Enter Email",
+  "Password": "Password",
+  "Enter Password": "Enter Password",
+  "I want to be registered as": "I want to be registered as",
+  "Lost your password?": "Lost your password?",
+  "LOGIN": "LOGIN",
+  "SIGNUP": "SIGNUP",
+  "Have account?": "Have account?",
+  "Not registered yet?": "Not registered yet?",
+  "Login with this account across the following sites.": "Login with this account across the following sites",
+  "Sign up with this account to access all the following sites.": "Sign up with this account to access all the following sites"
 }
