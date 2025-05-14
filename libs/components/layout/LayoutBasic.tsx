@@ -38,13 +38,13 @@ const withLayoutBasic = (Component: any) => {
         case "/agent":
           title = "Retailers";
           desc = "Follow our Retailers to get notified of their latest posts!";
-          bgImage = "/img/banner/appliances.png";
+          bgImage = "/img/banner/appliances2.png";
           break;
         case "/agent/detail":
           title = "Retailer Page";
           desc =
             "Be sure to contact our retailer to get any information you need about the product you like!";
-          bgImage = "/img/banner/appliances2.png";
+          bgImage = "/img/banner/appliances.png";
           break;
         case "/mypage":
           title = "my page";
@@ -71,7 +71,7 @@ const withLayoutBasic = (Component: any) => {
         case "/account/join":
           title = "Login/Signup";
           desc = "Authentication Process";
-          bgImage = "/img/banner/header2.svg";
+          bgImage = "/img/banner/join.jpg";
           setAuthHeader(true);
           break;
         case "/member":
@@ -129,7 +129,8 @@ const withLayoutBasic = (Component: any) => {
             </Stack>
 
             <Stack
-              className={`header-basic ${authHeader && "auth"}`}
+              className={`header-basic`}
+              // className={`header-basic ${authHeader && "auth"}`}
               style={{
                 backgroundImage: `url(${memoizedValues.bgImage})`,
                 backgroundSize: "cover",

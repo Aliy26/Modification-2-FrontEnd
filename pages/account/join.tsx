@@ -125,13 +125,11 @@ const Join: NextPage = () => {
               <Box className={"info"}>
                 <span>{loginView ? t("LOGIN") : t("SIGNUP")}</span>
                 <p>
-                  <p>
-                    {loginView
-                      ? t("Login with this account across the following sites.")
-                      : t(
-                          "Sign up with this account to access all the following sites."
-                        )}
-                  </p>
+                  {loginView
+                    ? t("Login with this account across the following sites.")
+                    : t(
+                        "Sign up with this account to access all the following sites."
+                      )}
                 </p>
               </Box>
               <Box className={"input-wrap"}>
