@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Script from "next/script";
 import { useRouter } from "next/router";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
 import Head from "next/head";
@@ -30,6 +31,10 @@ const withLayoutFull = (Component: any) => {
     if (device == "mobile") {
       return (
         <>
+          <Script
+            src="https://dev.cosmosai.co.kr/cosmos-track.js"
+            strategy="afterInteractive"
+          />
           <Head>
             <title>AptDecor</title>
             <meta name={"title"} content={`Nestar`} />
@@ -52,6 +57,10 @@ const withLayoutFull = (Component: any) => {
     } else {
       return (
         <>
+          <Script
+            src="https://dev.cosmosai.co.kr/cosmos-track.js"
+            strategy="afterInteractive"
+          />
           <Head>
             <title>AptDecor</title>
             <meta name={"title"} content={`Nestar`} />
