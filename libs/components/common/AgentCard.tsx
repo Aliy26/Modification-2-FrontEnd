@@ -2,7 +2,7 @@ import React from "react";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
 import { Stack, Box, Typography } from "@mui/material";
 import Link from "next/link";
-import { Messages, NEXT_PUBLIC_API_URLL } from "../../config";
+import { Messages, NEXT_PUBLIC_API_URL } from "../../config";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -67,8 +67,12 @@ const AgentCard = (props: AgentCardProps) => {
     }
   };
 
+  // const imagePath: string = agent?.memberImage
+  //   ? `${NEXT_PUBLIC_API_URL}/${agent?.memberImage}`
+  //   : "/img/profile/defaultUser.svg";
+
   const imagePath: string = agent?.memberImage
-    ? `${NEXT_PUBLIC_API_URLL}/${agent?.memberImage}`
+    ? `${process.env.NEXT_PUBLIC_API_URL}/${agent?.memberImage}`
     : "/img/profile/defaultUser.svg";
 
   if (device === "mobile") {

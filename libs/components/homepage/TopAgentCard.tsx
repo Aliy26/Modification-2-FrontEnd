@@ -13,7 +13,7 @@ const TopAgentCard = (props: TopAgentProps) => {
   const device = useDeviceDetect();
   const router = useRouter();
   const agentImage = agent?.memberImage
-    ? `${process.env.NEXT_PUBLIC_API_URLL}/${agent?.memberImage}`
+    ? `${process.env.NEXT_PUBLIC_API_URL}/${agent?.memberImage}`
     : "/img/profile/defaultUser.svg";
   const { t } = useTranslation("common");
   /** HANDLERS **/

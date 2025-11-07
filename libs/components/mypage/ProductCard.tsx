@@ -59,7 +59,7 @@ export const ProductCard = (props: ProductCardProps) => {
           onClick={() => pushPropertyDetail(product?._id)}
         >
           <img
-            src={`${process.env.NEXT_PUBLIC_API_URLL}/${product.productImages[0]}`}
+            src={`${process.env.NEXT_PUBLIC_API_URL}/${product.productImages[0]}`}
             alt=""
           />
         </Stack>

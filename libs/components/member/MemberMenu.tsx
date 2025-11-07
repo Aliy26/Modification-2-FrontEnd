@@ -4,7 +4,7 @@ import { Stack, Typography, Box, List, ListItem, Button } from "@mui/material";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
 import Link from "next/link";
 import { Member } from "../../types/member/member";
-import { NEXT_PUBLIC_API_URLL } from "../../config";
+import { NEXT_PUBLIC_API_URL } from "../../config";
 import { GET_MEMBER } from "../../../apollo/user/query";
 import { useQuery } from "@apollo/client";
 import { T } from "../../types/common";
@@ -105,7 +105,7 @@ const MemberMenu = (props: MemberMenuProps) => {
               <img
                 src={
                   member?.memberImage
-                    ? `${NEXT_PUBLIC_API_URLL}/${member?.memberImage}`
+                    ? `${NEXT_PUBLIC_API_URL}/${member?.memberImage}`
                     : "/img/profile/defaultUser.svg"
                 }
                 alt={"member-photo"}

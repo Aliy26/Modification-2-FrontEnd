@@ -10,7 +10,7 @@ import { useQuery } from "@apollo/client";
 import { GET_NOTICES } from "../../../apollo/user/query";
 import { T } from "../../types/common";
 import { NoticeCategory, NoticeStatus } from "../../enums/notice.enum";
-import { NEXT_PUBLIC_API_URLL } from "../../config";
+import { NEXT_PUBLIC_API_URL } from "../../config";
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 
@@ -25,7 +25,7 @@ const EventCard = ({ event }: { event: Notice }) => {
       <Stack className="event-card">
         <Box component="div" className="image-overlay">
           <img
-            src={`${NEXT_PUBLIC_API_URLL}/${event.noticeImage}`}
+            src={`${NEXT_PUBLIC_API_URL}/${event.noticeImage}`}
             alt={event.noticeTitle}
           />
         </Box>

@@ -1,4 +1,4 @@
-export const NEXT_PUBLIC_API_URLL = `${process.env.NEXT_PUBLIC_API_URLL}`;
+export const NEXT_PUBLIC_API_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 export const availableOptions = ["propertyBarter", "propertyRent"];
 

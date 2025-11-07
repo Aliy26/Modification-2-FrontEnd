@@ -7,7 +7,7 @@ import {
   ProductCategory,
   ProductType,
 } from "../../enums/product.enum";
-import { NEXT_PUBLIC_API_URLL, propertySquare } from "../../config";
+import { NEXT_PUBLIC_API_URL, propertySquare } from "../../config";
 import { ProductInput } from "../../types/product/product.input";
 import axios from "axios";
 import { getJwtToken } from "../../auth";
@@ -566,7 +566,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
               </Stack>
               <Stack className="gallery-box">
                 {insertProductData?.productImages.map((image: string) => {
-                  const imagePath: string = `${NEXT_PUBLIC_API_URLL}/${image}`;
+                  const imagePath: string = `${NEXT_PUBLIC_API_URL}/${image}`;
                   return (
                     <Stack className="image-box">
                       <img src={imagePath} alt="" />

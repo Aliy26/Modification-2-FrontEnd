@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
 import { Button, Stack, Typography } from "@mui/material";
 import axios from "axios";
-import { Messages, NEXT_PUBLIC_API_URLL } from "../../config";
+import { Messages, NEXT_PUBLIC_API_URL } from "../../config";
 import { getJwtToken, updateStorage, updateUserInfo } from "../../auth";
 import { useMutation, useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
@@ -82,7 +82,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
       updateData.memberImage = responseImage;
       setUpdateData({ ...updateData });
 
-      return `${NEXT_PUBLIC_API_URLL}/${responseImage}`;
+      return `${NEXT_PUBLIC_API_URL}/${responseImage}`;
     } catch (err) {
       console.log("Error, uploadImage:", err);
     }
@@ -176,7 +176,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
                 <img
                   src={
                     updateData?.memberImage
-                      ? `${NEXT_PUBLIC_API_URLL}/${updateData?.memberImage}`
+                      ? `${NEXT_PUBLIC_API_URL}/${updateData?.memberImage}`
                       : `/img/profile/defaultUser.svg`
                   }
                   alt=""

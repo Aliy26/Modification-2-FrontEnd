@@ -16,7 +16,7 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import { userVar } from "../../apollo/store";
 import { Logout } from "@mui/icons-material";
-import { NEXT_PUBLIC_API_URLL } from "../config";
+import { NEXT_PUBLIC_API_URL } from "../config";
 import { GET_NOTIFICATIONS } from "../../apollo/user/query";
 import { T } from "../types/common";
 import { Notification } from "../types/notification/notification";
@@ -293,7 +293,7 @@ const Top = () => {
                     <img
                       src={
                         user?.memberImage
-                          ? `${NEXT_PUBLIC_API_URLL}/${user?.memberImage}`
+                          ? `${NEXT_PUBLIC_API_URL}/${user?.memberImage}`
                           : "/img/profile/defaultUser.svg"
                       }
                       alt=""
@@ -394,7 +394,7 @@ const Top = () => {
                           <Avatar
                             className="avatar"
                             alt="user-photo"
-                            src={`${NEXT_PUBLIC_API_URLL}/${ele.authorData?.memberImage}`}
+                            src={`${NEXT_PUBLIC_API_URL}/${ele.authorData?.memberImage}`}
                             onClick={() => {
                               handleMemberPage(
                                 ele.authorData?._id as string,

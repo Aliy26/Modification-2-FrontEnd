@@ -16,7 +16,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { getJwtToken, logOut, updateUserInfo } from "../../auth";
 import { useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
-import { NEXT_PUBLIC_API_URLL } from "../../config";
+import { NEXT_PUBLIC_API_URL } from "../../config";
 import { MemberType } from "../../enums/member.enum";
 const drawerWidth = 280;
 
@@ -84,7 +84,7 @@ const withAdminLayout = (Component: ComponentType) => {
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
-                      src={`${NEXT_PUBLIC_API_URLL}/${user?.memberImage}`}
+                      src={`${NEXT_PUBLIC_API_URL}/${user?.memberImage}`}
                     />
                   </IconButton>
                 </Tooltip>
@@ -179,7 +179,7 @@ const withAdminLayout = (Component: ComponentType) => {
                   <Avatar
                     src={
                       user?.memberImage
-                        ? `${NEXT_PUBLIC_API_URLL}/${user?.memberImage}`
+                        ? `${NEXT_PUBLIC_API_URL}/${user?.memberImage}`
                         : "/img/profile/defaultUser.svg"
                     }
                   />

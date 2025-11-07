@@ -5,7 +5,7 @@ import useDeviceDetect from "../../hooks/useDeviceDetect";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Product } from "../../types/product/product";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import { NEXT_PUBLIC_API_URLL } from "../../config";
+import { NEXT_PUBLIC_API_URL } from "../../config";
 import { useRouter } from "next/router";
 import { useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
@@ -40,7 +40,7 @@ const LimitedProductsCard = (props: LimitedProductsCardProps) => {
           component={"div"}
           className={"card-img"}
           style={{
-            backgroundImage: `url(${NEXT_PUBLIC_API_URLL}/${product?.productImages[0]})`,
+            backgroundImage: `url(${NEXT_PUBLIC_API_URL}/${product?.productImages[0]})`,
           }}
           onClick={() => {
             pushDetailHandler(product._id);
@@ -101,7 +101,7 @@ const LimitedProductsCard = (props: LimitedProductsCardProps) => {
           component={"div"}
           className={"card-img"}
           style={{
-            backgroundImage: `url(${NEXT_PUBLIC_API_URLL}/${product?.productImages[0]})`,
+            backgroundImage: `url(${NEXT_PUBLIC_API_URL}/${product?.productImages[0]})`,
           }}
           onClick={() => {
             pushDetailHandler(product._id);
