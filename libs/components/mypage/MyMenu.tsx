@@ -7,7 +7,7 @@ import { useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
 import PortraitIcon from "@mui/icons-material/Portrait";
 import IconButton from "@mui/material/IconButton";
-import { REACT_APP_API_URL } from "../../config";
+import { NEXT_PUBLIC_API_URLL } from "../../config";
 import { logOut } from "../../auth";
 import { sweetConfirmAlert, sweetMixinErrorAlert } from "../../sweetAlert";
 
@@ -38,7 +38,7 @@ const MyMenu = () => {
               <img
                 src={
                   user?.memberImage
-                    ? `${REACT_APP_API_URL}/${user?.memberImage}`
+                    ? `${NEXT_PUBLIC_API_URLL}/${user?.memberImage}`
                     : "/img/profile/defaultUser.svg"
                 }
                 alt={"member-photo"}

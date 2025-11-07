@@ -23,7 +23,7 @@ import {
 } from "../../libs/types/comment/comment.input";
 import { Comment } from "../../libs/types/comment/comment";
 import { CommentGroup } from "../../libs/enums/comment.enum";
-import { Messages, REACT_APP_API_URL } from "../../libs/config";
+import { Messages, NEXT_PUBLIC_API_URLL } from "../../libs/config";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import {
   CREATE_COMMENT,
@@ -218,7 +218,7 @@ const AgentDetail: NextPage = ({
             <img
               src={
                 agent?.memberImage
-                  ? `${REACT_APP_API_URL}/${agent?.memberImage}`
+                  ? `${NEXT_PUBLIC_API_URLL}/${agent?.memberImage}`
                   : "/img/profile/defaultUser.svg"
               }
               alt=""

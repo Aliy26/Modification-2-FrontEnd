@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 import { getJwtToken } from "../../../auth";
-import { REACT_APP_API_URL } from "../../../config";
+import { NEXT_PUBLIC_API_URLL } from "../../../config";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { T } from "../../../types/common";
@@ -108,7 +108,7 @@ const CreateNotice = ({ initialValues, ...props }: any) => {
       console.log("+responseImage: ", responseImage);
       memoizedValues.noticeImage = responseImage;
 
-      return `${REACT_APP_API_URL}/${responseImage}`;
+      return `${NEXT_PUBLIC_API_URLL}/${responseImage}`;
     } catch (err) {
       console.log("Error, uploadImage:", err);
     }
@@ -397,7 +397,7 @@ const CreateNotice = ({ initialValues, ...props }: any) => {
               {insertNoticeData?.noticeImage && (
                 <Stack className="image-box">
                   <img
-                    src={`${REACT_APP_API_URL}/${insertNoticeData.noticeImage}`}
+                    src={`${NEXT_PUBLIC_API_URLL}/${insertNoticeData.noticeImage}`}
                     alt="noticeImage"
                   />
                 </Stack>

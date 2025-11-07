@@ -6,7 +6,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Product } from "../../types/product/product";
 import Link from "next/link";
 import { formatterStr } from "../../utils";
-import { REACT_APP_API_URL, topProductRank } from "../../config";
+import { NEXT_PUBLIC_API_URLL, topProductRank } from "../../config";
 import { useReactiveVar } from "@apollo/client";
 import { userVar } from "../../../apollo/store";
 import IconButton from "@mui/material/IconButton";
@@ -26,7 +26,7 @@ const ProductCard = (props: PropertyCardType) => {
   const user = useReactiveVar(userVar);
   const { t } = useTranslation("common");
   const imagePath: string = product?.productImages[0]
-    ? `${REACT_APP_API_URL}/${product?.productImages[0]}`
+    ? `${NEXT_PUBLIC_API_URLL}/${product?.productImages[0]}`
     : "/img/banner/header1.svg";
 
   if (device === "mobile") {

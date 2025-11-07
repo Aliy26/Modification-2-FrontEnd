@@ -12,7 +12,7 @@ import {
 import { BoardArticleCategory } from "../../enums/board-article.enum";
 import { Editor } from "@toast-ui/react-editor";
 import { getJwtToken } from "../../auth";
-import { REACT_APP_API_URL } from "../../config";
+import { NEXT_PUBLIC_API_URLL } from "../../config";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { T } from "../../types/common";
@@ -84,7 +84,7 @@ const TuiEditor = () => {
       console.log("=responseImage: ", responseImage);
       memoizedValues.articleImage = responseImage;
 
-      return `${REACT_APP_API_URL}/${responseImage}`;
+      return `${NEXT_PUBLIC_API_URLL}/${responseImage}`;
     } catch (err) {
       console.log("Error, uploadImage:", err);
     }
