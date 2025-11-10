@@ -31,10 +31,6 @@ const withLayoutFull = (Component: any) => {
     if (device == "mobile") {
       return (
         <>
-          <Script
-            src="https://dev.cosmosai.co.kr/cosmos-track.js"
-            strategy="afterInteractive"
-          />
           <Head>
             <title>AptDecor</title>
             <meta name={"title"} content={`Nestar`} />
@@ -57,10 +53,6 @@ const withLayoutFull = (Component: any) => {
     } else {
       return (
         <>
-          <Script
-            src="https://dev.cosmosai.co.kr/cosmos-track.js"
-            strategy="afterInteractive"
-          />
           <Head>
             <title>AptDecor</title>
             <meta name={"title"} content={`Nestar`} />

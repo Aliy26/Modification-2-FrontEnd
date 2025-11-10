@@ -9,6 +9,7 @@ import { appWithTranslation } from "next-i18next";
 import "../scss/app.scss";
 import "../scss/pc/main.scss";
 import "../scss/mobile/main.scss";
+import Script from "next/script";
 
 const App = ({ Component, pageProps }: AppProps) => {
   // @ts-ignore
@@ -20,6 +21,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Component {...pageProps} />
+        <Script src="/cosmos-track.js" strategy="afterInteractive" />
       </ThemeProvider>
     </ApolloProvider>
   );
