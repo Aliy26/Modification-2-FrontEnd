@@ -200,17 +200,28 @@
     lastPageviewSent: 0,
     pageSequence: 0,
     sessionPageCount: 0,
+    lastTrackedPath: null,
+    lastTrackedTimestamp: 0,
+    hasInitialized: false,
 
     init: function () {
+      if (this.hasInitialized) return; // Prevent double initialization
+      this.hasInitialized = true;
       this.pageLoadTime = Date.now();
+
+      console.log("[CosMos] Initializing tracker...");
+
+      // Track initial pageview immediately
       this.trackPageview();
     },
 
+    // Setup visitor tracking (persistent UUID) - ONLY called after UTM validation
     setupVisitorTracking: function () {
       this.visitorId = utils.getCookie(CONFIG.visitorCookieName);
       const now = utils.getTimestamp();
 
       if (!this.visitorId) {
+        // Brand new visitor
         this.visitorId = utils.generateUUID();
         this.isNewVisitor = true;
         this.visitCount = 1;
@@ -238,6 +249,7 @@
           CONFIG.cookieExpireDays
         );
       } else {
+        // Returning visitor - check if it's a new visit or same visit
         this.visitCount = parseInt(
           utils.getCookie(CONFIG.visitCountCookieName) || "1"
         );
@@ -248,9 +260,11 @@
           utils.getCookie(CONFIG.lastActivityCookieName) || "0"
         );
 
+        // Check if last activity was more than the visit timeout
         const minutesSinceLastActivity = (now - this.lastActivityTime) / 60;
 
         if (minutesSinceLastActivity > CONFIG.visitTimeoutMinutes) {
+          // New visit - increment visit count
           this.visitCount++;
           this.isNewVisitor = false;
           utils.setCookie(
@@ -259,9 +273,11 @@
             CONFIG.cookieExpireDays
           );
         } else {
+          // Same visit - don't increment
           this.isNewVisitor = false;
         }
 
+        // Update last activity time
         this.lastActivityTime = now;
         utils.setCookie(
           CONFIG.lastActivityCookieName,
@@ -270,6 +286,7 @@
         );
       }
 
+      // Update last visit time
       this.lastVisitTime = now;
       utils.setCookie(
         CONFIG.lastVisitCookieName,
@@ -278,54 +295,87 @@
       );
     },
 
+    // Setup session tracking - ONLY called after UTM validation
     setupSessionTracking: function () {
       this.sessionId = utils.getCookie(CONFIG.sessionCookieName);
 
       if (!this.sessionId) {
+        // Create new session
         this.sessionId = utils.generateUUID();
         utils.setCookie(
           CONFIG.sessionCookieName,
           this.sessionId,
           CONFIG.sessionTimeoutMinutes / (24 * 60)
         );
+        // Reset session page count
         sessionStorage.setItem("cosmos_session_page_count", "0");
       }
 
+      // Get session page count
       this.sessionPageCount = parseInt(
         sessionStorage.getItem("cosmos_session_page_count") || "0"
       );
     },
 
+    // Setup page sequence tracking (for page flow analysis)
     setupPageSequenceTracking: function () {
+      // Get current page sequence from sessionStorage
       this.pageSequence = parseInt(
         sessionStorage.getItem("cosmos_page_seq") || "0"
       );
+      // Increment for this pageview
       this.pageSequence++;
+      // Store updated sequence
       sessionStorage.setItem("cosmos_page_seq", this.pageSequence.toString());
     },
 
+    // Track pageview
     trackPageview: function () {
+      const urlParams = utils.getUrlParams();
+      const currentLocation = new URL(window.location.href);
+      const fullPageUrl = currentLocation.toString();
+      currentLocation.search = "";
+      currentLocation.hash = "";
+      const cleanPageUrl = currentLocation.toString();
+      const cleanPagePath = currentLocation.pathname;
       const now = Date.now();
-      if (now - this.lastPageviewSent < CONFIG.pageViewDebounceMs) {
+
+      // Prevent duplicate tracking of the same path within 1 second (guards against manual double-fire)
+      if (
+        this.lastTrackedPath === cleanPagePath &&
+        now - this.lastTrackedTimestamp < 1000
+      ) {
+        console.log(
+          "[CosMos] ⚠️ Duplicate pageview suppressed for:",
+          cleanPagePath
+        );
         return;
       }
-      this.lastPageviewSent = now;
 
-      const urlParams = utils.getUrlParams();
-
+      // ============================================================
+      // UTM PARAMETER HANDLING
+      // ============================================================
+      // Check if user has UTM parameters in URL
       const hasUTMParams =
         urlParams.utm_campaign || urlParams.utm_source || urlParams.utm_medium;
+
+      // Check if UTM parameters were stored from previous page in this session
       const storedUTMSource = sessionStorage.getItem("cosmos_utm_source") || "";
       const storedUTMCampaign =
         sessionStorage.getItem("cosmos_utm_campaign") || "";
       const hasStoredUTM = storedUTMSource || storedUTMCampaign;
+
+      // Check page sequence temporarily to determine if this is landing page
       const tempPageSeq =
         parseInt(sessionStorage.getItem("cosmos_page_seq") || "0") + 1;
 
+      // NEW: Track everyone, but handle direct vs UTM differently
       let isDirectTraffic = false;
 
+      // If it's the first page and no UTM params, mark as direct traffic
       if (tempPageSeq === 1 && !hasUTMParams && !hasStoredUTM) {
         isDirectTraffic = true;
+        // Set direct traffic markers in sessionStorage
         sessionStorage.setItem("cosmos_utm_source", "(direct)");
         sessionStorage.setItem("cosmos_utm_medium", "(none)");
         sessionStorage.setItem("cosmos_utm_campaign", "");
@@ -334,10 +384,11 @@
         sessionStorage.setItem("cosmos_is_direct", "1");
       }
 
+      // Setup tracking infrastructure on first accepted visit
       if (!this.isTrackingEnabled) {
         this.setupVisitorTracking();
         this.setupSessionTracking();
-        this.setupBeforeUnload();
+        this.setupBeforeUnload(); // Setup exit tracking
         this.isTrackingEnabled = true;
         console.log(
           "[CosMos] ✅ Tracking enabled. Source:",
@@ -345,13 +396,17 @@
         );
       }
 
+      // Setup page sequence tracking
       this.setupPageSequenceTracking();
+
+      // Increment session page count
       this.sessionPageCount++;
       sessionStorage.setItem(
         "cosmos_session_page_count",
         this.sessionPageCount.toString()
       );
 
+      // Store UTM params in session storage for subsequent pages (if they exist)
       if (hasUTMParams) {
         sessionStorage.setItem("cosmos_utm_source", urlParams.utm_source || "");
         sessionStorage.setItem("cosmos_utm_medium", urlParams.utm_medium || "");
@@ -364,9 +419,10 @@
           "cosmos_utm_content",
           urlParams.utm_content || ""
         );
-        sessionStorage.removeItem("cosmos_is_direct");
+        sessionStorage.removeItem("cosmos_is_direct"); // Remove direct flag if UTM params appear
       }
 
+      // Use stored UTM params (or direct markers)
       const finalUTMSource =
         urlParams.utm_source ||
         sessionStorage.getItem("cosmos_utm_source") ||
@@ -386,9 +442,12 @@
         sessionStorage.getItem("cosmos_utm_content") ||
         "";
 
-      const previousPageUrl = sessionStorage.getItem("cosmos_last_page") || "";
+      // Get previous page URL from sessionStorage
+      const previousPageUrl =
+        sessionStorage.getItem("cosmos_last_page_clean") || "";
       const isLandingPage = this.pageSequence === 1 ? 1 : 0;
 
+      // Determine referrer domain (or mark as direct)
       let referrerDomain = utils.getReferrerDomain();
       if (isDirectTraffic && !document.referrer) {
         referrerDomain = "(direct)";
@@ -401,9 +460,9 @@
         visit_count: this.visitCount,
         is_new_visitor: this.isNewVisitor ? 1 : 0,
         event_type: "pageview",
-        page_url: window.location.href,
+        page_url: cleanPageUrl,
         page_title: document.title,
-        page_path: window.location.pathname,
+        page_path: cleanPagePath,
         page_sequence: this.pageSequence,
         is_landing_page: isLandingPage,
         previous_page_url: previousPageUrl,
@@ -423,8 +482,20 @@
         time_on_page: 0,
       };
 
+      console.log("[CosMos] 📊 Pageview tracked:", {
+        sequence: this.pageSequence,
+        page: cleanPagePath,
+        isLanding: isLandingPage === 1,
+        source: finalUTMSource,
+      });
+
       this.sendEvent(eventData);
-      sessionStorage.setItem("cosmos_last_page", window.location.href);
+      this.lastTrackedPath = cleanPagePath;
+      this.lastTrackedTimestamp = now;
+
+      // Store current page as last page for next pageview
+      sessionStorage.setItem("cosmos_last_page_clean", cleanPageUrl);
+      sessionStorage.setItem("cosmos_last_page_full", fullPageUrl);
     },
 
     sendEvent: function (data) {
@@ -443,13 +514,18 @@
       }
     },
 
+    // Track time on page before unload
     setupBeforeUnload: function () {
       const self = this;
       window.addEventListener("beforeunload", function () {
-        if (!self.isTrackingEnabled) return;
+        // Only send exit event if tracking is enabled
+        if (!self.isTrackingEnabled) {
+          return;
+        }
 
         const timeOnPage = Math.floor((Date.now() - self.pageLoadTime) / 1000);
 
+        // Use stored UTM params or direct markers
         const finalUTMSource =
           sessionStorage.getItem("cosmos_utm_source") || "";
         const finalUTMMedium =
@@ -461,9 +537,10 @@
           sessionStorage.getItem("cosmos_utm_content") || "";
 
         const previousPageUrl =
-          sessionStorage.getItem("cosmos_last_page") || "";
+          sessionStorage.getItem("cosmos_last_page_clean") || "";
         const isLandingPage = self.pageSequence === 1 ? 1 : 0;
 
+        // Determine referrer domain (use stored value or calculate)
         let referrerDomain = utils.getReferrerDomain();
         if (
           sessionStorage.getItem("cosmos_is_direct") === "1" &&
@@ -472,20 +549,30 @@
           referrerDomain = "(direct)";
         }
 
+        const exitLocation = new URL(window.location.href);
+        const fullExitUrl = exitLocation.toString();
+        exitLocation.search = "";
+        exitLocation.hash = "";
+        const cleanExitUrl = exitLocation.toString();
+        const cleanExitPath = exitLocation.pathname;
+
         const eventData = {
           timestamp: utils.getTimestamp(),
           session_id: self.sessionId,
           user_id: self.visitorId,
           visit_count: self.visitCount,
           is_new_visitor: self.isNewVisitor ? 1 : 0,
-          page_url: window.location.href,
+          page_url: cleanExitUrl,
           page_title: document.title,
-          page_path: window.location.pathname,
+          page_path: cleanExitPath,
+
+          // Page Flow Tracking
           page_sequence: self.pageSequence,
           is_landing_page: isLandingPage,
           previous_page_url: previousPageUrl,
           session_page_count: self.sessionPageCount,
-          is_exit_page: 1,
+          is_exit_page: 1, // Mark this as exit page
+
           referrer: document.referrer || "",
           referrer_domain: referrerDomain,
           utm_source: finalUTMSource,
@@ -503,6 +590,10 @@
           time_on_page: timeOnPage,
         };
 
+        sessionStorage.setItem("cosmos_last_page_clean", cleanExitUrl);
+        sessionStorage.setItem("cosmos_last_page_full", fullExitUrl);
+
+        // Use sendBeacon for reliability
         if (navigator.sendBeacon) {
           const blob = new Blob([JSON.stringify(eventData)], {
             type: "application/json",
