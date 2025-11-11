@@ -238,6 +238,13 @@
 
       // Track initial pageview immediately (including refreshes)
       this.trackPageview();
+
+      // AFTER pageview is tracked, clear navigation flags
+      setTimeout(function () {
+        sessionStorage.removeItem("cosmos_is_navigating");
+        sessionStorage.removeItem("cosmos_navigation_time");
+        console.log("[CosMos] 🧹 Navigation flags cleared");
+      }, 100);
     },
 
     // Setup visitor tracking (persistent UUID) - ONLY called after UTM validation
@@ -606,12 +613,15 @@
                   Date.now().toString()
                 );
 
-                // Clear flag after 2 seconds (in case navigation fails)
+                // Clear flag after 3 seconds (in case navigation fails)
                 clearTimeout(navigationTimeout);
                 navigationTimeout = setTimeout(function () {
                   isNavigatingAway = false;
                   sessionStorage.removeItem("cosmos_is_navigating");
-                }, 2000);
+                  console.log(
+                    "[CosMos] ⏰ Navigation timeout - clearing flags"
+                  );
+                }, 3000);
               }
             } catch (err) {
               console.log("[CosMos] Error parsing URL:", err);
@@ -620,23 +630,6 @@
         },
         true
       );
-
-      // Check if we're in the middle of a navigation (set by previous page)
-      const isNavigating = sessionStorage.getItem("cosmos_is_navigating");
-      const navigationTime = parseInt(
-        sessionStorage.getItem("cosmos_navigation_time") || "0"
-      );
-      const timeSinceNav = Date.now() - navigationTime;
-
-      // If navigation flag is set and was recent (< 3 seconds), we're navigating
-      if (isNavigating === "1" && timeSinceNav < 3000) {
-        isNavigatingAway = true;
-        console.log("[CosMos] 🔄 Continuing navigation from previous page");
-      }
-
-      // Clear navigation flag on this page load
-      sessionStorage.removeItem("cosmos_is_navigating");
-      sessionStorage.removeItem("cosmos_navigation_time");
 
       window.addEventListener("beforeunload", function (e) {
         // Only send exit event if tracking is enabled
