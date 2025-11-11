@@ -1,6 +1,6 @@
 /**
  * CosMos AI - Client-Side Tracking Script
- * Version: 4.2.0
+ * Version: 4.3.0
  *
  * Key Features:
  * - Tracks ALL visitors (with or without UTM parameters)
@@ -11,12 +11,12 @@
  * - Page refreshes count as pageviews
  * - Proper landing page tracking across multiple sessions
  *
- * Bug Fixes (v4.2.0):
- * - Exit events now ONLY fire on tab close, not on navigation
- * - F5 refresh now counts as +1 pageview (standard analytics behavior)
- * - Landing page data preserved correctly across sessions
- * - Page sequence tracks both navigation AND refreshes
- * - UTM parameters always preserved
+ * Bug Fixes (v4.3.0):
+ * - Fixed page_sequence resetting to 1 on navigation (now increments properly)
+ * - Enhanced internal navigation detection with sessionStorage flags
+ * - Fixed exit events firing on internal navigation
+ * - Added session ID tracking for better page sequence management
+ * - Landing page flag now correctly set only for first page (page_sequence=1)
  */
 
 (function () {
@@ -234,7 +234,7 @@
       this.hasInitialized = true;
       this.pageLoadTime = Date.now();
 
-      console.log("[CosMos] Initializing tracker v4.2.0...");
+      console.log("[CosMos] Initializing tracker v4.3.0...");
 
       // Track initial pageview immediately (including refreshes)
       this.trackPageview();
@@ -345,11 +345,30 @@
     // Setup page sequence tracking (for page flow analysis)
     setupPageSequenceTracking: function () {
       // Get current page sequence from sessionStorage
-      this.pageSequence = parseInt(
-        sessionStorage.getItem("cosmos_page_seq") || "0"
+      const storedSequence = sessionStorage.getItem("cosmos_page_seq");
+      const storedSessionId = sessionStorage.getItem(
+        "cosmos_session_tracker_id"
       );
-      // Increment for this pageview
-      this.pageSequence++;
+
+      // Check if this is the same session
+      if (storedSessionId === this.sessionId && storedSequence) {
+        // Same session - increment sequence
+        this.pageSequence = parseInt(storedSequence) + 1;
+        console.log(
+          "[CosMos] 📈 Incrementing page sequence:",
+          this.pageSequence
+        );
+      } else {
+        // New session or missing data - start at 1
+        this.pageSequence = 1;
+        console.log(
+          "[CosMos] 🆕 Starting new page sequence:",
+          this.pageSequence
+        );
+        // Store session ID for tracking
+        sessionStorage.setItem("cosmos_session_tracker_id", this.sessionId);
+      }
+
       // Store updated sequence
       sessionStorage.setItem("cosmos_page_seq", this.pageSequence.toString());
     },
@@ -561,26 +580,63 @@
 
       // Flag to detect if we're navigating to another page on same site
       let isNavigatingAway = false;
+      let navigationTimeout = null;
 
-      // Listen for clicks on links and form submissions (internal navigation)
+      // Listen for clicks on links (internal navigation)
       document.addEventListener(
         "click",
         function (e) {
           const target = e.target.closest("a");
           if (target && target.href) {
-            const targetUrl = new URL(target.href, window.location.origin);
-            const isSameOrigin = targetUrl.origin === window.location.origin;
-            if (isSameOrigin) {
-              isNavigatingAway = true;
-              console.log(
-                "[CosMos] 🔗 Internal navigation detected to:",
-                targetUrl.pathname
-              );
+            try {
+              const targetUrl = new URL(target.href, window.location.origin);
+              const isSameOrigin = targetUrl.origin === window.location.origin;
+
+              if (isSameOrigin) {
+                isNavigatingAway = true;
+                console.log(
+                  "[CosMos] 🔗 Internal link clicked:",
+                  targetUrl.pathname
+                );
+
+                // Set flag in sessionStorage for cross-page communication
+                sessionStorage.setItem("cosmos_is_navigating", "1");
+                sessionStorage.setItem(
+                  "cosmos_navigation_time",
+                  Date.now().toString()
+                );
+
+                // Clear flag after 2 seconds (in case navigation fails)
+                clearTimeout(navigationTimeout);
+                navigationTimeout = setTimeout(function () {
+                  isNavigatingAway = false;
+                  sessionStorage.removeItem("cosmos_is_navigating");
+                }, 2000);
+              }
+            } catch (err) {
+              console.log("[CosMos] Error parsing URL:", err);
             }
           }
         },
         true
       );
+
+      // Check if we're in the middle of a navigation (set by previous page)
+      const isNavigating = sessionStorage.getItem("cosmos_is_navigating");
+      const navigationTime = parseInt(
+        sessionStorage.getItem("cosmos_navigation_time") || "0"
+      );
+      const timeSinceNav = Date.now() - navigationTime;
+
+      // If navigation flag is set and was recent (< 3 seconds), we're navigating
+      if (isNavigating === "1" && timeSinceNav < 3000) {
+        isNavigatingAway = true;
+        console.log("[CosMos] 🔄 Continuing navigation from previous page");
+      }
+
+      // Clear navigation flag on this page load
+      sessionStorage.removeItem("cosmos_is_navigating");
+      sessionStorage.removeItem("cosmos_navigation_time");
 
       window.addEventListener("beforeunload", function (e) {
         // Only send exit event if tracking is enabled
@@ -590,15 +646,20 @@
 
         // CRITICAL: If navigating to another page on same site, DON'T send exit event
         if (isNavigatingAway) {
-          console.log(
-            "[CosMos] ⏭️ Skipping exit event - navigating to another page"
-          );
-          isNavigatingAway = false; // Reset flag
+          console.log("[CosMos] ⏭️ Skipping exit event - internal navigation");
+          return;
+        }
+
+        // Check sessionStorage flag one more time
+        if (sessionStorage.getItem("cosmos_is_navigating") === "1") {
+          console.log("[CosMos] ⏭️ Skipping exit event - navigation flag set");
           return;
         }
 
         // If we reach here, it's a real exit (tab close, browser close, or external navigation)
-        console.log("[CosMos] 🚪 Tab close/external navigation detected");
+        console.log(
+          "[CosMos] 🚪 Real exit detected (tab close or external link)"
+        );
 
         // Use stored page data
         if (!self.currentPageData || !self.currentPageData.url) {
