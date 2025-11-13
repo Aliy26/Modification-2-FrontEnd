@@ -314,6 +314,7 @@
           referrer: exitCandidate.referrer,
           referrer_domain: exitCandidate.referrer_domain,
 
+          tracking_code: exitCandidate.tracking_code || "",
           utm_source: exitCandidate.utm_source,
           utm_medium: exitCandidate.utm_medium,
           utm_campaign: exitCandidate.utm_campaign,
@@ -536,7 +537,29 @@
           urlParams.utm_source ||
           urlParams.utm_medium;
 
+        // Extract tracking_code from referrer if user came from /t/{code}
+        let trackingCode = "";
+        try {
+          const referrer = document.referrer;
+          if (referrer) {
+            const referrerUrl = new URL(referrer);
+            const referrerPath = referrerUrl.pathname;
+            // Check if referrer is our tracking redirect: /t/{code}
+            const trackMatch = referrerPath.match(/^\/t\/([a-zA-Z0-9]+)$/);
+            if (trackMatch) {
+              trackingCode = trackMatch[1];
+              console.log(
+                "[CosMos] 🔗 Tracking code captured from referrer:",
+                trackingCode
+              );
+            }
+          }
+        } catch (e) {
+          // Ignore errors in referrer parsing
+        }
+
         const sessionUTMData = {
+          tracking_code: trackingCode,
           utm_source: hasUTMParams ? urlParams.utm_source || "" : "(direct)",
           utm_medium: hasUTMParams ? urlParams.utm_medium || "" : "(none)",
           utm_campaign: urlParams.utm_campaign || "",
@@ -724,6 +747,7 @@
       // Get locked UTM parameters from localStorage (set at session start)
       const storedUTMData = localStorage.getItem("cosmos_session_utm_data");
       let sessionUTMs = {
+        tracking_code: "",
         utm_source: "",
         utm_medium: "",
         utm_campaign: "",
@@ -741,6 +765,7 @@
       }
 
       // Use locked session UTMs (ignore any new UTM parameters in URL)
+      const trackingCode = sessionUTMs.tracking_code || "";
       const finalUTMSource = sessionUTMs.utm_source;
       const finalUTMMedium = sessionUTMs.utm_medium;
       const finalUTMCampaign = sessionUTMs.utm_campaign;
@@ -792,6 +817,7 @@
         session_page_count: this.sessionPageCount,
         referrer: document.referrer || "",
         referrer_domain: referrerDomain,
+        tracking_code: trackingCode,
         utm_source: finalUTMSource,
         utm_medium: finalUTMMedium,
         utm_campaign: finalUTMCampaign,
@@ -848,6 +874,7 @@
         referrer: document.referrer || "",
         referrer_domain: referrerDomain,
 
+        tracking_code: trackingCode,
         utm_source: finalUTMSource,
         utm_medium: finalUTMMedium,
         utm_campaign: finalUTMCampaign,
