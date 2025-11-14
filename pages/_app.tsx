@@ -21,7 +21,10 @@ const App = ({ Component, pageProps }: AppProps) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Component {...pageProps} />
-        <Script src="/cosmos-track.js" strategy="afterInteractive" />
+        <Script
+          src="https://dev.cosmosai.co.kr/cosmos-track.js?v=4.7.0"
+          strategy="afterInteractive"
+        />
       </ThemeProvider>
     </ApolloProvider>
   );
